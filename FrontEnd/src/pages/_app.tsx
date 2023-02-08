@@ -1,14 +1,17 @@
 import NavbarLayout from '@/components/Navbar/Navbar'
 import '@/styles/globals.css'
-import { NextUIProvider } from '@nextui-org/react'
+import { CssBaseline, NextUIProvider } from '@nextui-org/react'
 import type { AppProps } from 'next/app'
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <NextUIProvider>
-      <NavbarLayout >
+    <NavbarLayout>
+      <NextUIProvider>
         <Component {...pageProps} />
-      </NavbarLayout>
-    </NextUIProvider>
-  )
+      </NextUIProvider>
+    </NavbarLayout>
+  );
 }
+
+export default MyApp;

@@ -1,13 +1,20 @@
-import React, { ReactNode } from "react";
-import { Navbar, Button, Link, Text } from "@nextui-org/react";
+import React from "react";
+import { Navbar, Button, Link, Text, PressEvent } from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
+import Router, { useRouter } from "next/router";
 
 type NavbarLayoutTypes = {
-    children: ReactNode
+    children: JSX.Element
 }
-export default function NavbarLayout({ children }: NavbarLayoutTypes) {
-    const signIn = () => {
+export default function NavbarLayout({ children }: NavbarLayoutTypes): JSX.Element {
+    const { route } = useRouter();
+    const signIn = (e: PressEvent) => {
+        Router.push("/login")
+    }
 
+    const routesWithoutNavbar = ["/login", "/register"];
+    if (routesWithoutNavbar.includes(route)) {
+        return children
     }
     return (
         <Layout>
@@ -25,11 +32,14 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
                     {/* <Navbar.Link color="inherit" href="#">
                         Login
                     </Navbar.Link> */}
-                    <Button onClick={() => signIn()} auto>Sign in</Button>
+                    <Button auto shadow onPress={signIn}>
+                        Log In
+                    </Button>
                     <Navbar.Item>
                         <Button auto flat as={Link} href="#">
                             Sign Up
                         </Button>
+
                     </Navbar.Item>
                 </Navbar.Content>
             </Navbar>
