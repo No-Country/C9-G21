@@ -1,65 +1,81 @@
 import React, { useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, PressEvent, Card, Container } from "@nextui-org/react";
+import { Modal, Col, Button, Text, Input, Row, FormElement, PressEvent, Card, Container, Link } from "@nextui-org/react";
+import { useRouter } from "next/router";
 // import { Mail } from "./Mail";
 // import { Password } from "./Password";
 
 export default function Login() {
     const [visible, setVisible] = useState<boolean>(false);
     const handler = (e: PressEvent) => setVisible(true);
-
+    const router = useRouter();
     const closeHandler = () => {
         setVisible(false);
     };
 
-    return (
 
+    return (
         <Container css={{ width: "fit-content" }}>
             <Card >
-                <Card.Body >
-
-                    <Text id="modal-title" size={18} >
-                        Welcome to{" "}
-                        <Text b size={18}>
-                            app-ointment
+                <Card.Body css={{ alignContent: "center" }}>
+                    <Col css={{
+                        display: "flex",
+                        alignItems: "center", flexDirection: "column"
+                    }}>
+                        <Text id="modal-title" size={18} >
+                            Iniciar Sesion
                         </Text>
-                    </Text>
+                        <Text id="modal-title" size={14} >
+                            ¿No tienes Cuenta?{" "}
+                            <Link href="/register">Registrate</Link>
+                        </Text>
+                    </Col>
 
-                    <Input
-                        clearable
-                        bordered
+                    <Col css={{
+                        paddingTop: "10px",
+                        display: "flex",
+                        // rowGap: "$sm",
+                        flexDirection: "column"
+                    }}>
+                        <Text id="modal-title" size={14} >
+                            Email
+                        </Text>
+                        <Input
+                            clearable
+                            bordered
 
-                        color="primary"
-                        size="lg"
-                        placeholder="Email"
-                        id="emailInput"
-                        aria-label="Email"
-                    // contentLeft={<Mail fill="currentColor" />}
-                    />
-                    <Input
-                        clearable
-                        bordered
+                            color="primary"
+                            size="lg"
+                            placeholder="ejemplo@gmail.com"
+                            id="emailInput"
+                            aria-label="Email"
+                        // contentLeft={<Mail fill="currentColor" />}
+                        />
+                        <Text id="modal-title" size={14} css={{ paddingTop: "10px" }}>
+                            Contraseña
+                        </Text>
+                        <Input
+                            clearable
+                            bordered
+                            color="primary"
+                            size="lg"
+                            placeholder="*******"
+                            id="passwordInput"
+                            aria-label="Password"
+                        // contentLeft={<Password fill="currentColor" />}
+                        />
+                    </Col>
 
-                        color="primary"
-                        size="lg"
-                        placeholder="Password"
-                        id="passwordInput"
-                        aria-label="Password"
-                    // contentLeft={<Password fill="currentColor" />}
-                    />
-                    <Row justify="space-between">
-                        <Checkbox>
-                            <Text size={14}>Remember me</Text>
-                        </Checkbox>
-                        <Text size={14}>Forgot password?</Text>
+                    <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
+
+                        <Text size={10}><Link href="/register" style={{ color: "black" }}>Olvide mi contraseña</Link></Text>
                     </Row>
 
-                    <Row justify="space-around">
-
-                        <Button auto flat color="error" onPress={closeHandler}>
-                            go Back
+                    <Row justify="space-between" css={{ paddingtop: "20px" }}>
+                        <Button auto flat color="error" onPress={() => router.push("/")} css={{ minWidth: "110px", marginRight: "5px" }} >
+                            Volver
                         </Button>
-                        <Button auto onPress={closeHandler}>
-                            Sign in
+                        <Button auto onPress={closeHandler} css={{ minWidth: "110px" }}>
+                            Iniciar sesión
                         </Button>
                     </Row>
                 </Card.Body>
