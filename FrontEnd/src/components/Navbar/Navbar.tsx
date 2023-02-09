@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Button, Navbar, Spacer, Card } from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
@@ -14,27 +15,41 @@ type NavbarLayoutTypes = {
 export default function NavbarLayout({ children }: NavbarLayoutTypes) {
   const [openMenu, setOpenMenu] = useState(false);
 
+  const router = useRouter();
+
   return (
     <Layout>
       <Navbar isCompact variant={"sticky"} css={{ backgroundColor: "white" }}>
         <Navbar.Brand>
           <Spacer x={0.5} />
-          <Link href="/">
+          <Button
+            onPress={() => router.push("/")}
+            light
+            size="xs"
+            ripple={false}
+          >
             <Image width={40} src={logo} alt="logo" />
-          </Link>
+          </Button>
         </Navbar.Brand>
         <Navbar.Content>
-          <Link href="/register">
-            <Button rounded size="xs" color="secondary">
-              Registrate
-            </Button>
-          </Link>
+          <Button
+            onPress={() => router.push("/register")}
+            rounded
+            size="xs"
+            color="secondary"
+          >
+            Registrate
+          </Button>
           <Spacer x={-2.3} />
-          <Link href="/login">
-            <Button light ripple={false} size="xs" color="secondary">
-              Iniciar sesión
-            </Button>
-          </Link>
+          <Button
+            onPress={() => router.push("/login")}
+            light
+            ripple={false}
+            size="xs"
+            color="secondary"
+          >
+            Iniciar sesión
+          </Button>
           <Spacer x={-2.3} />
           <Navbar.Item>
             <Navbar.Toggle
