@@ -1,10 +1,10 @@
-const { Router } = require('express');
+const express = require("express");
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', (req, res) => {
-    console.log('hola');
-    res.send("hola");
+    res.send("hola soy Emma");
+    console.log('hola soy homelo chino :v');
 });
 
-module.exports = { router };
+module.exports =  router ;
