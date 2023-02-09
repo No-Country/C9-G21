@@ -1,8 +1,28 @@
-const Server = require("./models/server.js");
+//const Server = require("./models/server.js");
 
-const dotenv = require('dotenv');
-dotenv.config()
+//const dotenv = require('dotenv');
+//dotenv.config()
 
-const server = new Server();
+//const server = new Server();
 
-server.listen();
+//server.listen();
+
+import express from "express";
+import dotenv from 'dotenv';
+import conectarDB from "./config/db.js";
+//modificar routess
+import administradorRoutes from './routes/administradorRoutes.js';
+
+const app = express();
+app.use(express.json());
+
+dotenv.config();
+conectarDB();
+
+app.use('/api/administradores', administradorRoutes) ;
+
+const PORT = process.env.PORT || 5000;
+//para escuchar desde el puerto 5000
+app.listen(PORT, () =>{
+    console.log(`Servidor funcionando en el puerto ${PORT}`)
+});
