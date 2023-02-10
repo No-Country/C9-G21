@@ -17,6 +17,10 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
 
   const router = useRouter();
 
+  const handlerRoute = (rute: string) => {
+    return router.push(rute);
+  };
+
   return (
     <Layout>
       <Navbar isCompact variant={"sticky"} css={{ backgroundColor: "white" }}>
@@ -33,7 +37,7 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
         </Navbar.Brand>
         <Navbar.Content>
           <Button
-            onPress={() => router.push("/register")}
+            onPress={() => handlerRoute("/register")}
             rounded
             size="xs"
             color="secondary"
@@ -42,7 +46,7 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
           </Button>
           <Spacer x={-2.3} />
           <Button
-            onPress={() => router.push("/login")}
+            onPress={() => handlerRoute("/login")}
             light
             ripple={false}
             size="xs"
@@ -51,18 +55,16 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
             Iniciar sesión
           </Button>
           <Spacer x={-2.3} />
-          <Navbar.Item>
-            <Navbar.Toggle
-              onPress={(e) => setOpenMenu(!openMenu)}
-              css={{ paddingTop: "9px" }}
-            >
-              {!openMenu ? (
-                <Image width={20} height={20} src={menuicon} alt="icono" />
-              ) : (
-                <Image width={15} height={15} src={closeMenu} alt="icono" />
-              )}
-            </Navbar.Toggle>
-          </Navbar.Item>
+          <Navbar.Toggle
+            onPress={(e) => setOpenMenu(!openMenu)}
+            css={{ paddingTop: "9px" }}
+          >
+            {!openMenu ? (
+              <Image width={20} height={20} src={menuicon} alt="icono" />
+            ) : (
+              <Image width={15} height={15} src={closeMenu} alt="icono" />
+            )}
+          </Navbar.Toggle>
         </Navbar.Content>
         <Navbar.Collapse
           css={{
