@@ -13,7 +13,7 @@ import conectarDB from "./config/db.js";
 //modificar routess
 import administradorRoutes from './routes/administradorRoutes.js';
 import clientesRoutes from './routes/clientesRoutes.js'
-import negocioRoutes from './routes/negocioRoutes'
+import negocioRoutes from './routes/negocioRoutes.js'
 
 const app = express();
 app.use(express.json());

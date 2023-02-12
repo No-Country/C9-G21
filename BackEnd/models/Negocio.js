@@ -50,5 +50,5 @@ negocioSchema.methods.comprobarPasswordNegocio = async function(formularioPasswo
 }
 
 
-const negocio = mongoose.model("Negocio",negocioSchema)
+const Negocio = mongoose.model("Negocio",negocioSchema)
 export default Negocio
