@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Modal from "../Modal/Modal"
 import {
   Button,
   Navbar,
@@ -95,18 +96,7 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
             </Link>
           </Navbar.CollapseItem>
           <Navbar.CollapseItem>
-            <Link href="/register">
-              <Button
-                size="sm"
-                css={{
-                  color: "White",
-                  backgroundColor: "#09BEB2",
-                  borderRadius: "30px",
-                }}
-              >
-                Registrate
-              </Button>
-            </Link>
+            <Modal></Modal>
           </Navbar.CollapseItem>
         </Navbar.Collapse>
       </Navbar>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Col, Button, Text, Input, Row, FormElement, PressEvent, Card, Container, Link } from "@nextui-org/react";
+import { Col, Button, Text, Input, Row, FormElement, PressEvent, Card, Container, Link } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import Modal from "../components/Modal/Modal";
 // import { Mail } from "./Mail";
 // import { Password } from "./Password";
 
@@ -26,7 +27,7 @@ export default function Login() {
                         </Text>
                         <Text id="modal-title" size={14} >
                             ¿No tienes Cuenta?{" "}
-                            <Link href="/register">Registrate</Link>
+                            <Modal></Modal>
                         </Text>
                     </Col>
 
