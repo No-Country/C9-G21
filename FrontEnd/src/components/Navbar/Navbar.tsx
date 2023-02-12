@@ -2,10 +2,10 @@ import React, { ReactNode, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, Navbar, Spacer, Card } from "@nextui-org/react";
+import { Button, Navbar, Spacer, Card, Text } from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
-import logo from "../../../public/logo.png";
+import logo from "../../../public/logoappointment 1.png";
 import closeMenu from "../../../public/closeMenu.png";
 
 type NavbarLayoutTypes = {
@@ -23,44 +23,36 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
 
   return (
     <Layout>
-      <Navbar isCompact variant={"sticky"} css={{ backgroundColor: "white" }}>
+      <Navbar
+        isCompact
+        variant={"static"}
+        height={70}
+        disableBlur={true}
+        css={{
+          $$navbarBackgroundColor: "#535971",
+          $$navbarBlurBackgroundColor: "transparent",
+        }}
+      >
         <Navbar.Brand>
           <Spacer x={0.5} />
-          <Button
-            onPress={() => router.push("/")}
-            light
-            size="xs"
-            ripple={false}
-          >
-            <Image width={40} src={logo} alt="logo" />
-          </Button>
+          <Link href={"/"}>
+            <Image width={48} height={37} src={logo} alt="logo" />
+          </Link>
         </Navbar.Brand>
         <Navbar.Content>
-          <Button
-            onPress={() => handlerRoute("/register")}
-            rounded
-            size="xs"
-            color="secondary"
-          >
-            Registrate
-          </Button>
-          <Spacer x={-2.3} />
-          <Button
-            onPress={() => handlerRoute("/login")}
-            light
-            ripple={false}
-            size="xs"
-            color="secondary"
-          >
-            Iniciar sesión
-          </Button>
           <Spacer x={-2.3} />
           <Navbar.Toggle
             onPress={(e) => setOpenMenu(!openMenu)}
             css={{ paddingTop: "9px" }}
           >
             {!openMenu ? (
-              <Image width={20} height={20} src={menuicon} alt="icono" />
+              <Image
+                color="whithe"
+                width={20}
+                height={20}
+                src={menuicon}
+                alt="icono"
+              />
             ) : (
               <Image width={15} height={15} src={closeMenu} alt="icono" />
             )}
@@ -76,23 +68,34 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
           }}
         >
           <Navbar.CollapseItem>
-            <Link href="/">Home</Link>
+            <Link href="/">
+              <Text b>Home</Text>
+            </Link>
           </Navbar.CollapseItem>
           <Card.Divider />
           <Navbar.CollapseItem>
-            <Link href="#">Sobre nosotros</Link>
+            <Link href="#">
+              <Text> Ayuda en línea</Text>
+            </Link>
           </Navbar.CollapseItem>
           <Card.Divider />
           <Navbar.CollapseItem>
-            <Link href="#">Ayuda en línea</Link>
-          </Navbar.CollapseItem>
-          <Card.Divider />
-          <Navbar.CollapseItem>
-            <Link href="/login">Iniciar sesión</Link>
+            <Link href="/login">
+              <Text>Iniciar sesión</Text>
+            </Link>
           </Navbar.CollapseItem>
           <Navbar.CollapseItem>
             <Link href="/register">
-              <Button color="secondary">Registrate</Button>
+              <Button
+                size="sm"
+                css={{
+                  color: "White",
+                  backgroundColor: "#09BEB2",
+                  borderRadius: "30px",
+                }}
+              >
+                Registrate
+              </Button>
             </Link>
           </Navbar.CollapseItem>
         </Navbar.Collapse>
