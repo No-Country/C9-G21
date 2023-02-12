@@ -45,7 +45,7 @@ negocioSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-negocioSchema.methods.comprobarPasswordCliente = async function(formularioPassword){
+negocioSchema.methods.comprobarPasswordNegocio = async function(formularioPassword){
   return await bcrypt.compare(formularioPassword, this.password)
 }
 

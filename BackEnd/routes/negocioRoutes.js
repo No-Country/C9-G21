@@ -4,7 +4,7 @@ import {
   confirmarNegocio,
   modificarContraseña,
   autenticarNegocio
-} from "../controllers/negocioController";
+} from "../controllers/negocioController.js";
 
 const router = express.Router();
 

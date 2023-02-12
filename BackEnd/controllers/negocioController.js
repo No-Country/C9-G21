@@ -53,7 +53,7 @@ const confirmarNegocio = async (req, res) => {
 
 const autenticarNegocio = async (req, res) => {
   const { email } = req.body;
-  const negocio = await Cliente.findOne({ email });
+  const negocio = await Negocio.findOne({ email });
   if (!negocio) {
     const error = new Error("El negocio no existe");
     return res.status(403).json({ msg: error.message });
