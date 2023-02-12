@@ -34,10 +34,10 @@ export default function App() {
         </Modal.Header>
         <Modal.Body>
         <Row justify="space-around" css={{ paddingtop: "20px" }}>
-                        <Button auto flat onPress={() => router.push("")} css={{ minWidth: "110px", marginRight: "5px" }} >
+                        <Button auto flat onPress={() => router.push("/comerce")} css={{ minWidth: "110px", marginRight: "5px" }} >
                             Comercio
                         </Button>
-                        <Button auto onPress={() => router.push("")} css={{ minWidth: "110px" }}>
+                        <Button auto onPress={() => router.push("/user")}  css={{ minWidth: "110px" }}>
                             Usuario
                         </Button>
                     </Row>  
@@ -45,9 +45,6 @@ export default function App() {
         <Modal.Footer>
           <Button auto flat color="error" onPress={closeHandler}>
             Cerrar
-          </Button>
-          <Button auto onPress={closeHandler}>
-            Registrarse
           </Button>
         </Modal.Footer>
       </Modal>
