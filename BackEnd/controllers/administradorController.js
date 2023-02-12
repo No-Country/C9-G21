@@ -1,5 +1,8 @@
 import Administrador from "../models/Administrador.js";
 
+import generarJWT from "../helpers/generarJWT.js";
+import generarId from "../helpers/generarId.js";
+
 const registrar = async (req, res)=> {
     
     //const {nombre, email, password} = req.body
@@ -52,7 +55,7 @@ const confirmar = async (req,res) => {
 }
 
 const autenticar = async (req, res)=>{
-    const {email} = req.body;
+    const {email, password} = req.body;
     //comprobar si el usuario existe
     const usuario = await Administrador.findOne({email});
     if(!usuario){
@@ -95,7 +98,7 @@ const passwordOlvidada = async (req, res) =>{
 }
 const comprobarToken = async (req, res) =>{
     const {token} = req.params;
-    const tokenValido = await Veterinario.findOne({token});
+    const tokenValido = await Administrador.findOne({token});
     if(tokenValido){
         //el token es valido, el usuario existe
         res.json({msg: 'Token válido, el usuario existe'})

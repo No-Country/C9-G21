@@ -1,16 +1,17 @@
 import express from "express";
 import {
-  registroCliente,
+  registrarCliente,
   confirmarCliente,
   modificarContraseña,
   autenticarCliente
 } from "../controllers/clientesController.js";
+import checkAuth from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post("/register", registroCliente);
-router.get("/client/:token", confirmarCliente);
+router.post("/registrar-sciente", registrarCliente);
+router.get("/confirmar-cliente/:token", confirmarCliente);
 router.put("/putRegister/:id",modificarContraseña);
-router.post("/logclient",autenticarCliente);
+router.post("/login-cliente",autenticarCliente);
 
 export default router;

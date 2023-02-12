@@ -9,6 +9,7 @@ const checkAuth = async (req, res, next) => {
             //para eliminar el bearer antes del token
             token = req.headers.authorization.split(" ")[1];
             //para obtener lo que dice el token
+            //JWT_SECRET=palabrasecreta (añadir en archivo .env)
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
             //con select para no traerme todo el objeto
             req.administrador = await Administrador.findById(decoded.id).select("-password -token -confirmado")
