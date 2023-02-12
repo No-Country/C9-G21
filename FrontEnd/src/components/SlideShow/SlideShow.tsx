@@ -1,22 +1,20 @@
 import { useState, useEffect } from "react";
-import { Pagination, Card, Grid, Text } from "@nextui-org/react";
+import { Card, Grid } from "@nextui-org/react";
 
 function SlideShow() {
-  const [images] = useState<string[]>([
-    "SlideShow-1.jpg",
-    "SlideShow-2.jpg",
-    "SlideShow-3.jpg",
-  ]);
+  const [index, setIndex] = useState<number>(0);
+  const [load, setLoad] = useState<boolean>(true);
 
-  const [textImge] = useState<string[]>([
+  const textImge: string[] = [
     "SlideshowText-1.png",
     "SlideshowText-2.png",
     "SlideshowText-3.png",
-  ]);
-
-  const [index, setIndex] = useState<number>(0);
-
-  const [load, setLoad] = useState<boolean>(true);
+  ];
+  const images: string[] = [
+    "SlideShow-1.jpg",
+    "SlideShow-2.jpg",
+    "SlideShow-3.jpg",
+  ];
 
   const selecNewPag = () => {
     if (index < 2) {

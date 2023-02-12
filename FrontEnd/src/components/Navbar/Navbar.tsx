@@ -2,7 +2,14 @@ import React, { ReactNode, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, Navbar, Spacer, Card, Text } from "@nextui-org/react";
+import {
+  Button,
+  Navbar,
+  Spacer,
+  Card,
+  Text,
+  PressEvent,
+} from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
 import logo from "../../../public/logoappointment 1.png";
@@ -19,6 +26,9 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
 
   const handlerRoute = (rute: string) => {
     return router.push(rute);
+  };
+  const handlerBtn = (e: PressEvent) => {
+    setOpenMenu(!openMenu);
   };
 
   return (
