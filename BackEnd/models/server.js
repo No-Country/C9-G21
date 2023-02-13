@@ -54,7 +54,6 @@ class Server {
   routes() {
     this.app.use("/api/", test);
   }
-
   listen() {
     this.app.listen(this.port, () => {
       console.log(`escuchando el puerto ${this.port}`);

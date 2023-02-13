@@ -1,5 +1,8 @@
 import Administrador from "../models/Administrador.js";
 
+import generarJWT from "../helpers/generarJWT.js";
+import generarId from "../helpers/generarId.js";
+
 const registrar = async (req, res)=> {
     
     //const {nombre, email, password} = req.body
@@ -24,7 +27,8 @@ const registrar = async (req, res)=> {
     
 }
 const perfil = (req, res) =>{
-    res.json({msg: 'mostrando perfil'})
+    const {administrador} = req
+    res.json({perfil: administrador})
 }
 
 const confirmar = async (req,res) => {
@@ -51,7 +55,7 @@ const confirmar = async (req,res) => {
 }
 
 const autenticar = async (req, res)=>{
-    const {email} = req.body;
+    const {email, password} = req.body;
     //comprobar si el usuario existe
     const usuario = await Administrador.findOne({email});
     if(!usuario){
@@ -63,9 +67,65 @@ const autenticar = async (req, res)=>{
         const error = new Error('Tu cuenta no ha sido validada');
         return res.status(403).json({msg: error.message})
     }
-    res.json({msg: "Autenticando"});
+    //revisar el password
+    if (await usuario.comprobarPassword(password)){
+        console.log(usuario)
+        //autenticar
+        res.json({token: generarJWT(usuario.id)});
+        console.log("Password correcto")
+    }else{
+        const error = new Error('El password es incorrecto');
+        return res.status(403).json({msg: error.message})
+        
+    }
 }
+const passwordOlvidada = async (req, res) =>{
+    const {email} = req.body
+    const existeAdministrador = await Administrador.findOne({email})
+    if(!existeAdministrador){
+        const error= new Error('El usuario no existe');
+        return res.status(400).json({msg: error.message});
+    }
+    try {
+        existeAdministrador.token = generarId();
+        await existeAdministrador.save();
+        res.json({msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña"})
+    } catch (error) {
+        console.log(error)
+        
+    }
 
+}
+const comprobarToken = async (req, res) =>{
+    const {token} = req.params;
+    const tokenValido = await Administrador.findOne({token});
+    if(tokenValido){
+        //el token es valido, el usuario existe
+        res.json({msg: 'Token válido, el usuario existe'})
+    }else{
+        const error = new Error('Token no válido');
+        return res.status(400).json({msg: error.message});
+    }
+}
+const nuevoPassword = async (req, res) =>{
+    const {token} = req.params;
+    const {password} = req.body; 
+    const administrador = await Administrador.findOne({token});
+    console.log()
+    if(!administrador){
+        const error = new Error('Hubo un error');
+        res.status(400).json({msg: error.message});
+    }
+    try {
+        //desaparece el token y cambia la contraseña por la actualizada
+        administrador.token = null;
+        administrador.password = password;
+        await administrador.save();
+        res.json({msg: "Password modificado correctamente"});
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
-    registrar, perfil, confirmar, autenticar
+    registrar, perfil, confirmar, autenticar, passwordOlvidada, comprobarToken, nuevoPassword
 }
