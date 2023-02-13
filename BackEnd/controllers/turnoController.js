@@ -37,14 +37,14 @@ const buscarTurnos = async (req, res) => {
   if (Email) {
     await Turno.find({ Email: { $regex: Email, $options: "i" } })
       .then((data) => {
-        res.json(data);
+        res.status(200).json(data);
       })
       .catch((err) => {
         const error = new Error("No existe un turno con ese nombre");
         res.status(404).json({ msg: error.message });
       });
   } else {
-    await Turno.find().then((data) => {
+    await Turno.then((data) => {
       res.status(200).json(data);
     }).catch((err) => {
       const error = new Error("Error al traer los turnos");
