@@ -1,23 +1,26 @@
 import Turno from "../models/Turno.js";
 
 
-const crearTurno =(req, res) => {
-    const turno = Turno(req.body);
-    
-    turno
-      .save()
-      .then((data) => {
-
-        if (turno.Hora != "17:30" && turno.Fecha !="13/02/2023" && turno.Servicio != "peluqueria") {
-            turno.Disponible=false;
-            res.json(data);
-        }else{
-            res.send("ese turno no esta disponible")
-        }
-      })
-      .catch((err) => {
-        res.json({ message: err });
-      });
+const crearTurno =async (req, res) => {
+    const {Hora, Fecha, Servicio , Disponible} = req.body;
+    //findone para buscar por los diferentes atributos
+    const existeTurno = await Turno.find({Servicio});
+    console.log(existeTurno)
+    if(existeTurno){
+        //creo una nueva instancia de error y su argumento se lo doy en mensaje
+        const error = new Error("Turno ya dado");
+        return res.status(400).json({msg: error.message});
+    }
+    try{
+        //guardar nuevo Turno
+        const turno = new Turno(req.body);
+        console.log(turno)
+        //.save() es de mongoose
+        const turnoGuardado = await turno.save()
+        res.json(turnoGuardado)
+    }catch(error){
+        console.log(error)
+    }
   }
   const buscarTurnos =(req, res) => {
     const { Email } = req.query;
