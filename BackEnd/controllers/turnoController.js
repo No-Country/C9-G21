@@ -1,8 +1,17 @@
 import Turno from "../models/Turno.js";
 
 const crearTurno = async (req, res) => {
+  const { Hora, Fecha, Servicio } = req.body;
+  const existeTurno = await Turno.findOne({ Hora, Fecha, Servicio });
+
+  if (existeTurno) {
+    const error = new Error("Turno ya dado");
+    return res.status(400).json({ msg: error.message });
+  }
+
   try {
     const turno = new Turno(req.body);
+    turno.Disponible = false;
     const turnoSave = await turno.save();
     res.json(turnoSave);
   } catch (err) {
@@ -23,7 +32,6 @@ const confirmarTurno = async (req, res) => {
   try {
     confirmarTurno.Token = null;
     confirmarTurno.Confirmacion = true;
-    confirmarTurno.Disponible = false;
     await confirmarTurno.save();
     res.status(200).json({ msg: "El turno fue confirmado correctamente" });
   } catch (err) {
@@ -44,13 +52,69 @@ const buscarTurnos = async (req, res) => {
         res.status(404).json({ msg: error.message });
       });
   } else {
-    await Turno.then((data) => {
-      res.status(200).json(data);
-    }).catch((err) => {
-      const error = new Error("Error al traer los turnos");
-      res.status(404).json({ msg: error.message });
-    });
+    await Turno.find()
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        const error = new Error("Error al traer los turnos");
+        res.status(404).json({ msg: error.message });
+      });
   }
 };
 
-export { crearTurno, confirmarTurno, buscarTurnos };
+const buscarServicios = async (req, res) => {
+  const { Servicio } = req.query;
+  try {
+    await Turno.find({ Servicio: { $regex: Servicio, $options: "i" } })
+      .then((data) => {
+        console.log(data);
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        const error = new Error("No existe Turno con ese servicio");
+        res.status(404).json({ msg: error.message });
+      });
+  } catch (err) {
+    const error = new Error("Error al buscar un servicio");
+    res.status(404).json({ msg: error.message });
+  }
+};
+
+const actualizarTurno = async (req, res) => {
+  const { id } = req.params;
+  const { Hora, Fecha } = req.body;
+  try{
+    await Turno.updateOne({ _id: id }, { $set: { Hora, Fecha } })
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        const error = new Error("Id no valido para actualizar turno");
+        res.status(404).json({ msg: error.message });
+      });
+  }catch(err){
+    const error = new Error("Error al actualizar turno");
+    res.status(404).json({ msg: error.message });
+  }
+};
+
+const eliminarTurno = async (req, res) => {
+  const { id } = req.params;
+  await Turno.remove({ _id: id })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      const error = new Error("Id no existente");
+      res.status(404).json({ msg: error.message });
+    });
+};
+export {
+  crearTurno,
+  confirmarTurno,
+  buscarTurnos,
+  eliminarTurno,
+  buscarServicios,
+  actualizarTurno
+};
