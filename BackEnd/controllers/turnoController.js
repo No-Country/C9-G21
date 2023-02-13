@@ -1,85 +1,56 @@
 import Turno from "../models/Turno.js";
 
-
-const crearTurno =(req, res) => {
-    const turno = Turno(req.body);
-    
-    turno
-      .save()
-      .then((data) => {
-
-        if (turno.Hora != "17:30" && turno.Fecha !="13/02/2023" && turno.Servicio != "peluqueria") {
-            turno.Disponible=false;
-            res.json(data);
-        }else{
-            res.send("ese turno no esta disponible")
-        }
-      })
-      .catch((err) => {
-        res.json({ message: err });
-      });
+const crearTurno = async (req, res) => {
+  try {
+    const turno = new Turno(req.body);
+    const turnoSave = await turno.save();
+    res.json(turnoSave);
+  } catch (err) {
+    const error = new Error("Error no se puedo crear el turno");
+    return res.status(400).json({ msg: error.message });
   }
-  const buscarTurnos =(req, res) => {
-    const { Email } = req.query;
-    if (Email) {
-      Turno
-        .find({ Email: { $regex: Email } })
-        .then((data) => {
-          res.json(data);
-        })
-        .catch((err) => {
-          res.json({ message: err });
-        });
-    } else {
-      Turno
-        .find()
-        .then((data) => {
-          res.json(data);
-        })
-        .catch((err) => {
-          res.json({ message: err });
-        });
-    }
+};
+
+const confirmarTurno = async (req, res) => {
+  const { Token } = req.params;
+  const confirmarTurno = await Turno.findOne({ Token });
+
+  if (!confirmarTurno) {
+    const error = new Error("Token no valido");
+    return res.status(404).json({ msg: error.message });
   }
-const buscarTurno=(req, res) => {
-    const { id } = req.params;
-    Turno
-      .findById(id)
+
+  try {
+    confirmarTurno.Token = null;
+    confirmarTurno.Confirmacion = true;
+    confirmarTurno.Disponible = false;
+    await confirmarTurno.save();
+    res.status(200).json({ msg: "El turno fue confirmado correctamente" });
+  } catch (err) {
+    const error = new Error("Error no se puedo confirmar el turno");
+    return res.status(400).json({ msg: error.message });
+  }
+};
+
+const buscarTurnos = async (req, res) => {
+  const { Email } = req.query;
+  if (Email) {
+    await Turno.find({ Email: { $regex: Email, $options: "i" } })
       .then((data) => {
         res.json(data);
       })
       .catch((err) => {
-        res.json({ message: err });
+        const error = new Error("No existe un turno con ese nombre");
+        res.status(404).json({ msg: error.message });
       });
+  } else {
+    await Turno.find().then((data) => {
+      res.status(200).json(data);
+    }).catch((err) => {
+      const error = new Error("Error al traer los turnos");
+      res.status(404).json({ msg: error.message });
+    });
   }
-  const actualizarTurno=(req, res) => {
-    const { id } = req.params;
-    const { Hora, Fecha  } = req.body;
-    Turno
-      .updateOne({ _id: id }, { $set: { Hora ,Fecha} })
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.json({ message: err });
-      });
-  }
-  const eliminarTurno=(req, res) => {
-    const { id } = req.params;
-    Turno
-      .remove({ _id: id })
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.json({ message: err });
-      });
-  }
+};
 
-  export {
-    crearTurno,
-    buscarTurno,
-    buscarTurnos,
-    actualizarTurno,
-    eliminarTurno,
-  };
+export { crearTurno, confirmarTurno, buscarTurnos };
