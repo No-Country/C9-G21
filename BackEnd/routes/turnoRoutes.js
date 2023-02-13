@@ -2,7 +2,10 @@ import express from "express";
 import {
     crearTurno,
     confirmarTurno,
-    buscarTurnos
+    buscarTurnos,
+    eliminarTurno,
+    buscarServicios,
+    actualizarTurno
 } from "../controllers/turnoController.js"
 
 const router = express.Router();
@@ -14,10 +17,10 @@ router.get("/confirmar/:Token", confirmarTurno);
 /*Buscar turno*/
 router.get("/buscar", buscarTurnos);
 // /*Unico turno*/
-// router.get("/turno/:id", buscarTurno);
+router.get("/buscarServicio", buscarServicios);
 // /*Actualizar turno*/
-// router.put("/actualizarturno/:id", actualizarTurno);
-// // Eliminar turno
-// router.delete("/cancelacion/:id", eliminarTurno);
+router.put("/actualizarturno/:id", actualizarTurno);
+/*Eliminar turno*/
+router.delete("/cancelacion/:id", eliminarTurno);
 
 export default router;
