@@ -29,7 +29,7 @@ const clienteSchema = mongoose.Schema({
     type: String,
     default: generarId(),
   },
-  confirmacion: {
+  confirmado: {
     type: Boolean,
     default: false,
   },

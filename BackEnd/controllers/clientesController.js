@@ -1,6 +1,7 @@
 import Cliente from "../models/Cliente.js";
+import generarJWT from "../helpers/generarJWT.js";
 
-const registroCliente = async (req, res) => {
+const registrarCliente = async (req, res) => {
   const { email } = req.body;
   const existeCliente = await Cliente.findOne({ email });
 
@@ -11,10 +12,10 @@ const registroCliente = async (req, res) => {
 
   try {
     const cliente = new Cliente(req.body);
-    const clienteSave = await cliente.save();
-    res.json(clienteSave);
-  } catch (err) {
-    console.log(err);
+    const clienteGuardado = await cliente.save();
+    res.json(clienteGuardado);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -45,8 +46,8 @@ const confirmarCliente = async (req, res) => {
     clienteConfirmar.confirmacion = true;
     await clienteConfirmar.save();
     res.json({ msg: "Cliente confirmado correctamente" });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -65,7 +66,7 @@ const autenticarCliente = async (req, res) => {
 };
 
 export {
-  registroCliente,
+  registrarCliente,
   confirmarCliente,
   modificarContraseña,
   autenticarCliente,
