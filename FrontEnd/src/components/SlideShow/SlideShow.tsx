@@ -38,6 +38,7 @@ function SlideShow() {
   return (
     <Grid.Container justify="center">
       <Card
+        borderWeight="extrabold"
         css={{
           mw: "1400px",
           mh: "600px",
