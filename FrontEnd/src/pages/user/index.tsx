@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Col, Button, Text, Input, Row, FormElement, PressEvent, Card, Container, Link } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import Modal from "../components/Modal/Modal";
-// import { Mail } from "./Mail";
-// import { Password } from "./Password";
+
+
 
 export default function Login() {
     const [visible, setVisible] = useState<boolean>(false);
@@ -23,11 +22,7 @@ export default function Login() {
                         alignItems: "center", flexDirection: "column"
                     }}>
                         <Text id="modal-title" size={18} >
-                            Iniciar Sesion
-                        </Text>
-                        <Text id="modal-title" size={14} >
-                            ¿No tienes Cuenta?{" "}
-                            <Modal></Modal>
+                            Registra tú usuario
                         </Text>
                     </Col>
 
@@ -37,6 +32,42 @@ export default function Login() {
                         // rowGap: "$sm",
                         flexDirection: "column"
                     }}>
+                        <Text id="modal-title" size={14} >
+                            Nombre y Apellido
+                        </Text>
+                        <Input
+                            clearable
+                            bordered
+
+                            color="primary"
+                            size="lg"
+                            placeholder=""
+                            id="nameInput"
+                        />
+                        <Text id="modal-title" size={14} >
+                            Dirección
+                        </Text>
+                        <Input
+                            clearable
+                            bordered
+
+                            color="primary"
+                            size="lg"
+                            placeholder=""
+                            id="addressInput"
+                        />
+                        <Text id="modal-title" size={14} >
+                            Telefóno
+                        </Text>
+                        <Input
+                            clearable
+                            bordered
+
+                            color="primary"
+                            size="lg"
+                            placeholder="(+54)22345678"
+                            id="phoneInput"
+                        />
                         <Text id="modal-title" size={14} >
                             Email
                         </Text>
@@ -49,7 +80,7 @@ export default function Login() {
                             placeholder="ejemplo@gmail.com"
                             id="emailInput"
                             aria-label="Email"
-                        // contentLeft={<Mail fill="currentColor" />}
+                        
                         />
                         <Text id="modal-title" size={14} css={{ paddingTop: "10px" }}>
                             Contraseña
@@ -62,13 +93,13 @@ export default function Login() {
                             placeholder="*******"
                             id="passwordInput"
                             aria-label="Password"
-                        // contentLeft={<Password fill="currentColor" />}
+                       
                         />
                     </Col>
 
                     <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
 
-                        <Text size={10}><Link href="/register" style={{ color: "black" }}>Olvide mi contraseña</Link></Text>
+                        
                     </Row>
 
                     <Row justify="space-between" css={{ paddingtop: "20px" }}>
@@ -76,7 +107,7 @@ export default function Login() {
                             Volver
                         </Button>
                         <Button auto onPress={closeHandler} css={{ minWidth: "110px" }}>
-                            Iniciar sesión
+                            Registrarse
                         </Button>
                     </Row>
                 </Card.Body>
