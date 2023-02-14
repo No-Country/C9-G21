@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import generarId from "../helpers/generarId.js";
-import mongooseBcrypt from "mongoose-bcrypt";
 
 
 const clienteSchema = mongoose.Schema({
@@ -13,7 +12,6 @@ const clienteSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-    bcrypt:true,
   },
   email: {
     type: String,
@@ -34,8 +32,6 @@ const clienteSchema = mongoose.Schema({
     default: false,
   },
 });
-
-clienteSchema.plugin(mongooseBcrypt)
 
 clienteSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {

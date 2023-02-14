@@ -1,5 +1,6 @@
 import Cliente from "../models/Cliente.js";
 import generarJWT from "../helpers/generarJWT.js";
+import generarId from "../helpers/generarId.js";
 
 const registrarCliente = async (req, res) => {
   const { email } = req.body;
@@ -19,15 +20,9 @@ const registrarCliente = async (req, res) => {
   }
 };
 
-const modificarContraseña = async (req, res) => {
-  const { id } = req.params;
-  const { password } = req.body;
-  await Cliente.updateOne({ _id: id }, { $set: { password } }).then((data) =>
-    res.json(data)
-  ).catch((err)=>{
-    const error = new Error("Token no valido");
-    return res.status(404).json({ msg: error.message });
-  });
+const perfilCliente = (req, res) => {
+  const { cliente } = req;
+  res.json({ perfil: cliente });
 };
 
 const confirmarCliente = async (req, res) => {
@@ -43,7 +38,7 @@ const confirmarCliente = async (req, res) => {
 
   try {
     clienteConfirmar.token = null;
-    clienteConfirmar.confirmacion = true;
+    clienteConfirmar.confirmado = true;
     await clienteConfirmar.save();
     res.json({ msg: "Cliente confirmado correctamente" });
   } catch (error) {
@@ -52,22 +47,80 @@ const confirmarCliente = async (req, res) => {
 };
 
 const autenticarCliente = async (req, res) => {
-  const { email } = req.body;
+  const { email, password } = req.body;
   const cliente = await Cliente.findOne({ email });
   if (!cliente) {
     const error = new Error("El cliente no existe");
     return res.status(403).json({ msg: error.message });
   }
-  if (!cliente.confirmacion) {
+  if (!cliente.confirmado) {
     const error = new Error("La cuenta del cliente no ha sido validada");
     return res.status(403).json({ msg: error.message });
   }
-  res.json({ msg: "Autenticando" });
+  if (await cliente.comprobarPasswordCliente(password)) {
+    console.log(cliente);
+    res.json({ token: generarJWT(cliente.id) });
+    console.log("Password correcto");
+  } else {
+    const error = new Error("El password es incorrecto");
+    return res.status(403).json({ msg: error.message });
+  }
 };
 
+const passwordClienteOlvidada = async (req, res) => {
+  const { email } = req.body;
+  const existeCliente = await Cliente.findOne({ email });
+  if (!existeCliente) {
+    const error = new Error("El cliente no existe");
+    return res.status(400).json({ msg: error.message });
+  }
+  try {
+    existeCliente.token = generarId();
+    await existeCliente.save();
+    res.json({
+      msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña del cliente",
+    });
+  } catch (err) {
+    const error = new Error("Error al enviar las instrucciones");
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+const comprobarTokenCliente = async (req, res) => {
+  const { token } = req.params;
+  const tokenValido = await Cliente.findOne({ token });
+  if (tokenValido) {
+    res.json({ msg: "Token valido, el cliente existe" });
+  } else {
+    const error = new Error("Token no valido");
+    return res.status(400).json({ msg: error.message });
+  }
+};
+
+const nuevoPasswordCliente = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  const cliente = await Cliente.findOne({ token });
+  if (!cliente) {
+    const error = new Error("Hubo un error");
+    res.status(400).json({ msg: error.message });
+  }
+  try {
+    cliente.token = null;
+    cliente.password = password;
+    await cliente.save();
+    res.json({ msg: "Password del cliente modificado correctamente" });
+  } catch (err) {
+    const error = new Error("Error al generar nuevo password");
+    res.status(400).json({ msg: error.message });
+  }
+};
 export {
   registrarCliente,
   confirmarCliente,
-  modificarContraseña,
   autenticarCliente,
+  passwordClienteOlvidada,
+  comprobarTokenCliente,
+  nuevoPasswordCliente,
+  perfilCliente,
 };
