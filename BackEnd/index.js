@@ -14,6 +14,7 @@ import conectarDB from "./config/db.js";
 import administradorRoutes from './routes/administradorRoutes.js';
 import clientesRoutes from './routes/clientesRoutes.js'
 import negocioRoutes from './routes/negocioRoutes.js'
+import turnoRoutes from './routes/turnoRoutes.js'
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ conectarDB();
 app.use('/api/administradores', administradorRoutes);
 app.use('/api/clientes',clientesRoutes)
 app.use('/api/negocio',negocioRoutes)
+app.use('/api/turno',turnoRoutes )
 
 const PORT = process.env.PORT || 5000;
 //para escuchar desde el puerto 5000
