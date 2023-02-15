@@ -2,22 +2,33 @@ import Cliente from "../models/Cliente.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
 
+
+
 const registrarCliente = async (req, res) => {
   const { email } = req.body;
   const existeCliente = await Cliente.findOne({ email });
-
-  if (existeCliente) {
-    const error = new Error("Cliente ya resgistrado");
-    return res.status(400).json({ msg: error.message });
+  
+  
+  const emailRegex = /\S+@\S+\.\S+/;
+  if(!emailRegex.test(email)){
+    const error = new Error("Email incorrecto");
+      return res.status(400).json({ msg: error.message });
   }
+    if (existeCliente) {
+      const error = new Error("Cliente ya resgistrado");
+      return res.status(400).json({ msg: error.message });
+    }
+    
+    try {
+      const cliente = new Cliente(req.body);
+      const clienteGuardado = await cliente.save();
+      res.json(clienteGuardado);
+    } catch (error) {
+      console.log(error);
+    }
+  
 
-  try {
-    const cliente = new Cliente(req.body);
-    const clienteGuardado = await cliente.save();
-    res.json(clienteGuardado);
-  } catch (error) {
-    console.log(error);
-  }
+
 };
 
 const perfilCliente = (req, res) => {

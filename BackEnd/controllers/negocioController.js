@@ -5,6 +5,12 @@ const registroNegocio = async (req, res) => {
   const { email } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
 
+  const emailRegex = /\S+@\S+\.\S+/;
+  if(!emailRegex.test(email)){
+    const error = new Error("Email incorrecto");
+      return res.status(400).json({ msg: error.message });
+  }
+  
   if (existeNegocio) {
     const error = new Error("Negocio ya resgistrado");
     return res.status(400).json({ msg: error.message });
