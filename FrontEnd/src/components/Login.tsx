@@ -18,14 +18,18 @@ import { RegisterModal } from "./Modal/RegisterModal";
 // import { Password } from "./Password";
 
 export default function Login() {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [modalReg, setModalReg] = useState<boolean>(false);
-  const handler = (e: PressEvent) => setVisible(true);
-  const router = useRouter();
-  const closeHandler = () => {
-    setVisible(false);
-  };
-
+    const [errorLoggedUser, setErrorLoggedUser] = useState();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver });
+    const onSubmit = handleSubmit(async (data) => {
+        try {
+            const user = await axios.post("http://localhost:5000/api/administradores/login", {
+                email: data.email,
+                password: data.password
+            });
+        } catch (error: any) {
+            setErrorLoggedUser(error)
+        }
+    });
   return (
     <Container css={{ width: "fit-content" }}>
       <Card>
@@ -91,14 +95,44 @@ export default function Login() {
             />
           </Col>
 
-          <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
-            <Text size={10}>
-              <Link href="/register" style={{ color: "black" }}>
-                Olvide mi contraseña
-              </Link>
-            </Text>
-          </Row>
-
+                   <form onSubmit={onSubmit}>
+                        <Col css={{
+                            paddingTop: "10px",
+                            display: "flex",
+                            flexDirection: "column"
+                        }}>
+                            <Text id="modal-title" size={14} >
+                                Email
+                            </Text>
+                            <Input
+                                clearable
+                                bordered
+                                color="primary"
+                                size="lg"
+                                placeholder="ejemplo@gmail.com"
+                                id="emailInput"
+                                aria-label="Email"
+                                {...register("email")}
+                                onChange={resetError}
+                            />
+                            {errors?.email && <p>{errors.email.message}</p>}
+                            <Text id="modal-title" size={14} css={{ paddingTop: "10px" }}>
+                                Contraseña
+                            </Text>
+                            <Input
+                                clearable
+                                bordered
+                                color="primary"
+                                size="lg"
+                                placeholder="*******"
+                                id="passwordInput"
+                                aria-label="Password"
+                                type="password"
+                                {...register("password")}
+                                onChange={resetError}
+                            />
+                            {errors?.email && <p>{errors.email.message}</p>}
+                        </Col>
           <Row justify="space-between" css={{ paddingtop: "20px" }}>
             <Button
               auto
