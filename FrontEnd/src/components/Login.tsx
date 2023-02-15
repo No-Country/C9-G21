@@ -118,3 +118,4 @@ export default function Login() {
       <RegisterModal setVisible={setModalReg} visible={modalReg} />
     </Container>
   );
+}
