@@ -1,11 +1,23 @@
 
 import Negocio from "../models/Negocio.js";
+import{validarTelefonoAr,
+  validarTelefonoPe,
+  validarTelefonoCl,
+  validarTelefonoCo,
+  validarTelefonoVe,
+  emailRegex} from "../helpers/validaciones.js"
 
 const registroNegocio = async (req, res) => {
-  const { email } = req.body;
+  const { email,telefono } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
 
-  const emailRegex = /\S+@\S+\.\S+/;
+  if (
+    validarTelefonoAr.test(telefono) ||
+    validarTelefonoPe.test(telefono) ||
+    validarTelefonoCl.test(telefono) ||
+    validarTelefonoCo.test(telefono) ||
+    validarTelefonoVe.test(telefono)
+  ) {
   if(!emailRegex.test(email)){
     const error = new Error("Email incorrecto");
       return res.status(400).json({ msg: error.message });
@@ -23,7 +35,12 @@ const registroNegocio = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-};
+}else{
+  const error = new Error("Formato de telefono no valido");
+    return res.status(400).json({ msg: error.message });
+}
+}
+;
 
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
