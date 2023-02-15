@@ -1,22 +1,11 @@
 import React, { ReactNode, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import Modal from "../Modal/Modal"
-import {
-  Button,
-  Navbar,
-  Spacer,
-  Card,
-  Text,
-  PressEvent,
-  Dropdown,
-} from "@nextui-org/react";
+import { Navbar, Spacer, Card, Text } from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
 import logo from "../../../public/logoappointment 1.png";
 import closeMenu from "../../../public/closeMenu.png";
-import { Denk_One } from "@next/font/google";
 
 type NavbarLayoutTypes = {
   children: ReactNode;
