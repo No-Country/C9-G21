@@ -16,8 +16,10 @@ import clientesRoutes from './routes/clientesRoutes.js'
 import negocioRoutes from './routes/negocioRoutes.js'
 import turnoRoutes from './routes/turnoRoutes.js'
 
+import cors from 'cors'
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 dotenv.config();
 conectarDB();
