@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,11 +10,13 @@ import {
   Card,
   Text,
   PressEvent,
+  Dropdown,
 } from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
 import logo from "../../../public/logoappointment 1.png";
 import closeMenu from "../../../public/closeMenu.png";
+import { Denk_One } from "@next/font/google";
 
 type NavbarLayoutTypes = {
   children: ReactNode;
@@ -23,14 +25,10 @@ type NavbarLayoutTypes = {
 export default function NavbarLayout({ children }: NavbarLayoutTypes) {
   const [openMenu, setOpenMenu] = useState(false);
 
-  const router = useRouter();
+  const ref = useRef<HTMLButtonElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handlerRoute = (rute: string) => {
-    return router.push(rute);
-  };
-  const handlerBtn = (e: PressEvent) => {
-    setOpenMenu(!openMenu);
-  };
+  const handleClick = () => isOpen && ref.current?.click();
 
   return (
     <Layout>
@@ -53,7 +51,9 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
         <Navbar.Content>
           <Spacer x={-2.3} />
           <Navbar.Toggle
-            onPress={(e) => setOpenMenu(!openMenu)}
+            showIn="lg"
+            ref={ref}
+            onChange={() => (setOpenMenu(!openMenu), setIsOpen(!isOpen))}
             css={{ paddingTop: "9px" }}
           >
             {!openMenu ? (
@@ -79,25 +79,23 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
           }}
         >
           <Navbar.CollapseItem>
-            <Link href="/">
+            <Link href="/" onClick={handleClick}>
               <Text b>Home</Text>
             </Link>
           </Navbar.CollapseItem>
           <Card.Divider />
           <Navbar.CollapseItem>
-            <Link href="#">
+            <Link href="#" onClick={handleClick}>
               <Text> Ayuda en línea</Text>
             </Link>
           </Navbar.CollapseItem>
           <Card.Divider />
           <Navbar.CollapseItem>
-            <Link href="/login">
+            <Link href="/login" onClick={handleClick}>
               <Text>Iniciar sesión</Text>
             </Link>
           </Navbar.CollapseItem>
-          <Navbar.CollapseItem>
-            <Modal></Modal>
-          </Navbar.CollapseItem>
+          <Navbar.CollapseItem>{/* <Modal></Modal> */}</Navbar.CollapseItem>
         </Navbar.Collapse>
       </Navbar>
       {children}
