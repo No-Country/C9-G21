@@ -1,10 +1,28 @@
 
 import Negocio from "../models/Negocio.js";
+import{validarTelefonoAr,
+  validarTelefonoPe,
+  validarTelefonoCl,
+  validarTelefonoCo,
+  validarTelefonoVe,
+  emailRegex} from "../helpers/validaciones.js"
 
 const registroNegocio = async (req, res) => {
-  const { email } = req.body;
+  const { email,telefono } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
 
+  if (
+    validarTelefonoAr.test(telefono) ||
+    validarTelefonoPe.test(telefono) ||
+    validarTelefonoCl.test(telefono) ||
+    validarTelefonoCo.test(telefono) ||
+    validarTelefonoVe.test(telefono)
+  ) {
+  if(!emailRegex.test(email)){
+    const error = new Error("Email incorrecto");
+      return res.status(400).json({ msg: error.message });
+  }
+  
   if (existeNegocio) {
     const error = new Error("Negocio ya resgistrado");
     return res.status(400).json({ msg: error.message });
@@ -17,7 +35,12 @@ const registroNegocio = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-};
+}else{
+  const error = new Error("Formato de telefono no valido");
+    return res.status(400).json({ msg: error.message });
+}
+}
+;
 
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
@@ -65,9 +88,59 @@ const autenticarNegocio = async (req, res) => {
   res.json({ msg: "Autenticando" });
 };
 
+const passwordOlvidada = async (req, res) => {
+  const { email } = req.body;
+  const existeNegocio = await Negocio.findOne({ email });
+  if (!existeNegocio) {
+    const error = new Error("El usuario no existe");
+    return res.status(400).json({ msg: error.message });
+  }
+  try {
+    existeNegocio.token = generarId();
+    await existeNegocio.save();
+    res.json({
+      msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+const comprobarToken = async (req, res) => {
+  const { token } = req.params;
+  const tokenValido = await Negocio.findOne({ token });
+  if (tokenValido) {
+    //el token es valido, el usuario existe
+    res.json({ msg: "Token válido, el usuario existe" });
+  } else {
+    const error = new Error("Token no válido");
+    return res.status(400).json({ msg: error.message });
+  }
+};
+const nuevoPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  const negocio = await Negocio.findOne({ token });
+  console.log();
+  if (!negocio) {
+    const error = new Error("Hubo un error");
+    res.status(400).json({ msg: error.message });
+  }
+  try {
+    //desaparece el token y cambia la contraseña por la actualizada
+    negocio.token = null;
+    negocio.password = password;
+    await negocio.save();
+    res.json({ msg: "Password modificado correctamente" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 export {
   registroNegocio,
   confirmarNegocio,
   modificarContraseña,
   autenticarNegocio,
+  nuevoPassword,
+  comprobarToken,
+  passwordOlvidada,
 };

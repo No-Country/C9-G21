@@ -1,22 +1,45 @@
 import Cliente from "../models/Cliente.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
+import {
+  validarTelefonoAr,
+  validarTelefonoPe,
+  validarTelefonoCl,
+  validarTelefonoCo,
+  validarTelefonoVe,
+  emailRegex,
+} from "../helpers/validaciones.js";
 
 const registrarCliente = async (req, res) => {
   const { email } = req.body;
   const existeCliente = await Cliente.findOne({ email });
 
-  if (existeCliente) {
-    const error = new Error("Cliente ya resgistrado");
-    return res.status(400).json({ msg: error.message });
-  }
+  if (
+    validarTelefonoAr.test(telefono) ||
+    validarTelefonoPe.test(telefono) ||
+    validarTelefonoCl.test(telefono) ||
+    validarTelefonoCo.test(telefono) ||
+    validarTelefonoVe.test(telefono)
+  ) {
+    if (!emailRegex.test(email)) {
+      const error = new Error("Email incorrecto");
+      return res.status(400).json({ msg: error.message });
+    }
+    if (existeCliente) {
+      const error = new Error("Cliente ya resgistrado");
+      return res.status(400).json({ msg: error.message });
+    }
 
-  try {
-    const cliente = new Cliente(req.body);
-    const clienteGuardado = await cliente.save();
-    res.json(clienteGuardado);
-  } catch (error) {
-    console.log(error);
+    try {
+      const cliente = new Cliente(req.body);
+      const clienteGuardado = await cliente.save();
+      res.json(clienteGuardado);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    const error = new Error("Formato de telefono no valido");
+    return res.status(400).json({ msg: error.message });
   }
 };
 
