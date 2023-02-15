@@ -5,6 +5,7 @@ import styles from "@/styles/Home.module.css";
 import { Button } from "@nextui-org/react/";
 import Login from "@/components/Login";
 import SlideShow from "@/components/SlideShow/SlideShow";
+import InfoHome from "@/components/InfoHome/InfoHome";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SlideShow />
+      <InfoHome />
       <main className={styles.main}></main>
     </>
   );
