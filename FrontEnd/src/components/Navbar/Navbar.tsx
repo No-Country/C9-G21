@@ -1,11 +1,12 @@
 import React, { ReactNode, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Navbar, Spacer, Card, Text } from "@nextui-org/react";
+import { Navbar, Spacer, Card, Text, Button } from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
 import logo from "../../../public/logoappointment 1.png";
 import closeMenu from "../../../public/closeMenu.png";
+import { RegisterModal } from "../Modal/RegisterModal";
 
 type NavbarLayoutTypes = {
   children: ReactNode;
@@ -13,7 +14,7 @@ type NavbarLayoutTypes = {
 
 export default function NavbarLayout({ children }: NavbarLayoutTypes) {
   const [openMenu, setOpenMenu] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -84,9 +85,24 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
               <Text>Iniciar sesión</Text>
             </Link>
           </Navbar.CollapseItem>
-          <Navbar.CollapseItem>{/* <Modal></Modal> */}</Navbar.CollapseItem>
+          <Navbar.CollapseItem>
+            <Button
+              css={{
+                color: "White",
+                backgroundColor: "#09BEB2",
+                borderRadius: "30px",
+              }}
+              shadow
+              onPress={() => (
+                setVisible(true), handleClick(), setOpenMenu(!openMenu)
+              )}
+            >
+              Regístrate
+            </Button>
+          </Navbar.CollapseItem>
         </Navbar.Collapse>
       </Navbar>
+      <RegisterModal setVisible={setVisible} visible={visible} />
       {children}
     </Layout>
   );
