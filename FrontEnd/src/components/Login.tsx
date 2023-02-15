@@ -35,7 +35,6 @@ export default function Login() {
                 email: data.email,
                 password: data.password
             });
-            console.log(user)
         } catch (error: any) {
             setErrorLoggedUser(error)
         }
@@ -65,7 +64,6 @@ export default function Login() {
                         <Col css={{
                             paddingTop: "10px",
                             display: "flex",
-                            // rowGap: "$sm",
                             flexDirection: "column"
                         }}>
                             <Text id="modal-title" size={14} >
