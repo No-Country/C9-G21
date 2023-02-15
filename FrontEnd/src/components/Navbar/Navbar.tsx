@@ -30,6 +30,8 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
         css={{
           $$navbarBackgroundColor: "#535971",
           $$navbarBlurBackgroundColor: "transparent",
+         
+          
         }}
       >
         <Navbar.Brand>
@@ -66,6 +68,9 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
             padding: "0",
             display: "flex",
             left: "revert",
+            '@lg': {
+              marginRight: '171px'
+            },
           }}
         >
           <Navbar.CollapseItem>
