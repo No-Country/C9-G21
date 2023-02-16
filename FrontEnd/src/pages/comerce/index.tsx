@@ -7,9 +7,8 @@ import { ExtraRegister } from "@/components/register/ExtraRegister";
 
 export default function Index() {
 
-
-
     return (
+        
         <Register>
             <ExtraRegister />
         </Register>

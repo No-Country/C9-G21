@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { Col, Button, Text, Input, Row, Card, Container, Link, Modal } from "@nextui-org/react";
+import { Col, Button, Text, Input, Row, Card, Container, Link, Modal, Spacer } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import axios from 'axios'
 import { z } from 'zod'
 import { FormValues, resolver } from "@/helpers/forms/login";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { RegisterModal } from "../Modal/RegisterModal";
-
+import { useRouter } from "next/router";
 const userSchema = z.object({
     email: z.string().email(),
     password: z.string().min(3),
@@ -33,10 +33,11 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
             setErrorLoggedUser(err.message)
         }
     });
-
+    const router = useRouter()
     const resetError = () => {
         setErrorLoggedUser(undefined)
     }
+
     console.log(errorLoggedUser)
     return (
         <Container css={{ width: "fit-content" }}>
@@ -49,22 +50,17 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                         <Text id="modal-title" size={18} >
                             Iniciar Sesion
                         </Text>
-                        <Text id="modal-title" size={14} >
-                            ¿No tienes Cuenta?{" "}
-                            <Modal></Modal>
-                        </Text>
+                        <Row justify="center">
+                            <Text id="modal-title" size={14} >
+                                ¿No tienes Cuenta?{" "}
+                                <Modal></Modal>
+                            </Text>
+                            <Spacer x={0.3}/>
+                            <Text id="modal-title" size={13} color={"#09BEB2"} onClick={() => setModalReg(true)}>
+                                Regístrate
+                            </Text>
+                        </Row>
                     </Col>
-                    <Button
-                        css={{
-                            color: "White",
-                            backgroundColor: "#09BEB2",
-                            borderRadius: "30px",
-                        }}
-                        shadow
-                        onPress={() => setModalReg(true)}
-                    >
-                        Regístrate
-                    </Button>
                     <form onSubmit={onSubmit}>
                         <Col css={{
                             paddingTop: "10px",
@@ -110,7 +106,7 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                             </Text>}
                         </Row>
                         <Row justify="space-between" css={{ paddingtop: "20px" }}>
-                            <Button auto flat color="error" css={{ minWidth: "110px", marginRight: "5px" }} >
+                            <Button auto flat color="error" css={{ minWidth: "110px", marginRight: "5px" }} onPress={()=>router.back()} >
                                 Volver
                             </Button>
                             <Button auto type="submit" css={{ minWidth: "110px" }}>
