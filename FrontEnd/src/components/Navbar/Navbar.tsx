@@ -27,7 +27,7 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
 
   const handleClick = () => isOpen && ref.current?.click();
 
-  let logged = true;
+  let logged = false;
 
   return (
     <Layout>
