@@ -15,6 +15,21 @@ const negocioSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  direccion: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  razonSocial: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  rubro: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   password: {
     type: String,
     required: true,
