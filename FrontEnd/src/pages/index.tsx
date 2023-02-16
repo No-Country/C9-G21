@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/react/";
 import Login from "@/components/Login";
 import SlideShow from "@/components/SlideShow/SlideShow";
 import InfoHome from "@/components/InfoHome/InfoHome";
+import Search from "@/components/Search/Search";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       </Head>
       <SlideShow />
       <InfoHome />
+      <Search />
       <main className={styles.main}></main>
     </>
   );
