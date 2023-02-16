@@ -7,6 +7,7 @@ import Login from "@/components/login/Login";
 import SlideShow from "@/components/SlideShow/SlideShow";
 import InfoHome from "@/components/InfoHome/InfoHome";
 import Search from "@/components/Search/Search";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <SlideShow />
       <InfoHome />
       <Search />
+      <Footer/>
       <main className={styles.main}></main>
     </>
   );
