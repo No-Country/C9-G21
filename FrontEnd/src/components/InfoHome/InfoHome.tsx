@@ -1,4 +1,4 @@
-import { Grid, Card, Text, Row, Spacer } from "@nextui-org/react";
+import { Grid, Row, Spacer } from "@nextui-org/react";
 import InfoCard from "./InfoCard";
 
 function InfoHome() {
@@ -9,6 +9,7 @@ function InfoHome() {
         width: "100%",
         height: "100%",
         padding: "0.6rem",
+        paddingTop: "0",
       }}
     >
       <Row justify="center" css={{ maxW: "1400px" }}>

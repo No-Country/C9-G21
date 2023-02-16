@@ -10,9 +10,14 @@ export default function SearchBar() {
           clearable
           placeholder="Buscar..."
           contentLeft={
-            <Image src="Search.png" alt="Search icon" width={30} height={30} />
+            <Image src="Search.png" alt="Search icon" width={35} height={35} />
           }
-          css={{ w: "300px" }}
+          css={{
+            w: "17rem",
+            height: "32px",
+            boxShadow: "0px 2px 4px 0px rgba(0,0,0,0.25)",
+            borderRadius: "9px",
+          }}
         ></Input>
       </Grid>
     </Grid.Container>
