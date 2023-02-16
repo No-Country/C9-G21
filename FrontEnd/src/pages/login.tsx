@@ -1,10 +1,12 @@
-import Login from "@/components/Login";
+import Login from "@/components/login/Login";
+import { useState } from "react";
 
 
 export default function Index() {
+    const [modalReg,setModalReg] = useState(false);
     return (
         <div className="containerLogin">
-            <Login></Login>
+            <Login setModalReg={setModalReg} modalReg={modalReg}></Login>
         </div>
     )
 }

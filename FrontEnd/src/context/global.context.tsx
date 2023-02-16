@@ -1,6 +1,11 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
 
-export const globalContext = createContext({});
+type globalProviderT = {
+    user: any,
+    setUser: Dispatch<SetStateAction<{}>>
+}
+
+export const globalContext = createContext<globalProviderT>({} as globalProviderT);
 
 type globalProvider = {
     children: ReactNode
