@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-router.post("/register", registroNegocio);
+router.post("/registrar", registroNegocio);
 router.get("/negocio/:token", confirmarNegocio);
 router.put("/putRegister/:id",modificarContraseña);
 router.post("/logNegocio",autenticarNegocio);

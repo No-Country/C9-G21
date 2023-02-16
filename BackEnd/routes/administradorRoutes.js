@@ -3,7 +3,7 @@ import {registrar, perfil, confirmar, autenticar, passwordOlvidada, comprobarTok
 import checkAuth from '../middleware/authMiddleware.js';
 const router = express.Router();
 
-router.post('/', registrar);
+router.post('/registrar', registrar);
 
 router.get('/perfil', perfil);
 //con express puedo agregar un parámetro dinámico con /:

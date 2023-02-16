@@ -12,13 +12,13 @@ import checkAuth from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post("/registrar-cliente", registrarCliente);
-router.get("/perfil-cliente",perfilCliente)
-router.get("/confirmar-cliente/:token", confirmarCliente);
-router.post("/login-cliente",autenticarCliente);
-router.post("/password-cliente-olvidada",passwordClienteOlvidada)
-router.get("/password-cliente-olvidada/:token", comprobarTokenCliente);
-router.post("/password-cliente-olvidada/:token",  nuevoPasswordCliente);
+router.post("/registrar", registrarCliente);
+router.get("/perfil",perfilCliente)
+router.get("/confirmar-/:token", confirmarCliente);
+router.post("/login",autenticarCliente);
+router.post("/password-olvidada",passwordClienteOlvidada)
+router.get("/password-olvidada/:token", comprobarTokenCliente);
+router.post("/password-olvidada/:token",  nuevoPasswordCliente);
 
 router.get('/perfil-cliente', checkAuth, perfilCliente);
 export default router;
