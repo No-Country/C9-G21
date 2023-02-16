@@ -1,48 +1,43 @@
-import React, { useState } from "react";
-import { Col, Button, Text, Input, Row, FormElement, PressEvent, Card, Container, Link, Modal } from "@nextui-org/react";
-import { useRouter } from "next/router";
-import { useForm, Resolver } from "react-hook-form";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { Col, Button, Text, Input, Row, Card, Container, Link, Modal } from "@nextui-org/react";
+import { useForm } from "react-hook-form";
 import axios from 'axios'
+import { z } from 'zod'
+import { FormValues, resolver } from "@/helpers/forms/login";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+import { RegisterModal } from "../Modal/RegisterModal";
 
-type FormValues = {
-    email: string;
-    password: string;
-};
-
-const resolver: Resolver<FormValues> = async (values) => {
-    return {
-        values: values.email ? values : {},
-        errors: !values.email
-            ? {
-                email: {
-                    type: 'required',
-                    message: 'El usuario es requerido.',
-                },
-                password:{
-                    type: "required",
-                    message: "la contraseña es requerida."
-                }
-            }
-            : {},
-    };
-};
-export default function Login() {
+const userSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(3),
+}).required();
+type Ilogin = {
+    setModalReg: Dispatch<SetStateAction<boolean>>
+    modalReg: boolean
+}
+export default function Login({ setModalReg, modalReg }: Ilogin) {
     const [errorLoggedUser, setErrorLoggedUser] = useState();
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver });
+
+    const { user, setUser } = useGlobalContext()
+
     const onSubmit = handleSubmit(async (data) => {
         try {
-            const user = await axios.post("http://localhost:5000/api/administradores/login", {
-                email: data.email,
-                password: data.password
+            const user = await axios.post("http://localhost:5000/api/clientes/login-cliente", {
+                email: userSchema.parse(data).email,
+                password: userSchema.parse(data).password
             });
-        } catch (error: any) {
-            setErrorLoggedUser(error)
+            setUser(user)
+        } catch (err: any) {
+            console.log(err.message)
+            setErrorLoggedUser(err.message)
         }
     });
 
-    const resetError = ()=>{
+    const resetError = () => {
         setErrorLoggedUser(undefined)
     }
+    console.log(errorLoggedUser)
     return (
         <Container css={{ width: "fit-content" }}>
             <Card >
@@ -59,7 +54,17 @@ export default function Login() {
                             <Modal></Modal>
                         </Text>
                     </Col>
-
+                    <Button
+                        css={{
+                            color: "White",
+                            backgroundColor: "#09BEB2",
+                            borderRadius: "30px",
+                        }}
+                        shadow
+                        onPress={() => setModalReg(true)}
+                    >
+                        Regístrate
+                    </Button>
                     <form onSubmit={onSubmit}>
                         <Col css={{
                             paddingTop: "10px",
@@ -73,7 +78,6 @@ export default function Login() {
                                 clearable
                                 bordered
                                 color="primary"
-                                size="lg"
                                 placeholder="ejemplo@gmail.com"
                                 id="emailInput"
                                 aria-label="Email"
@@ -84,11 +88,10 @@ export default function Login() {
                             <Text id="modal-title" size={14} css={{ paddingTop: "10px" }}>
                                 Contraseña
                             </Text>
-                            <Input
+                            <Input.Password
                                 clearable
                                 bordered
                                 color="primary"
-                                size="lg"
                                 placeholder="*******"
                                 id="passwordInput"
                                 aria-label="Password"
@@ -98,14 +101,12 @@ export default function Login() {
                             />
                             {errors?.email && <p>{errors.email.message}</p>}
                         </Col>
-
                         <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
-
                             <Text size={10}><Link href="/register" style={{ color: "black" }}>Olvide mi contraseña</Link></Text>
                         </Row>
                         <Row>
-                        {errorLoggedUser&& <Text >
-                            {(errorLoggedUser as any)?.response?.data.msg}
+                            {errorLoggedUser && <Text >
+                                {(errorLoggedUser as any)?.response?.data.msg}
                             </Text>}
                         </Row>
                         <Row justify="space-between" css={{ paddingtop: "20px" }}>
@@ -119,6 +120,7 @@ export default function Login() {
                     </form>
                 </Card.Body>
             </Card>
+            <RegisterModal setVisible={setModalReg} visible={modalReg} />
         </Container>
     );
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Button } from "@nextui-org/react/";
-import Login from "@/components/Login";
+import Login from "@/components/login/Login";
 import SlideShow from "@/components/SlideShow/SlideShow";
 import InfoHome from "@/components/InfoHome/InfoHome";
 
