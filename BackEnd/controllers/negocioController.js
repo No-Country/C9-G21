@@ -41,7 +41,6 @@ const registroNegocio = async (req, res) => {
 }
 }
 ;
-
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
@@ -52,7 +51,6 @@ const modificarContraseña = async (req, res) => {
     return res.status(404).json({ msg: error.message });
   });
 };
-
 const confirmarNegocio = async (req, res) => {
   const { token } = req.params;
   const negocioConfirmar = await Negocio.findOne({ token });
@@ -73,7 +71,6 @@ const confirmarNegocio = async (req, res) => {
     console.log(err);
   }
 };
-
 const autenticarNegocio = async (req, res) => {
   const { email } = req.body;
   const negocio = await Negocio.findOne({ email });
@@ -87,7 +84,6 @@ const autenticarNegocio = async (req, res) => {
   }
   res.json({ msg: "Autenticando" });
 };
-
 const passwordOlvidada = async (req, res) => {
   const { email } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
@@ -135,6 +131,23 @@ const nuevoPassword = async (req, res) => {
     console.log(error);
   }
 };
+const buscarServicios = async (req, res) => {
+  const { rubro } = req.query;
+  try {
+    await Negocio.find({ rubro: { $regex: rubro, $options: "i" } })
+      .then((data) => {
+        console.log(data);
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        const error = new Error("No existe Turno con ese servicio");
+        res.status(404).json({ msg: error.message });
+      });
+  } catch (err) {
+    const error = new Error("Error al buscar un servicio");
+    res.status(404).json({ msg: error.message });
+  }
+};
 export {
   registroNegocio,
   confirmarNegocio,
@@ -143,4 +156,5 @@ export {
   nuevoPassword,
   comprobarToken,
   passwordOlvidada,
+  buscarServicios,
 };
