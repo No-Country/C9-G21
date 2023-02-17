@@ -10,11 +10,12 @@ import {
   validarTelefonoVe,
   emailRegex,
 } from "../helpers/validaciones.js";
+import emailRegistro from "../helpers/emailRegistro.js";
 
 const registrar = async (req, res) => {
   //const {nombre, email, password} = req.body
   //prevenir usuarios duplicados
-  const { email, telefono} = req.body;
+  const { email, nombre, telefono} = req.body;
   //findone para buscar por los diferentes atributos
   const existeUsuario = await Administrador.findOne({ email });
   if (
@@ -39,6 +40,12 @@ const registrar = async (req, res) => {
       const administrador = new Administrador(req.body);
       //.save() es de mongoose
       const administradorGuardado = await administrador.save();
+      //enviar email
+      emailRegistro({
+        email,
+        nombre, 
+        token: administradorGuardado.token});
+
       res.json(administradorGuardado);
     } catch (error) {
       console.log(error);
