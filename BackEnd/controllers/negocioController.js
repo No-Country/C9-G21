@@ -1,16 +1,39 @@
-
 import Negocio from "../models/Negocio.js";
-import{validarTelefonoAr,
+import {
+  validarTelefonoAr,
   validarTelefonoPe,
   validarTelefonoCl,
   validarTelefonoCo,
   validarTelefonoVe,
-  emailRegex} from "../helpers/validaciones.js"
+  emailRegex,
+} from "../helpers/validaciones.js";
+
+import validationSchema from "../schemas/validaciones-campos.js";
 
 const registroNegocio = async (req, res) => {
-  const { email,telefono } = req.body;
+  const {
+    email,
+    telefono,
+    nombre,
+    apellido,
+    razonSocial,
+    rubro,
+    password,
+    direccion,
+  } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
-
+  const { error } = validationSchema.validate({
+    nombre,
+    apellido,
+    razonSocial,
+    rubro,
+    password,
+    direccion,
+  });
+  if(!telefono){
+    const error = new Error("complete el campo telefono.");
+    return res.status(400).json({ msg: error.message });
+  }
   if (
     validarTelefonoAr.test(telefono) ||
     validarTelefonoPe.test(telefono) ||
@@ -18,39 +41,42 @@ const registroNegocio = async (req, res) => {
     validarTelefonoCo.test(telefono) ||
     validarTelefonoVe.test(telefono)
   ) {
-  if(!emailRegex.test(email)){
-    const error = new Error("Email incorrecto");
+    if (!email) {
+      const error = new Error("complete el campo email.");
       return res.status(400).json({ msg: error.message });
-  }
-  
-  if (existeNegocio) {
-    const error = new Error("Negocio ya resgistrado");
+    }
+    if (!emailRegex.test(email)) {
+      const error = new Error("Email incorrecto");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    if (existeNegocio) {
+      const error = new Error("Negocio ya resgistrado");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    try {
+      const negocio = new Negocio(req.body);
+      const negocioSave = await negocio.save();
+      res.json(negocioSave);
+    } catch (err) {
+      const campoFaltante = error.details[0].path[0];
+      res.status(400).json({ error: `complete el campo ${campoFaltante}.` });
+    }
+  } else {
+    const error = new Error("Formato de telefono no valido");
     return res.status(400).json({ msg: error.message });
   }
-
-  try {
-    const negocio = new Negocio(req.body);
-    const negocioSave = await negocio.save();
-    res.json(negocioSave);
-  } catch (err) {
-    console.log(err);
-  }
-}else{
-  const error = new Error("Formato de telefono no valido");
-    return res.status(400).json({ msg: error.message });
-}
-}
-;
-
+};
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
-  await Negocio.updateOne({ _id: id }, { $set: { password } }).then((data) =>
-    res.json(data)
-  ).catch((err)=>{
-    const error = new Error("Token no valido");
-    return res.status(404).json({ msg: error.message });
-  });
+  await Negocio.updateOne({ _id: id }, { $set: { password } })
+    .then((data) => res.json(data))
+    .catch((err) => {
+      const error = new Error("Token no valido");
+      return res.status(404).json({ msg: error.message });
+    });
 };
 
 const confirmarNegocio = async (req, res) => {
