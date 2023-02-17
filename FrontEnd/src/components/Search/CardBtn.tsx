@@ -1,4 +1,5 @@
-import { Button, Text, Image } from "@nextui-org/react";
+import { Button, Text } from "@nextui-org/react";
+import Image from "next/image";
 
 type Btntype = {
   name?: string;
@@ -12,9 +13,9 @@ export default function CardBtn({ name, img }: Btntype) {
         <Image
           src={img ?? ""}
           alt="icon"
-          width={35}
-          height={35}
-          css={{ paddingRight: "5px", margin: "6px", paddingBottom: "10px" }}
+          width={25}
+          height={25}
+          style={{ paddingLeft: "3px" }}
         />
       }
       size={"xs"}
@@ -24,7 +25,6 @@ export default function CardBtn({ name, img }: Btntype) {
         width: "147px",
         height: "40px",
         margin: "10px",
-        padding: "0px",
         borderRadius: "19px",
         boxShadow: "2px 4px 6px 0px #ACACAC",
       }}
@@ -35,7 +35,7 @@ export default function CardBtn({ name, img }: Btntype) {
         css={{
           color: "#F8F8F8",
           fontFamily: "Comfortaa",
-          marginLeft: "30px",
+          marginLeft: "15px",
           padding: "0px",
         }}
       >

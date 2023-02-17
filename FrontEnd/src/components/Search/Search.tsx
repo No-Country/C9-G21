@@ -50,6 +50,7 @@ export default function Search() {
               color: "#1E1E1E",
               lineHeight: "20px",
               textShadow: "0.1px 0px 0px #1E1E1E",
+              paddingLeft: "5px",
             }}
           >
             Solicita tu turno
