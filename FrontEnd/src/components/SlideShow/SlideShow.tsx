@@ -48,10 +48,11 @@ function SlideShow() {
         css={{
           mw: "1400px",
           mh: "600px",
-          margin: "10px",
+          margin: "15px",
           width: "100%",
           height: "250px",
           borderRadius: "30px",
+          boxShadow: "0px 4px 6px 0px #ACACAC",
         }}
       >
         <Card.Body css={{ p: "0" }}>
@@ -75,7 +76,6 @@ function SlideShow() {
             position: "absolute",
             zIndex: 1,
             bottom: "0",
-            marginBottom: "1rem",
           }}
         >
           <Col
@@ -87,7 +87,11 @@ function SlideShow() {
               h1
               size={24}
               weight="bold"
-              css={{ color: "White", fontFamily: "Comfortaa" }}
+              css={{
+                color: "White",
+                fontFamily: "Comfortaa",
+                textShadow: "-3px 1px 6px rgba(121,121,121,0.82)",
+              }}
             >
               {`${textImge[index][1]}`}
             </Text>
@@ -96,7 +100,11 @@ function SlideShow() {
               h1
               size={24}
               weight="bold"
-              css={{ color: "White", fontFamily: "Comfortaa" }}
+              css={{
+                color: "#F8F8F8",
+                fontFamily: "Comfortaa",
+                textShadow: "-3px 1px 6px rgba(121,121,121,0.82)",
+              }}
             >
               {`${textImge[index][2]}`}
             </Text>

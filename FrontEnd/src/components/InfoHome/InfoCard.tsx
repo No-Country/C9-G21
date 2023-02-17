@@ -26,18 +26,19 @@ export default function InfoCard({
         backgroundColor: "#F8F8F8",
         padding: "2px",
         height: "170px",
+        boxShadow: "0px 2px 6px 0px #ACACAC",
       }}
     >
-      <Spacer y={1} />
+      <Spacer y={0.5} />
       <Card.Image
         objectFit="contain"
         src={`${image}`}
         width="100%"
-        height={50}
+        height={60}
         alt="logo"
       />
 
-      <Spacer y={-0.7} />
+      <Spacer y={-0.8} />
       <Card.Body css={{ textAlign: "center" }}>
         <Text
           color="#535971"
@@ -46,6 +47,8 @@ export default function InfoCard({
           css={{
             fontFamily: "comfortaa",
             overflow: "hidden",
+            fontWeight: "700",
+            textShadow: "0.8px 0px 0px #535971",
           }}
         >
           {title}
@@ -59,25 +62,27 @@ export default function InfoCard({
           bottom: "3px",
         }}
       >
-        <Grid.Container justify="center">
+        <Grid.Container
+          justify="center"
+          css={{ marginBottom: "2px", padding: "2px" }}
+        >
           <Col>
-            <Spacer y={-0.5} />
-            <Text b size="70%">
+            <Text b size="66%">
               {text1}
             </Text>{" "}
             <br />
             <Spacer y={-0.5} />
-            <Text b size="70%">
+            <Text b size="66%">
               {text2}
             </Text>
             <br />
             <Spacer y={-0.5} />
-            <Text b size="70%">
+            <Text b size="66%">
               {text3}
             </Text>
             <br />
             <Spacer y={-0.5} />
-            <Text b size="70%">
+            <Text b size="66%">
               {text4}
             </Text>
           </Col>
