@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { Register } from "@/components/register/Register";
+
+import { ComerceRegister } from "@/components/register/ComerceRegister";
 
 
 
 export default function Index() {
     return (
-      <Register />
+      <ComerceRegister>
+      </ComerceRegister>
     );
 }

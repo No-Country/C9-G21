@@ -2,30 +2,27 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Col, Button, Text, Input, Row, Card, Container, Link, Modal, Spacer } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import axios from 'axios'
-import { z } from 'zod'
-import { FormValues, resolver } from "@/helpers/forms/login";
+
+import { LoginFormValues, loginUserSchema, resolver } from "@/helpers/forms/login";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { RegisterModal } from "../Modal/RegisterModal";
 import { useRouter } from "next/router";
-const userSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(3),
-}).required();
+
 type Ilogin = {
     setModalReg: Dispatch<SetStateAction<boolean>>
     modalReg: boolean
 }
 export default function Login({ setModalReg, modalReg }: Ilogin) {
     const [errorLoggedUser, setErrorLoggedUser] = useState();
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver });
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({ resolver });
 
     const { user, setUser } = useGlobalContext()
 
     const onSubmit = handleSubmit(async (data) => {
         try {
             const user = await axios.post("http://localhost:5000/api/clientes/login-cliente", {
-                email: userSchema.parse(data).email,
-                password: userSchema.parse(data).password
+                email: loginUserSchema.parse(data).email,
+                password: loginUserSchema.parse(data).password
             });
             setUser(user)
         } catch (err: any) {
@@ -38,7 +35,7 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
         setErrorLoggedUser(undefined)
     }
 
-    console.log(errorLoggedUser)
+    console.log(user,errorLoggedUser)
     return (
         <Container css={{ width: "fit-content" }}>
             <Card >
