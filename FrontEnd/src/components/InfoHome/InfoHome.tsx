@@ -1,5 +1,7 @@
 import { Grid, Row, Spacer } from "@nextui-org/react";
 import InfoCard from "./InfoCard";
+import infocliente from "../../../public/infoCliente.png";
+import infocomercio from "../../../public/infoComercio.png";
 
 function InfoHome() {
   return (
@@ -8,15 +10,16 @@ function InfoHome() {
       css={{
         width: "100%",
         height: "100%",
-        padding: "0.6rem",
+        padding: "0.8rem",
         paddingTop: "0",
+        paddingBottom: "9px",
       }}
     >
       <Row justify="center" css={{ maxW: "1400px" }}>
         <Grid xs={6}>
           <InfoCard
             title={"Clientes"}
-            image={"infoCliente.png"}
+            image={infocliente}
             text1={"Como cliente podes"}
             text2={"contactarte de manera sencilla"}
             text3={"con el comercio y solicitar tu"}
@@ -27,7 +30,7 @@ function InfoHome() {
         <Grid xs={6}>
           <InfoCard
             title={"Comercios"}
-            image={"infoComercio.png"}
+            image={infocomercio}
             text1={"Como comercio podes"}
             text2={"configurar tu perfil y organizar"}
             text3={"tus tiempos de manera fácil y"}

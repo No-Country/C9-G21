@@ -21,8 +21,7 @@ export default function Home() {
       <SlideShow />
       <InfoHome />
       <Search />
-      <Footer/>
-      <main className={styles.main}></main>
+      <Footer />
     </>
   );
 }

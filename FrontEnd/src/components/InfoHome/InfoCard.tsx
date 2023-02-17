@@ -1,12 +1,13 @@
 import { Card, Text, Col, Spacer, Grid } from "@nextui-org/react";
+import Image from "next/image";
 
 type cardTypes = {
-  title: String;
-  image: String;
-  text1: String;
-  text2: String;
-  text3: String;
-  text4: String;
+  title: string;
+  image: any;
+  text1: string;
+  text2: string;
+  text3: string;
+  text4: string;
 };
 
 export default function InfoCard({
@@ -30,15 +31,11 @@ export default function InfoCard({
       }}
     >
       <Spacer y={0.5} />
-      <Card.Image
-        objectFit="contain"
-        src={`${image}`}
-        width="100%"
-        height={60}
-        alt="logo"
-      />
+      <Card.Header css={{ justifyContent: "center", padding: "0" }}>
+        <Image src={image ?? ""} height={50} width={45} alt="logo" />
+      </Card.Header>
 
-      <Spacer y={-0.8} />
+      <Spacer y={-0.6} />
       <Card.Body css={{ textAlign: "center" }}>
         <Text
           color="#535971"
@@ -59,7 +56,7 @@ export default function InfoCard({
           padding: "0",
           position: "absolute",
           textAlign: "center",
-          bottom: "3px",
+          bottom: "6px",
         }}
       >
         <Grid.Container
