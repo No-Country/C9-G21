@@ -6,13 +6,15 @@ import {
   autenticarNegocio,
   passwordOlvidada,
   comprobarToken,
-  nuevoPassword
+  nuevoPassword,
+  buscarServicios
 } from "../controllers/negocioController.js";
 
 const router = express.Router();
 
 router.post("/registrar", registroNegocio);
 router.get("/negocio/:token", confirmarNegocio);
+router.get("/buscarServicio", buscarServicios);
 router.put("/putRegister/:id",modificarContraseña);
 router.post("/logNegocio",autenticarNegocio);
 router.post('/password-olvidada', passwordOlvidada);
