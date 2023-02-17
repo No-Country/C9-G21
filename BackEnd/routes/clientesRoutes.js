@@ -14,11 +14,11 @@ const router = express.Router();
 
 router.post("/registrar", registrarCliente);
 router.get("/perfil",perfilCliente)
-router.get("/confirmar-/:token", confirmarCliente);
+router.get("/confirmar/:token", confirmarCliente);
 router.post("/login",autenticarCliente);
 router.post("/password-olvidada",passwordClienteOlvidada)
 router.get("/password-olvidada/:token", comprobarTokenCliente);
 router.post("/password-olvidada/:token",  nuevoPasswordCliente);
 
-router.get('/perfil-cliente', checkAuth, perfilCliente);
+router.get('/perfil', checkAuth, perfilCliente);
 export default router;

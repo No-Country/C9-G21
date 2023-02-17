@@ -13,7 +13,7 @@ const router = express.Router();
 /*Crear Turno*/
 router.post("/pedir", crearTurno);
 /* Confirmar Turno */
-router.get("/confirmar/:Token", confirmarTurno);
+router.get("/confirmar/:token", confirmarTurno);
 /*Buscar turno*/
 router.get("/buscar", buscarTurnos);
 // /*Unico turno*/
