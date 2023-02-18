@@ -1,13 +1,13 @@
 import Joi from "joi";
 
-const nombre = Joi.string();
-const apellido = Joi.string();
+const nombre = Joi.string().min(3);
+const apellido = Joi.string().min(3);
 const telefono = Joi.string();
 const email = Joi.string().email();
 const password = Joi.string().min(8);
-const direccion = Joi.string();
-const razonSocial = Joi.string();
-const rubro = Joi.string();
+const direccion = Joi.string().min(3);
+const razonSocial = Joi.string().min(3);
+const rubro = Joi.string().min(3);
 
 const crearNegocio = Joi.object({
 
