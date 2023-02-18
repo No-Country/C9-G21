@@ -13,7 +13,7 @@ import emailRegistro from "../helpers/emailRegistro.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 
 const registrarCliente = async (req, res) => {
-  const { email } = req.body;
+  const { email,telefono } = req.body;
   const existeCliente = await Cliente.findOne({ email });
 
   if (

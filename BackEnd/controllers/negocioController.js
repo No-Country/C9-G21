@@ -15,9 +15,17 @@ import crearAdministrador from "../schemas/user.schema.js";
 import validatorHandler from "../middleware/validator.handler.js";
 
 const registrarNegocio = async (req, res, next) => {
+  const { email, telefono } = req.body;
+
+  if (
+    validarTelefonoAr.test(telefono) ||
+    validarTelefonoPe.test(telefono) ||
+    validarTelefonoCl.test(telefono) ||
+    validarTelefonoCo.test(telefono) ||
+    validarTelefonoVe.test(telefono)
+  ){
   try {
     
-    const { email, telefono } = req.body;
     const existeNegocio = await Negocio.findOne({ email });
 
     if (existeNegocio) {
@@ -31,6 +39,10 @@ const registrarNegocio = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+} else {
+  const error = new Error("Formato de telefono no valido");
+  return res.status(400).json({ msg: error.message });
+}
 };
 const perfilNegocio = (req, res) => {
   const { negocio } = req;
