@@ -7,6 +7,7 @@ import { LoginFormValues, loginUserSchema, resolver } from "@/helpers/forms/logi
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { RegisterModal } from "../Modal/RegisterModal";
 import { useRouter } from "next/router";
+import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
 
 type Ilogin = {
     setModalReg: Dispatch<SetStateAction<boolean>>
@@ -35,7 +36,7 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
         setErrorLoggedUser(undefined)
     }
 
-    console.log(user,errorLoggedUser)
+    console.log(user, errorLoggedUser)
     return (
         <Container css={{ width: "fit-content" }}>
             <Card >
@@ -52,7 +53,7 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                                 ¿No tienes Cuenta?{" "}
                                 <Modal></Modal>
                             </Text>
-                            <Spacer x={0.3}/>
+                            <Spacer x={0.3} />
                             <Text id="modal-title" size={13} color={"#09BEB2"} onClick={() => setModalReg(true)}>
                                 Regístrate
                             </Text>
@@ -64,30 +65,22 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                             display: "flex",
                             flexDirection: "column"
                         }}>
-                            <Text id="modal-title" size={14} >
-                                Email
-                            </Text>
                             <Input
-                                clearable
-                                bordered
-                                color="primary"
+                                {...INPUTPROPS}
                                 placeholder="ejemplo@gmail.com"
                                 id="emailInput"
+                                label="Email"
                                 aria-label="Email"
                                 {...register("email")}
                                 onChange={resetError}
                             />
                             {errors?.email && <p>{errors.email.message}</p>}
-                            <Text id="modal-title" size={14} css={{ paddingTop: "10px" }}>
-                                Contraseña
-                            </Text>
                             <Input.Password
-                                clearable
-                                bordered
-                                color="primary"
+                                {...INPUTPROPS}
                                 placeholder="*******"
                                 id="passwordInput"
                                 aria-label="Password"
+                                label="Contraseña"
                                 type="password"
                                 {...register("password")}
                                 onChange={resetError}
@@ -95,7 +88,7 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                             {errors?.email && <p>{errors.email.message}</p>}
                         </Col>
                         <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
-                            <Text size={10}><Link href="/register" style={{ color: "black" }}>Olvide mi contraseña</Link></Text>
+                            <Text size={10}><Link href="/register" style={{ color: "#09BEB2" }}>Olvide mi contraseña</Link></Text>
                         </Row>
                         <Row>
                             {errorLoggedUser && <Text >
@@ -103,10 +96,10 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                             </Text>}
                         </Row>
                         <Row justify="space-between" css={{ paddingtop: "20px" }}>
-                            <Button auto flat color="error" css={{ minWidth: "110px", marginRight: "5px" }} onPress={()=>router.back()} >
+                            <Button auto flat color="error" css={CSSBUTTONBACK} onPress={() => router.back()} >
                                 Volver
                             </Button>
-                            <Button auto type="submit" css={{ minWidth: "110px" }}>
+                            <Button auto type="submit" css={CSSBUTTONNEXT}>
                                 Iniciar sesión
                             </Button>
                         </Row>
