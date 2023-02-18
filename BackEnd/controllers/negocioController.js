@@ -14,7 +14,8 @@ import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 import crearAdministrador from "../schemas/user.schema.js";
 import validatorHandler from "../middleware/validator.handler.js";
 
-const registrarNegocio =  
+const registrarNegocio = 
+ 
   async (req, res, next) => {
     try {
       const body = req.body;
