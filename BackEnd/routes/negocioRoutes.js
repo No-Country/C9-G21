@@ -7,7 +7,8 @@ import {
   passwordOlvidada,
   comprobarToken,
   nuevoPassword,
-  buscarServicios
+  buscarServicios,
+  perfilNegocio
 } from "../controllers/negocioController.js";
 
 const router = express.Router();
@@ -15,6 +16,7 @@ const router = express.Router();
 router.post("/registrar", registroNegocio);
 router.get("/negocio/:token", confirmarNegocio);
 router.get("/buscarServicio", buscarServicios);
+router.get('/perfil', perfilNegocio);
 //router.put("/putRegister/:id",modificarContraseña);
 router.post("/login",autenticarNegocio);
 router.post('/password-olvidada', passwordOlvidada);
