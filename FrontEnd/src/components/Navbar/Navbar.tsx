@@ -14,6 +14,7 @@ import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
 import closeMenu from "../../../public/closeMenu.png";
 import { RegisterModal } from "../Modal/RegisterModal";
+import { CSSBUTTONNEXT } from "@/const/constantsUI";
 
 type NavbarLayoutTypes = {
   children: ReactNode;
@@ -160,13 +161,7 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
               <Button
                 size={"sm"}
                 hidden={true}
-                css={{
-                  color: "White",
-                  backgroundColor: "#09BEB2",
-                  borderRadius: "30px",
-                  width: "154px",
-                  height: "40px",
-                }}
+                css={CSSBUTTONNEXT}
                 shadow
                 onPress={() => (
                   setVisible(true), handleClick(), setOpenMenu(!openMenu)
