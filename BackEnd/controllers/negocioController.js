@@ -14,6 +14,7 @@ import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
 import crearAdministrador from "../schemas/user.schema.js";
 import validatorHandler from "../middleware/validator.handler.js";
 
+
 const registrarNegocio = async (req, res) => {
   const { email, telefono } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
@@ -50,6 +51,10 @@ const registrarNegocio = async (req, res) => {
     const error = new Error("Formato de telefono no valido");
     return res.status(400).json({ msg: error.message });
   }
+} else {
+  const error = new Error("Formato de telefono no valido");
+  return res.status(400).json({ msg: error.message });
+}
 };
 const perfilNegocio = (req, res) => {
   const { negocio } = req;
