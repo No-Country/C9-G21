@@ -8,6 +8,10 @@ import {
   emailRegex,
 } from "../helpers/validaciones.js";
 
+ EmaPaul_Validaciones_2
+
+
+ main
 import emailRegistro from "../helpers/emailRegistro.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 import crearAdministrador from "../schemas/user.schema.js";
