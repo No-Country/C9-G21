@@ -16,7 +16,7 @@ import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 const registrar = async (req, res) => {
   //const {nombre, email, password} = req.body
   //prevenir usuarios duplicados
-  const { email, nombre, telefono} = req.body;
+  const { email, nombre, telefono } = req.body;
   //findone para buscar por los diferentes atributos
   const existeUsuario = await Administrador.findOne({ email });
   if (
@@ -44,8 +44,9 @@ const registrar = async (req, res) => {
       //enviar email
       emailRegistro({
         email,
-        nombre, 
-        token: administradorGuardado.token});
+        nombre,
+        token: administradorGuardado.token,
+      });
 
       res.json(administradorGuardado);
     } catch (error) {
@@ -120,10 +121,10 @@ const passwordOlvidada = async (req, res) => {
     await existeAdministrador.save();
     //enviar email para restablecer pass
     emailNuevoPassword({
-      email, 
+      email,
       nombre: existeAdministrador.nombre,
-      token: existeAdministrador.token
-    })
+      token: existeAdministrador.token,
+    });
 
     res.json({
       msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña",

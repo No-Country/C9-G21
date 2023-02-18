@@ -8,55 +8,33 @@ import {
   emailRegex,
 } from "../helpers/validaciones.js";
 
-import validationSchema from "../schemas/validaciones-campos.js";
 import emailRegistro from "../helpers/emailRegistro.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
+import crearAdministrador from "../schemas/user.schema.js";
+import validatorHandler from "../middleware/validator.handler.js";
 
-const registrarNegocio = async (req, res) => {
-  const { email,telefono } = req.body;
-  const existeNegocio = await Negocio.findOne({ email });
-
-  if (
-    validarTelefonoAr.test(telefono) ||
-    validarTelefonoPe.test(telefono) ||
-    validarTelefonoCl.test(telefono) ||
-    validarTelefonoCo.test(telefono) ||
-    validarTelefonoVe.test(telefono)
-  ) {
-  if(!emailRegex.test(email)){
-    const error = new Error("Email incorrecto");
-      return res.status(400).json({ msg: error.message });
-  }
-  
-  if (existeNegocio) {
-    const error = new Error("Negocio ya resgistrado");
-    return res.status(400).json({ msg: error.message });
-  }
-
+const registrarNegocio = async (req, res, next) => {
   try {
-    const negocio = new Negocio(req.body);
-    const negocioSave = await negocio.save();
-    //enviar email
-    emailRegistro({
-      email,
-      nombre, 
-      token: administradorGuardado.token});
-    res.json(negocioSave);
-  } catch (err) {
-    console.log(err);
+    
+    const { email, telefono } = req.body;
+    const existeNegocio = await Negocio.findOne({ email });
+
+    if (existeNegocio) {
+      const error = new Error("Negocio ya resgistrado");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    const body = req.body;
+    const negocio = await Negocio.create(body);
+    res.status(201).json(negocio);
+  } catch (error) {
+    next(error);
   }
-}else{
-  const error = new Error("Formato de telefono no valido");
-    return res.status(400).json({ msg: error.message });
-}
-}
+};
 const perfilNegocio = (req, res) => {
   const { negocio } = req;
   res.json({ perfil: negocio });
 };
-  
-;
-// main
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
@@ -84,7 +62,7 @@ const confirmarNegocio = async (req, res) => {
     await negocioConfirmar.save();
     res.json({ msg: "Negocio confirmado correctamente" });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 const autenticarNegocio = async (req, res) => {
@@ -111,10 +89,10 @@ const passwordOlvidada = async (req, res) => {
     existeNegocio.token = generarId();
     await existeNegocio.save();
     emailNuevoPassword({
-      email, 
+      email,
       nombre: existeAdministrador.nombre,
-      token: existeAdministrador.token
-    })
+      token: existeAdministrador.token,
+    });
     res.json({
       msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña",
     });
@@ -137,7 +115,7 @@ const nuevoPassword = async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
   const negocio = await Negocio.findOne({ token });
-  console.log();
+  // console.log();
   if (!negocio) {
     const error = new Error("Hubo un error");
     res.status(400).json({ msg: error.message });
