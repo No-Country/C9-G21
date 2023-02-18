@@ -1,7 +1,9 @@
 .footer{
     background-color: #535971;
-    padding: 5rem 0;
+    padding: 1em 0;
     margin-top: 5rem;
+    width: 100%;
+    position: absolute;
 }
 @media (min-width:768px) {
     .contenido{
@@ -21,16 +23,17 @@
     }
 }
 .nav a {
-    font-size: 1.5rem;
-    color: white;
+    font-size: 0.85rem;
+    color: #FAFAFA;
     font-weight: 700;
+    text-decoration: underline;
 }
 .nav a:hover{
-    color: blue;
+    color: #53BBB2;
 }
 .copyright{
-    font-size: 1.5rem;
-    color: white;
+    font-size: 0.85rem;
+    color: #FAFAFA;
     font-weight: 700;
     text-align: center; 
 }
