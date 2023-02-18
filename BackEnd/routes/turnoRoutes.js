@@ -7,11 +7,14 @@ import {
     buscarServicios,
     actualizarTurno
 } from "../controllers/turnoController.js"
+import validatorHandlerTurno from "../middleware/validacion.handler.turno.js";
+import { validationSchemaTurnos } from "../helpers/validation-turnos.js";
+
 
 const router = express.Router();
 
 /*Crear Turno*/
-router.post("/pedir", crearTurno);
+router.post("/pedir", validatorHandlerTurno(validationSchemaTurnos,'body') , crearTurno);
 /* Confirmar Turno */
 router.get("/confirmar/:token", confirmarTurno);
 /*Buscar turno*/
