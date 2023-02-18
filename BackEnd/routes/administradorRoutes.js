@@ -1,9 +1,11 @@
 import express from "express";
 import {registrar, perfil, confirmar, autenticar, passwordOlvidada, comprobarToken, nuevoPassword}  from '../controllers/administradorController.js';
+import { validationSchemaAdministrador } from "../helpers/validation-administrador.js";
 import checkAuth from '../middleware/authMiddleware.js';
+import validatorHandler from "../middleware/validator.handler.js";
 const router = express.Router();
 
-router.post('/registrar', registrar);
+router.post('/registrar',validatorHandler(validationSchemaAdministrador,'body'), registrar);
 
 router.get('/perfil', perfil);
 //con express puedo agregar un parámetro dinámico con /:

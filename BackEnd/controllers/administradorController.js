@@ -18,7 +18,6 @@ const registrar = async (req, res) => {
   //prevenir usuarios duplicados
   const { email, nombre, telefono } = req.body;
   //findone para buscar por los diferentes atributos
-  const existeUsuario = await Administrador.findOne({ email });
   if (
     validarTelefonoAr.test(telefono) ||
     validarTelefonoPe.test(telefono) ||
@@ -26,17 +25,14 @@ const registrar = async (req, res) => {
     validarTelefonoCo.test(telefono) ||
     validarTelefonoVe.test(telefono)
   ) {
-    if (!emailRegex.test(email)) {
-      const error = new Error("Email incorrecto");
-      return res.status(400).json({ msg: error.message });
-    }
-
-    if (existeUsuario) {
-      //creo una nueva instancia de error y su argumento se lo doy en mensaje
-      const error = new Error("Usuario ya registrado");
-      return res.status(400).json({ msg: error.message });
-    }
     try {
+      const existeUsuario = await Administrador.findOne({ email });
+
+      if (existeUsuario) {
+        //creo una nueva instancia de error y su argumento se lo doy en mensaje
+        const error = new Error("Usuario ya registrado");
+        return res.status(400).json({ msg: error.message });
+      }
       //guardar nuevo administrador
       const administrador = new Administrador(req.body);
       //.save() es de mongoose
