@@ -8,7 +8,7 @@ function validatorHandler(schema, property) {
     const { error } = schema.validate(data, { abortEarly: false });
     const errores=[];
 
-    if (!emailRegex.test(data.email) && data.email) {
+    if ( data.email && !emailRegex.test(data.email) ) {
       const error = new Error("Email incorrecto");
       return res.status(400).json({ msg: error.message });
     }
@@ -19,7 +19,7 @@ function validatorHandler(schema, property) {
         errores.push(element.context.key)
       }))
       next(
-        res.status(500).json(errores)
+        res.status(400).json(errores)
       )
     }
     next();

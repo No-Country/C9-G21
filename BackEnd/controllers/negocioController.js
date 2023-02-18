@@ -8,7 +8,6 @@ import {
   emailRegex,
 } from "../helpers/validaciones.js";
 
-import validationSchema from "../schemas/validaciones-campos.js";
 import emailRegistro from "../helpers/emailRegistro.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 import crearAdministrador from "../schemas/user.schema.js";
@@ -16,15 +15,9 @@ import validatorHandler from "../middleware/validator.handler.js";
 
 const registrarNegocio = async (req, res, next) => {
   try {
-    console.log("entre aca");
+    
     const { email, telefono } = req.body;
     const existeNegocio = await Negocio.findOne({ email });
-    console.log(!emailRegex.test(existeNegocio.email))
-    
-    if (!emailRegex.test(existeNegocio.email)) {
-      const error = new Error("Email incorrecto");
-      return res.status(400).json({ msg: error.message });
-    }
 
     if (existeNegocio) {
       const error = new Error("Negocio ya resgistrado");

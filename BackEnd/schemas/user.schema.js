@@ -9,7 +9,7 @@ const direccion = Joi.string();
 const razonSocial = Joi.string();
 const rubro = Joi.string();
 
-const crearAdministrador = Joi.object({
+const crearNegocio = Joi.object({
 
   nombre: nombre.required(),
   direccion: direccion.required(),
@@ -21,4 +21,4 @@ const crearAdministrador = Joi.object({
   telefono: telefono.required(),
 });
 
-export default crearAdministrador;
+export default crearNegocio;
