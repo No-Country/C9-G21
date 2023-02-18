@@ -8,7 +8,7 @@ import {
     actualizarTurno
 } from "../controllers/turnoController.js"
 import validatorHandlerTurno from "../middleware/validacion.handler.turno.js";
-import { validationSchemaTurnos } from "../helpers/validation-turnos.js";
+import  validationSchemaTurnos  from "../helpers/validation-turnos.js";
 
 
 const router = express.Router();

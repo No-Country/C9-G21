@@ -9,4 +9,4 @@ const validationSchemaTurnos = Joi.object({
     Servicio:Joi.string().required()
 })
 
-export {validationSchemaTurnos}
+export default validationSchemaTurnos
