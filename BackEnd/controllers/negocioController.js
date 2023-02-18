@@ -11,44 +11,21 @@ import {
 import validationSchema from "../schemas/validaciones-campos.js";
 import emailRegistro from "../helpers/emailRegistro.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
+import crearAdministrador from "../schemas/user.schema.js";
+import validatorHandler from "../middleware/validator.handler.js";
 
-const registrarNegocio = async (req, res) => {
-  const { email,telefono } = req.body;
-  const existeNegocio = await Negocio.findOne({ email });
-
-  if (
-    validarTelefonoAr.test(telefono) ||
-    validarTelefonoPe.test(telefono) ||
-    validarTelefonoCl.test(telefono) ||
-    validarTelefonoCo.test(telefono) ||
-    validarTelefonoVe.test(telefono)
-  ) {
-  if(!emailRegex.test(email)){
-    const error = new Error("Email incorrecto");
-      return res.status(400).json({ msg: error.message });
+const registrarNegocio =  (req, res) => {
+  validatorHandler(crearAdministrador, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const negocio = await Negocio.create(body);
+      res.status(201).json(negocio);
+    } catch (error) {
+      next(error);
+    }
   }
   
-  if (existeNegocio) {
-    const error = new Error("Negocio ya resgistrado");
-    return res.status(400).json({ msg: error.message });
-  }
-
-  try {
-    const negocio = new Negocio(req.body);
-    const negocioSave = await negocio.save();
-    //enviar email
-    emailRegistro({
-      email,
-      nombre, 
-      token: administradorGuardado.token});
-    res.json(negocioSave);
-  } catch (err) {
-    console.log(err);
-  }
-}else{
-  const error = new Error("Formato de telefono no valido");
-    return res.status(400).json({ msg: error.message });
-}
 }
 const perfilNegocio = (req, res) => {
   const { negocio } = req;

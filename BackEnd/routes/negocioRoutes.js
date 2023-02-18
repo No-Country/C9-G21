@@ -10,10 +10,13 @@ import {
   buscarServicios,
   perfilNegocio
 } from "../controllers/negocioController.js";
+import validatorHandler from "../middleware/validator.handler.js";
+import Negocio from "../models/Negocio.js";
+import crearAdministrador from "../schemas/user.schema.js";
 
 const router = express.Router();
 
-router.post("/registrar", registrarNegocio);
+router.post("/registrar", registrarNegocio)
 router.get("/negocio/:token", confirmarNegocio);
 router.get("/buscarServicio", buscarServicios);
 router.get('/perfil', perfilNegocio);
