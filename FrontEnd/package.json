@@ -2,15 +2,14 @@
   "name": "c9-g21-front",
   "version": "0.1.0",
   "private": true,
-  "license" : "BSD-3-Clause",
   
-
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+  "license" : "BSD-3-Clause",
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
     "@next/font": "13.1.6",
