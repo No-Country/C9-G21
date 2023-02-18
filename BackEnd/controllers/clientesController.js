@@ -39,7 +39,7 @@ const registrarCliente = async (req, res) => {
       emailRegistro({
         email,
         nombre, 
-        token: administradorGuardado.token});
+        token: clienteGuardado.token});
       res.json(clienteGuardado);
     } catch (error) {
       console.log(error);
@@ -109,8 +109,8 @@ const passwordClienteOlvidada = async (req, res) => {
     await existeCliente.save();
     emailNuevoPassword({
       email, 
-      nombre: existeAdministrador.nombre,
-      token: existeAdministrador.token
+      nombre: existeCliente.nombre,
+      token: existeCliente.token
     })
     res.json({
       msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña del cliente",
