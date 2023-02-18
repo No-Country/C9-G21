@@ -9,8 +9,8 @@ import {
   validarTelefonoVe,
   emailRegex,
 } from "../helpers/validaciones.js";
-import emailRegistro from "../helpers/emailRegistro.js";
-import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
+import emailRegistro from "../helpers/emailRegistroClientes.js";
+import emailNuevoPassword from "../helpers/emailPasswordOlvidadaClientes";
 
 const registrarCliente = async (req, res) => {
   const { email } = req.body;
@@ -39,7 +39,7 @@ const registrarCliente = async (req, res) => {
       emailRegistro({
         email,
         nombre, 
-        token: administradorGuardado.token});
+        token: clienteGuardado.token});
       res.json(clienteGuardado);
     } catch (error) {
       console.log(error);
