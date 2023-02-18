@@ -43,7 +43,10 @@ const registroNegocio = async (req, res) => {
     return res.status(400).json({ msg: error.message });
 }
 }
- 
+const perfilNegocio = (req, res) => {
+  const { negocio } = req;
+  res.json({ perfil: negocio });
+};
   
 ;
 // main
@@ -158,6 +161,7 @@ export {
   registroNegocio,
   confirmarNegocio,
   modificarContraseña,
+  perfilNegocio,
   autenticarNegocio,
   nuevoPassword,
   comprobarToken,
