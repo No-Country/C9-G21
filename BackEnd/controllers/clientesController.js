@@ -13,7 +13,7 @@ import emailRegistro from "../helpers/emailRegistro.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 
 const registrarCliente = async (req, res) => {
-  const { email,telefono } = req.body;
+  const { email,telefono,nombre } = req.body;
   const existeCliente = await Cliente.findOne({ email });
 
   if (
@@ -23,10 +23,7 @@ const registrarCliente = async (req, res) => {
     validarTelefonoCo.test(telefono) ||
     validarTelefonoVe.test(telefono)
   ) {
-    if (!emailRegex.test(email)) {
-      const error = new Error("Email incorrecto");
-      return res.status(400).json({ msg: error.message });
-    }
+   
     if (existeCliente) {
       const error = new Error("Cliente ya resgistrado");
       return res.status(400).json({ msg: error.message });
@@ -39,7 +36,7 @@ const registrarCliente = async (req, res) => {
       emailRegistro({
         email,
         nombre, 
-        token: administradorGuardado.token});
+        token: clienteGuardado.token});
       res.json(clienteGuardado);
     } catch (error) {
       console.log(error);

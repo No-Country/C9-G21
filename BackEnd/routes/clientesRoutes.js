@@ -9,10 +9,12 @@ import {
   perfilCliente
 } from "../controllers/clientesController.js";
 import checkAuth from '../middleware/authMiddleware.js';
+import validatorHandler from "../middleware/validator.handler.js";
+import crearUsuario from "../schemas/client.schema.js";
 
 const router = express.Router();
 
-router.post("/registrar", registrarCliente);
+router.post("/registrar", validatorHandler(crearUsuario, 'body') ,registrarCliente);
 router.get("/perfil",perfilCliente)
 router.get("/confirmar/:token", confirmarCliente);
 router.post("/login",autenticarCliente);
