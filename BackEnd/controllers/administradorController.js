@@ -11,6 +11,7 @@ import {
   emailRegex,
 } from "../helpers/validaciones.js";
 import emailRegistro from "../helpers/emailRegistro.js";
+import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 
 const registrar = async (req, res) => {
   //const {nombre, email, password} = req.body
@@ -117,6 +118,13 @@ const passwordOlvidada = async (req, res) => {
   try {
     existeAdministrador.token = generarId();
     await existeAdministrador.save();
+    //enviar email para restablecer pass
+    emailNuevoPassword({
+      email, 
+      nombre: existeAdministrador.nombre,
+      token: existeAdministrador.token
+    })
+
     res.json({
       msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña",
     });

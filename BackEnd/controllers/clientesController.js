@@ -9,6 +9,8 @@ import {
   validarTelefonoVe,
   emailRegex,
 } from "../helpers/validaciones.js";
+import emailRegistro from "../helpers/emailRegistro.js";
+import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 
 const registrarCliente = async (req, res) => {
   const { email } = req.body;
@@ -33,6 +35,11 @@ const registrarCliente = async (req, res) => {
     try {
       const cliente = new Cliente(req.body);
       const clienteGuardado = await cliente.save();
+      //enviar email
+      emailRegistro({
+        email,
+        nombre, 
+        token: administradorGuardado.token});
       res.json(clienteGuardado);
     } catch (error) {
       console.log(error);
@@ -100,6 +107,11 @@ const passwordClienteOlvidada = async (req, res) => {
   try {
     existeCliente.token = generarId();
     await existeCliente.save();
+    emailNuevoPassword({
+      email, 
+      nombre: existeAdministrador.nombre,
+      token: existeAdministrador.token
+    })
     res.json({
       msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña del cliente",
     });
