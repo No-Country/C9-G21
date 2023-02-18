@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "license" : "BSD-3-Clause",
+  "license" : "MIT",
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
     "@next/font": "13.1.6",
