@@ -9,8 +9,10 @@ import {
 } from "../helpers/validaciones.js";
 
 import validationSchema from "../schemas/validaciones-campos.js";
+import emailRegistro from "../helpers/emailRegistro.js";
+import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 
-const registroNegocio = async (req, res) => {
+const registrarNegocio = async (req, res) => {
   const { email,telefono } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
 
@@ -34,6 +36,11 @@ const registroNegocio = async (req, res) => {
   try {
     const negocio = new Negocio(req.body);
     const negocioSave = await negocio.save();
+    //enviar email
+    emailRegistro({
+      email,
+      nombre, 
+      token: administradorGuardado.token});
     res.json(negocioSave);
   } catch (err) {
     console.log(err);
@@ -100,6 +107,11 @@ const passwordOlvidada = async (req, res) => {
   try {
     existeNegocio.token = generarId();
     await existeNegocio.save();
+    emailNuevoPassword({
+      email, 
+      nombre: existeAdministrador.nombre,
+      token: existeAdministrador.token
+    })
     res.json({
       msg: "Se ha enviado un email con las instrucciones para cambiar la contraseña",
     });
@@ -155,7 +167,7 @@ const buscarServicios = async (req, res) => {
   }
 };
 export {
-  registroNegocio,
+  registrarNegocio,
   confirmarNegocio,
   modificarContraseña,
   autenticarNegocio,

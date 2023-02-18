@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  registroNegocio,
+  registrarNegocio,
   confirmarNegocio,
   modificarContraseña,
   autenticarNegocio,
@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 
-router.post("/registrar", registroNegocio);
+router.post("/registrar", registrarNegocio);
 router.get("/negocio/:token", confirmarNegocio);
 router.get("/buscarServicio", buscarServicios);
 //router.put("/putRegister/:id",modificarContraseña);
