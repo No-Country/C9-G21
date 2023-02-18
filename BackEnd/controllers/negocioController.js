@@ -8,7 +8,7 @@ import {
   emailRegex,
 } from "../helpers/validaciones.js";
 
-import validationSchema from "../schemas/validaciones-campos.js";
+
 import emailRegistro from "../helpers/emailRegistro.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidada.js";
 
