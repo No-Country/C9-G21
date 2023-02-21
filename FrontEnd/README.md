@@ -34,3 +34,10 @@ into src folder,
 - Helpers: Normal functions
 - Hooks: Funtions with states
 - Pages: Directory
+
+
+## Environment variables:
+
+create a .env.local file in the root directory with the following variable: 
+
+- NEXT_PUBLIC_BACKENDHOST = https://Example.com
