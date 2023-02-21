@@ -3,11 +3,12 @@ import { Col, Button, Text, Input, Row, Card, Container, Link, Modal, Spacer } f
 import { useForm } from "react-hook-form";
 import axios from 'axios'
 
-import { LoginFormValues, loginUserSchema, resolver } from "@/helpers/forms/login";
+import { LoginFormValues, resolver } from "@/helpers/forms/login";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { RegisterModal } from "../Modal/RegisterModal";
 import { useRouter } from "next/router";
 import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
+import { loginSubmit } from "@/helpers/forms/loginSubmit.helper";
 
 type Ilogin = {
     setModalReg: Dispatch<SetStateAction<boolean>>
@@ -20,22 +21,10 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
     const { user, setUser } = useGlobalContext()
 
     const onSubmit = handleSubmit(async (data) => {
-        try {
-            const user = await axios.post("http://localhost:5000/api/clientes/login-cliente", {
-                email: loginUserSchema.parse(data).email,
-                password: loginUserSchema.parse(data).password
-            });
-            setUser(user)
-        } catch (err: any) {
-            console.log(err.message)
-            setErrorLoggedUser(err.message)
-        }
+        setUser(loginSubmit(data))
     });
     const router = useRouter()
-    const resetError = () => {
-        setErrorLoggedUser(undefined)
-    }
-
+  
     console.log(user, errorLoggedUser)
     return (
         <Container css={{ width: "fit-content" }}>
@@ -72,9 +61,7 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                                 label="Email"
                                 aria-label="Email"
                                 {...register("email")}
-                                onChange={resetError}
                             />
-                            {errors?.email && <p>{errors.email.message}</p>}
                             <Input.Password
                                 {...INPUTPROPS}
                                 placeholder="*******"
@@ -83,18 +70,12 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
                                 label="Contraseña"
                                 type="password"
                                 {...register("password")}
-                                onChange={resetError}
                             />
-                            {errors?.email && <p>{errors.email.message}</p>}
                         </Col>
                         <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
                             <Text size={10}><Link href="/register" style={{ color: "#09BEB2" }}>Olvide mi contraseña</Link></Text>
                         </Row>
-                        <Row>
-                            {errorLoggedUser && <Text >
-                                {(errorLoggedUser as any)?.response?.data.msg}
-                            </Text>}
-                        </Row>
+                     
                         <Row justify="space-between" css={{ paddingtop: "20px" }}>
                             <Button auto flat color="error" css={CSSBUTTONBACK} onPress={() => router.back()} >
                                 Volver
