@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+        "BackEnd": "./index.js",
+        "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "BackEnd": "/(.*)",
+      "dest": "/"
+    }
+  ],
+  "env": {
+    "MONGO_URI": "@MONGO_URI",
+    "JWT_SECRET":"@JWT_SECRET",
+    "EMAIL_USER":"@EMAIL_PASS",
+    "EMAIL_PASS":"@EMAIL_PASS",
+    "EMAIL_HOST":"@EMAIL_HOST",
+    "EMAIL_PORT":"@EMAIL_PORT"
+  }
+}
