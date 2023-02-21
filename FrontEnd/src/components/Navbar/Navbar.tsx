@@ -135,7 +135,7 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
             <Divider css={{ display: logged ? "" : "none" }} />
 
             <Navbar.CollapseItem>
-              <Link href="#" onClick={handleClick}>
+              <Link href="/error404" onClick={handleClick}>
                 <Spacer y={0.5} />
                 <Text weight={"semibold"} css={{ paddingLeft: "5px" }}>
                   {" "}

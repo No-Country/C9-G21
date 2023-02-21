@@ -1,8 +1,7 @@
+import Error404 from "../components/Error404/Error404"
 
-export default function NotFound() {
-  //miqueas
-  return (
-    <div>404</div>
+export default function Error() {
+  return(
+    <Error404/>
   )
 }
-
