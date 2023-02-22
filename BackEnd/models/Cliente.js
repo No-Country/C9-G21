@@ -4,12 +4,12 @@ import generarId from "../helpers/generarId.js";
 
 
 const clienteSchema = mongoose.Schema({
-  nombre: {
+  name: {
     type: String,
     required: true,
     trim: true,
   },
-  apellido: {
+  lastName: {
     type: String,
     required: true,
     trim: true,
@@ -23,7 +23,7 @@ const clienteSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  telefono: {
+  phone: {
     type: String,
     required: true,
     trim: true,

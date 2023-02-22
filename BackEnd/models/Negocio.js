@@ -5,22 +5,22 @@ import mongooseBcrypt from "mongoose-bcrypt";
 
 
 const negocioSchema = mongoose.Schema({
-  nombre: {
+  name: {
     type: String,
     required: true,
     trim: true,
   },
-  apellido: {
+  lastName: {
     type: String,
     required: true,
     trim: true,
   },
-  direccion: {
+  address: {
     type: String,
     required: true,
     trim: true,
   },
-  razonSocial: {
+  registeredName: {
     type: String,
     required: true,
     trim: true,
@@ -40,7 +40,7 @@ const negocioSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  telefono: {
+  phone: {
     type: String,
     required: true,
     trim: true,

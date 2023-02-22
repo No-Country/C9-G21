@@ -9,14 +9,14 @@ const emailNuevoPassword = async (datos) =>{
         pass: process.env.EMAIL_PASS
         }
     });
-    const {email, nombre, token} = datos;
+    const {email, name, token} = datos;
     //enviar email
     const info = await transport.sendMail({
         from: '"App.ointment"<correo@appointment.com',
         to: `${email}`,
         subject: "Restablece tu contraseña en App.ointment",
         text: "Restablece tu contraseña en App.ointment",
-        html:`<p> Hola ${nombre}, has solicitado restablecer tu contraseña en App.ointment. </p>
+        html:`<p> Hola ${name}, has solicitado restablecer tu contraseña en App.ointment. </p>
         <p> Accede al siguiente enlace para generar una nueva contraseña.
         <a href="http://localhost:5000/api/negocio/password-olvidada/${token}">Restablecer contraseña</a> </p>
         <p> Si no solicitaste restablecer tu contraseña, ignora este mensaje.</p>

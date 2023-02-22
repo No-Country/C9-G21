@@ -2,26 +2,26 @@ import Cliente from "../models/Cliente.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
 import {
-  validarTelefonoAr,
-  validarTelefonoPe,
-  validarTelefonoCl,
-  validarTelefonoCo,
-  validarTelefonoVe,
+  validatePhoneAr,
+  validatePhonePe,
+  validatePhoneCl,
+  validatePhoneCo,
+  validatePhoneVe,
   emailRegex,
 } from "../helpers/validaciones.js";
 import emailRegistro from "../helpers/emailRegistroClientes.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaClientes.js";
 
 const registrarCliente = async (req, res) => {
-  const { email,telefono,nombre } = req.body;
+  const { email,phone,name } = req.body;
   const existeCliente = await Cliente.findOne({ email });
 
   if (
-    validarTelefonoAr.test(telefono) ||
-    validarTelefonoPe.test(telefono) ||
-    validarTelefonoCl.test(telefono) ||
-    validarTelefonoCo.test(telefono) ||
-    validarTelefonoVe.test(telefono)
+    validatePhoneAr.test(phone) ||
+    validatePhonePe.test(phone) ||
+    validatePhoneCl.test(phone) ||
+    validatePhoneCo.test(phone) ||
+    validatePhoneVe.test(phone)
   ) {
    
     if (existeCliente) {
@@ -35,14 +35,14 @@ const registrarCliente = async (req, res) => {
       //enviar email
       emailRegistro({
         email,
-        nombre, 
+        name, 
         token: clienteGuardado.token});
       res.json(clienteGuardado);
     } catch (error) {
       console.log(error);
     }
   } else {
-    const error = new Error("Formato de telefono no valido");
+    const error = new Error("Formato de phone no valido");
     return res.status(400).json({ msg: error.message });
   }
 };
@@ -106,7 +106,7 @@ const passwordClienteOlvidada = async (req, res) => {
     await existeCliente.save();
     emailNuevoPassword({
       email, 
-      nombre: existeAdministrador.nombre,
+      name: existeAdministrador.name,
       token: existeAdministrador.token
     })
     res.json({
