@@ -10,7 +10,7 @@ import {
   emailRegex,
 } from "../helpers/validaciones.js";
 import emailRegistro from "../helpers/emailRegistroClientes.js";
-import emailNuevoPassword from "../helpers/emailPasswordOlvidadaClientes";
+import emailNuevoPassword from "../helpers/emailPasswordOlvidadaClientes.js";
 
 const registrarCliente = async (req, res) => {
   const { email,telefono,nombre } = req.body;
