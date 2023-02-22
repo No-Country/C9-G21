@@ -1,11 +1,25 @@
 import { INPUTPROPS } from '@/const/constantsUI'
 import { RegisterFormValues } from '@/helpers/forms/register'
 import { Col, Input, Row, Spacer } from '@nextui-org/react'
-import { UseFormRegister } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import React from 'react'
 
 type FullNameRegisterT = {
-    register: UseFormRegister<RegisterFormValues>
+    register: UseFormRegister<{
+        email: string;
+        name: string;
+        lastName: string;
+        phone: string;
+        password: string;
+        confirmPassword: string;
+    } | Omit<{
+        email: string;
+        name: string;
+        lastName: string;
+        phone: string;
+        password: string;
+        confirmPassword: string;
+    }, "name" | "lastName">>
 }
 
 export const FullNameRegister = ({ register }: FullNameRegisterT) => {
@@ -18,7 +32,7 @@ export const FullNameRegister = ({ register }: FullNameRegisterT) => {
                     id="nameInput"
                     label="Nombre"
                     aria-label="nameInput"
-                    {...register("name")}
+                    {...register("name", { required: true })}
                 />
             </Col>
             <Spacer x={1} />

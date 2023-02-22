@@ -1,6 +1,7 @@
 import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
-import { RegisterFormValues, RegisterUserSchema, resolver } from "@/helpers/forms/register";
-import { Col, Button, Text, Input, Row, FormElement, PressEvent, Card, Container, Link, Spacer } from "@nextui-org/react";
+import { registerSubmit } from "@/helpers/forms/registerSubmit.helper";
+import { RegisterFormValues, RegisterUserSchema, resolverUser, resolverComerce } from "@/helpers/forms/register";
+import { Col, Button, Text, Input, Row, Card, Container, Spacer } from "@nextui-org/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
@@ -10,22 +11,17 @@ import { FullNameRegister } from "./FullNameRegister";
 type ComerceRegisterT = {
     children?: ReactNode;
     isUserRegister?: boolean
+    test: RegisterFormValues
 }
 
-export const ComerceRegister = ({ children, isUserRegister = true }: ComerceRegisterT) => {
+export const ComerceRegister = ({ children, isUserRegister = true, test }: ComerceRegisterT) => {
     const router = useRouter();
-
-    const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormValues>({ resolver });
+    const resolver = isUserRegister ? resolverUser : resolverComerce
+    
+    const { register, handleSubmit, formState: { errors } } = useForm<typeof test>({ resolver });
 
     const onSubmit = handleSubmit(async (data) => {
-        try {
-            const user = await axios.post("http://localhost:5000/api/clientes/registrar", {
-                email: RegisterUserSchema.parse(data).email,
-                password: RegisterUserSchema.parse(data).password
-            });
-        } catch (err: any) {
-            console.log(err.message)
-        }
+        registerSubmit(data, isUserRegister)
     });
     console.log(errors)
     return (
