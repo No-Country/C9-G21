@@ -16,7 +16,7 @@ import validatorHandler from "../middleware/validator.handler.js";
 
 
 const registrarNegocio = async (req, res) => {
-  const { email, telefono } = req.body;
+  const { email, telefono, nombre } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
 
   if (
