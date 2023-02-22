@@ -15,7 +15,7 @@ import administradorRoutes from './routes/administradorRoutes.js';
 import clientesRoutes from './routes/clientesRoutes.js'
 import negocioRoutes from './routes/negocioRoutes.js'
 import turnoRoutes from './routes/turnoRoutes.js'
-
+import login from './routes/loginRoutes.js'
 import cors from 'cors'
 const app = express();
 app.use(express.json());
@@ -24,6 +24,7 @@ app.use(cors())
 dotenv.config();
 conectarDB();
 
+app.use('/api/login',login );
 app.use('/api/administradores', administradorRoutes);
 app.use('/api/clientes',clientesRoutes)
 app.use('/api/negocio',negocioRoutes)
