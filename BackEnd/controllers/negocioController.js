@@ -51,11 +51,7 @@ const registrarNegocio = async (req, res) => {
     const error = new Error("Formato de telefono no valido");
     return res.status(400).json({ msg: error.message });
   }
-} else {
-  const error = new Error("Formato de telefono no valido");
-  return res.status(400).json({ msg: error.message });
 }
-};
 const perfilNegocio = (req, res) => {
   const { negocio } = req;
   res.json({ perfil: negocio });
