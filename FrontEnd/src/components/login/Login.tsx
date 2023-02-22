@@ -1,14 +1,13 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Col, Button, Text, Input, Row, Card, Container, Link, Modal, Spacer } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
-import axios from 'axios'
-
 import { LoginFormValues, resolver } from "@/helpers/forms/login";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { RegisterModal } from "../Modal/RegisterModal";
 import { useRouter } from "next/router";
 import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
 import { loginSubmit } from "@/helpers/forms/loginSubmit.helper";
+import { userT } from "@/context/global.context";
 
 type Ilogin = {
     setModalReg: Dispatch<SetStateAction<boolean>>
@@ -21,7 +20,7 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
     const { user, setUser } = useGlobalContext()
 
     const onSubmit = handleSubmit(async (data) => {
-        setUser(loginSubmit(data))
+        setUser(await loginSubmit(data))
     });
     const router = useRouter()
   

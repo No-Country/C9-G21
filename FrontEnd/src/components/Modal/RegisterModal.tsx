@@ -106,7 +106,7 @@ export const RegisterModal = ({ visible, setVisible }: ModalType) => {
               }}
             >
               <Text size={12}>
-                Soy un <b>ciente</b>
+                Soy un <b>cliente</b>
               </Text>
             </Card.Header>
             <Card.Body

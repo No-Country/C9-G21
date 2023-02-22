@@ -20,7 +20,7 @@ export async function registerSubmit(data: RegisterFormValues, isUserRegister: b
             registerPayload.name = RegisterUserSchema.parse(data).name
             registerPayload.lastName = RegisterUserSchema.parse(data).lastName
         }
-        const user = await axios.post(`${process.env.NEXT_PUBLIC_BACKENDHOST}/api/${endpoint}/`, registerPayload);
+        const user = await axios.post(`${process.env.NEXT_PUBLIC_BACKENDHOST}/api/${endpoint}/registrar`, registerPayload);
         console.log(user)
         return user
     } catch (err: any) {
