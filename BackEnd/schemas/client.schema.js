@@ -2,7 +2,7 @@ import Joi from "joi";
 
 const name = Joi.string().min(3);
 const lastName = Joi.string().min(3);
-const telefono = Joi.string();
+const phone = Joi.string();
 const email = Joi.string().email();
 const password = Joi.string().min(8);
 
@@ -13,7 +13,7 @@ const crearUsuario = Joi.object({
   lastName: lastName.required(),
   password: password.required(),
   email: email.required(),
-  telefono: telefono.required(),
+  phone: phone.required(),
 });
 
 export default crearUsuario;
