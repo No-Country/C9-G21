@@ -217,6 +217,18 @@ const actualizarNegocio2= async(req,res)=>{
     res.status(404).json({ msg: error.message });
   }
 }
+const subirFotos= async (req, res) => {
+  const id = req.params.id;
+  const fotos = req.files;
+
+  const documento = await Negocio.findOne({_id: id});
+  fotos.forEach(foto => {
+    documento.fotos.push(foto.buffer);
+  });
+  await documento.save();
+
+  res.send('Fotos agregadas');
+}
 
 export {
   registrarNegocio,
@@ -230,4 +242,5 @@ export {
   buscarServicios,
   actualizarNegocio1,
   actualizarNegocio2,
+  subirFotos
 };

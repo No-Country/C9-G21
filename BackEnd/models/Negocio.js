@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import generarId from "../helpers/generarId.js";
-
+import add from 'multer'
 
 const negocioSchema = mongoose.Schema({
   name: {
@@ -9,19 +9,19 @@ const negocioSchema = mongoose.Schema({
     trim: true,
   },
   lastName: {
-    type: String, 
+    type: String,
     trim: true,
   },
   address: {
-    type: String,    
+    type: String,
     trim: true,
   },
-   city: {
-    type: String,    
+  city: {
+    type: String,
     trim: true,
   },
   registeredName: {
-    type: String, 
+    type: String,
     trim: true,
   },
   rubro: {
@@ -30,17 +30,16 @@ const negocioSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
     trim: true,
   },
-  foto: {
-    type: String,
-    trim: true,
-  },
+  fotos: [
+    {type: Buffer}
+  ],
   descripcion: {
     type: String,
     trim: true,
@@ -62,7 +61,6 @@ const negocioSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  
 });
 
 
@@ -74,10 +72,13 @@ negocioSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-negocioSchema.methods.comprobarPasswordNegocio = async function(formularioPassword){
-  return await bcrypt.compare(formularioPassword, this.password)
-}
+negocioSchema.methods.comprobarPasswordNegocio = async function (
+  formularioPassword
+) {
+  return await bcrypt.compare(formularioPassword, this.password);
+};
 
 
-const Negocio = mongoose.model("Negocio",negocioSchema)
-export default Negocio
+
+const Negocio = mongoose.model("Negocio", negocioSchema);
+export default Negocio;

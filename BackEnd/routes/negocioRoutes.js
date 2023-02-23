@@ -10,14 +10,16 @@ import {
   buscarServicios,
   perfilNegocio,
   actualizarNegocio1,
-  actualizarNegocio2
+  actualizarNegocio2,
+  subirFotos
 } from "../controllers/negocioController.js";
 import validatorHandler from "../middleware/validator.handler.js";
 import ActualizarNegocio2 from "../schemas/negocio2.schema.js";
 import actualizarNegocio from "../schemas/user.schema.js";
 import crearNegocio from "../schemas/negocio.schema.js";
+import multer from 'multer';
 
-
+const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 
 router.post("/registrar",validatorHandler(crearNegocio,'body') ,registrarNegocio);
@@ -31,6 +33,8 @@ router.post("/login",autenticarNegocio);
 router.post('/password-olvidada', passwordOlvidada);
 router.get('/password-olvidada/:token', comprobarToken);
 router.post('/password-olvidada/:token', nuevoPassword);
+router.put('/subir/:id/fotos',upload.array('fotos'),subirFotos)
+
 //también se puede hacer en modo chain
 //router.route('/password-olvidada/:token/).get(comprobarToken).post(nuevoPassword);
 
