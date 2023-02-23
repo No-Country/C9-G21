@@ -11,6 +11,7 @@ import {
 
 import emailRegistro from "../helpers/emailRegistroNegocio.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
+import Turno from "../models/Turno.js";
 
 
 const registrarNegocio = async (req, res) => {
@@ -168,6 +169,55 @@ const buscarServicios = async (req, res) => {
     res.status(404).json({ msg: error.message });
   }
 };
+
+const actualizarNegocio1= async(req,res)=>{
+  const { id } = req.params;
+  const { name,address,registeredName,city } = req.body;
+  const negocio = await Negocio.findById(id);
+  try{
+    if(!negocio){
+      const error = new Error("Id no valido");
+      return res.status(404).json({ msg: error.message });
+    }
+    await Negocio.updateOne({ _id: id }, { $set: { name, address, registeredName, city } })
+      .then( (data) => {
+        console.log(data)
+        res.json(negocio);
+      })
+      .catch((err) => {
+        const error = new Error("Id no valido para actualizar el negocio");
+        res.status(404).json({ msg: error.message });
+      });
+  }catch(err){
+    const error = new Error("Error al actualizar el negocio");
+    res.status(404).json({ msg: error.message });
+  }
+}
+
+const actualizarNegocio2= async(req,res)=>{
+  const { id } = req.params;
+  const { rubro,descripcion,fotos,descripcion2 } = req.body;
+  const negocio = await Negocio.findById(id);
+  try{
+    if(!negocio){
+      const error = new Error("Id no valido");
+      return res.status(404).json({ msg: error.message });
+    }
+    await Negocio.updateOne({ _id: id }, { $set: { rubro,descripcion,fotos,descripcion2 } })
+      .then( (data) => {
+        console.log(data)
+        res.json(negocio);
+      })
+      .catch((err) => {
+        const error = new Error("Id no valido para actualizar el negocio");
+        res.status(404).json({ msg: error.message });
+      });
+  }catch(err){
+    const error = new Error("Error al actualizar el negocio");
+    res.status(404).json({ msg: error.message });
+  }
+}
+
 export {
   registrarNegocio,
   confirmarNegocio,
@@ -178,4 +228,6 @@ export {
   comprobarToken,
   passwordOlvidada,
   buscarServicios,
+  actualizarNegocio1,
+  actualizarNegocio2,
 };
