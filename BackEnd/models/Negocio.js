@@ -53,6 +53,7 @@ const negocioSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  
 });
 
 negocioSchema.plugin(mongooseBcrypt)

@@ -5,13 +5,25 @@ import {
     buscarTurnos,
     eliminarTurno,
     buscarServicios,
-    actualizarTurno
+    actualizarTurno,
+    agregarTurno,
+    obtenerTurno,
+    obtenerTurnos,
+    editarTurno,
+    obtenerTurnosNegocio
+
 } from "../controllers/turnoController.js"
 import validatorHandlerTurno from "../middleware/validacion.handler.turno.js";
 import { validationSchemaTurnos } from "../helpers/validation-turnos.js";
-
+import checkAuth from '../middleware/authMiddleware.js';
 
 const router = express.Router();
+
+router.route('/').post(checkAuth, agregarTurno).get(checkAuth, obtenerTurnos);
+
+router.route('/:id').get(checkAuth, obtenerTurno).put(checkAuth, editarTurno).delete(checkAuth, eliminarTurno)
+
+router.get("/turnos", obtenerTurnosNegocio)
 
 /*Crear Turno*/
 router.post("/pedir", validatorHandlerTurno(validationSchemaTurnos,'body') , crearTurno);

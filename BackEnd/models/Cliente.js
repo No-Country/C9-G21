@@ -36,6 +36,7 @@ const clienteSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+ 
 });
 
 clienteSchema.pre("save", async function (next) {

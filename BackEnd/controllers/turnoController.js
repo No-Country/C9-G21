@@ -1,3 +1,4 @@
+import Negocio from "../models/Negocio.js";
 import Turno from "../models/Turno.js";
 
 
@@ -111,11 +112,81 @@ const eliminarTurno = async (req, res) => {
       res.status(404).json({ msg: error.message });
     });
 };
+
+//añadir turno a negocio
+const agregarTurno = async (req, res) => {
+  const turno = new Turno(req.body);
+  turno.negocio = req.negocio._id;
+  try{
+    const turnoAlmacenado = await turno.save();
+    res.json(turnoAlmacenado)
+  }catch(error){
+    console.log(error)
+  }
+}
+//filtrar turnos x negocio
+const obtenerTurnos = async (req, res) =>{
+  const turnos = await Turno.find().where("negocio").equals(req.negocio);
+  res.json(turnos);
+}
+//para ver 1 turno en particular
+const obtenerTurno = async (req, res) => {
+  const {id} = req.params;
+  const turno = await Turno.findById(id);
+  if(!turno){
+    res.status(404).json({msg: "Turno no encontrado"});
+  }
+  if(turno.negocio._id.toString() !== req.negocio._id.toString()){
+    return res.json({msg: "Acción no válida"});
+  }
+  res.json(turno);
+}
+const editarTurno = async (req, res) =>{
+  const {id} = req.params;
+  const turno = await Turno.findById(id);
+  if(!turno){
+    res.status(404).json({msg: "No encontrado"})
+  }
+  if(turno.negocio._id.toString() !== req.negocio._id.toString()){
+    return res.json({msg: "Acción no válida"});
+  }
+  //actualizar turno
+  turno.nombre = req.body.nombre || turno.nombre;
+  turno.apellido = req.body.apellido || turno.apellido;
+  turno.email = req.body.email || turno.email;
+  turno.fecha = req.body.fecha || turno.fecha;
+  turno.hora = req.body.hora || turno.hora;
+  turno.servicio = req.body.servicio || turno.servicio;
+  turno.confirmacion = req.body.confirmacion || turno.confirmacion;
+  turno.disponible = req.body.disponible || turno.disponible;
+  try {
+    const turnoEditado = turno.save();
+    res.json(turnoEditado);
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+function obtenerTurnosNegocio(req, res){
+  Turno.find({}, function(err, turnos){
+    Negocio.populate(turnos, {path: "negocio", function (err, turnos) {
+      res.status(200).send(turnos);
+      
+    }})
+  })
+}
+
 export {
   crearTurno,
   confirmarTurno,
   buscarTurnos,
   eliminarTurno,
   buscarServicios,
-  actualizarTurno
+  actualizarTurno,
+  agregarTurno,
+  obtenerTurno,
+  obtenerTurnos,
+  editarTurno,
+  obtenerTurnosNegocio
 };

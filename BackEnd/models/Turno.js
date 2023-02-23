@@ -3,42 +3,51 @@ import generarId from "../helpers/generarId.js";
 
 
 const userSchema = mongoose.Schema({
-  Nombre: {
+  nombre: {
     type: String,
     required: true,
   },
-  Apellido: {
+  apellido: {
     type: String,
     required: true,
   },
-  Email: {
+  email: {
     type: String,
     required: true,
   },
-  Fecha: {
+  fecha: {
     type: String,
     required: true,
   },
-  Hora: {
+  hora: {
     type: String,
     required: true,
   },
-  Servicio: {
+  servicio: {
     type: String,
     required: true,
   },
-  Confirmacion: {
+  confirmacion: {
     type: Boolean,
     default: false,
   },
-  Disponible: {
+  disponible: {
     type: Boolean,
     default: true,
   },
-  Token:{
+  token:{
     type: String,
     default: generarId(),
+  },
+  negocio:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Negocio'
+  }, 
+  cliente: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Cliente'
   }
+  
 });
 
 const Turno = mongoose.model("Turno", userSchema);
