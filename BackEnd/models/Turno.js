@@ -3,11 +3,12 @@ import generarId from "../helpers/generarId.js";
 
 
 const userSchema = mongoose.Schema({
-  nombre: {
+
+  name: {
     type: String,
     required: true,
   },
-  apellido: {
+  lastName: {
     type: String,
     required: true,
   },

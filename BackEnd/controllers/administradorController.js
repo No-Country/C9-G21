@@ -3,27 +3,27 @@ import Administrador from "../models/Administrador.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
 import {
-  validarTelefonoAr,
-  validarTelefonoPe,
-  validarTelefonoCl,
-  validarTelefonoCo,
-  validarTelefonoVe,
+  validatePhoneAr,
+  validatePhonePe,
+  validatePhoneCl,
+  validatePhoneCo,
+  validatePhoneVe,
   emailRegex,
 } from "../helpers/validaciones.js";
 import emailRegistro from "../helpers/emailRegistroAdministrador.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaAdministrador.js";
 
 const registrar = async (req, res) => {
-  //const {nombre, email, password} = req.body
+  //const {name, email, password} = req.body
   //prevenir usuarios duplicados
-  const { email, nombre, telefono } = req.body;
+  const { email, name, phone } = req.body;
   //findone para buscar por los diferentes atributos
   if (
-    validarTelefonoAr.test(telefono) ||
-    validarTelefonoPe.test(telefono) ||
-    validarTelefonoCl.test(telefono) ||
-    validarTelefonoCo.test(telefono) ||
-    validarTelefonoVe.test(telefono)
+    validatePhoneAr.test(phone) ||
+    validatePhonePe.test(phone) ||
+    validatePhoneCl.test(phone) ||
+    validatePhoneCo.test(phone) ||
+    validatePhoneVe.test(phone)
   ) {
     try {
       const existeUsuario = await Administrador.findOne({ email });
@@ -40,7 +40,7 @@ const registrar = async (req, res) => {
       //enviar email
       emailRegistro({
         email,
-        nombre,
+        name,
         token: administradorGuardado.token,
       });
 
@@ -49,7 +49,7 @@ const registrar = async (req, res) => {
       console.log(error);
     }
   } else {
-    const error = new Error("Formato de telefono no valido");
+    const error = new Error("Formato de phone no valido");
     return res.status(400).json({ msg: error.message });
   }
 };
@@ -118,7 +118,7 @@ const passwordOlvidada = async (req, res) => {
     //enviar email para restablecer pass
     emailNuevoPassword({
       email,
-      nombre: existeAdministrador.nombre,
+      name: existeAdministrador.name,
       token: existeAdministrador.token,
     });
 
