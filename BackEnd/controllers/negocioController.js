@@ -11,12 +11,10 @@ import {
 
 import emailRegistro from "../helpers/emailRegistroNegocio.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
-import crearAdministrador from "../schemas/user.schema.js";
-import validatorHandler from "../middleware/validator.handler.js";
 
 
 const registrarNegocio = async (req, res) => {
-  const { email, phone } = req.body;
+  const { email, phone, name } = req.body;
   const existeNegocio = await Negocio.findOne({ email });
 
   if (
@@ -83,7 +81,7 @@ const confirmarNegocio = async (req, res) => {
     await negocioConfirmar.save();
     res.json({ msg: "Negocio confirmado correctamente" });
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 };
 const autenticarNegocio = async (req, res) => {
