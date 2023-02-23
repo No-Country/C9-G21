@@ -7,17 +7,12 @@ const email = Joi.string().email();
 const password = Joi.string().min(8);
 const address = Joi.string().min(3);
 const registeredName = Joi.string().min(3);
-const city = Joi.string().min(3);
+const rubro = Joi.string().min(3);
 
-const actualizarNegocio = Joi.object({
-
-  name: name.required(),
-  address: address.required(),
-  city: city.required(),
-  registeredName: registeredName.required(),
- 
-  
-  
+const crearNegocio = Joi.object({
+  password: password.required(),
+  email: email.required(),
+  phone: phone.required(),
 });
 
-export default actualizarNegocio;
+export default crearNegocio;

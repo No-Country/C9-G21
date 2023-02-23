@@ -6,27 +6,26 @@ import generarId from "../helpers/generarId.js";
 const negocioSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
     trim: true,
   },
   lastName: {
-    type: String,
-    required: true,
+    type: String, 
     trim: true,
   },
   address: {
-    type: String,
-    required: true,
+    type: String,    
+    trim: true,
+  },
+   city: {
+    type: String,    
     trim: true,
   },
   registeredName: {
-    type: String,
-    required: true,
+    type: String, 
     trim: true,
   },
   rubro: {
     type: String,
-    required: true,
     trim: true,
   },
   password: {
@@ -36,6 +35,18 @@ const negocioSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
+    trim: true,
+  },
+  foto: {
+    type: String,
+    trim: true,
+  },
+  descripcion: {
+    type: String,
+    trim: true,
+  },
+  descripcion2: {
+    type: String,
     trim: true,
   },
   phone: {
