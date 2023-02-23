@@ -14,7 +14,9 @@ import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
 
 
 const registrarNegocio = async (req, res) => {
+
   const { email, phone, name } = req.body;
+
   const existeNegocio = await Negocio.findOne({ email });
 
   if (
