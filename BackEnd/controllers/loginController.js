@@ -11,51 +11,45 @@ const login = async (req, res) => {
     const admin = await Administrador.findOne({ email });
     if (admin) {
         if (await admin.comprobarPassword(password)) {
-            console.log(admin);
-            res.json({
+            return res.json({
                 token: generarJWT(admin.id),
                 data: admin,
                 user: "admin"
             });
-            console.log("Password correcto");
         } else {
             const error = new Error("El password es incorrecto");
-            return res.status(403).json({ msg: error.message });
+            return res.json({ msg: error.message });
         }
-    }
-    if (negocio) {
+    }else if (negocio) {
         if (await negocio.comprobarPasswordNegocio(password)) {
-            res.json({
+            return res.json({
                 token: generarJWT(negocio.id),
                 data: negocio,
                 user: "negocio"
             });
-            console.log("Password correcto");
         } else {
             const error = new Error("El password es incorrecto");
-            return res.status(403).json({ msg: error.message });
+            return res.json({ msg: error.message });
         }
-    }
-    if (cliente) {
+    }else if (cliente) {
         if (await cliente.comprobarPasswordCliente(password)) {
-            res.json({
+            return res.json({
                 token: generarJWT(cliente.id),
                 data: cliente,
                 user: "client"
             });
-            console.log("Password correcto");
         } else {
             const error = new Error("El password es incorrecto");
-            return res.status(403).json({ msg: error.message });
+            return res.json({ msg: error.message });
         }
     }
     if (!cliente) {
         const error = new Error("El cliente no existe");
-        return res.status(403).json({ msg: error.message });
+        return res.json({ msg: error.message });
     }
     if (!cliente.confirmado) {
         const error = new Error("La cuenta del cliente no ha sido validada");
-        return res.status(403).json({ msg: error.message });
+        return res.json({ msg: error.message });
     }
 
 };
