@@ -151,8 +151,8 @@ const editarTurno = async (req, res) =>{
     return res.json({msg: "Acción no válida"});
   }
   //actualizar turno
-  turno.nombre = req.body.nombre || turno.nombre;
-  turno.apellido = req.body.apellido || turno.apellido;
+  turno.name = req.body.name || turno.name;
+  turno.lastName = req.body.lastName || turno.lastName;
   turno.email = req.body.email || turno.email;
   turno.fecha = req.body.fecha || turno.fecha;
   turno.hora = req.body.hora || turno.hora;
