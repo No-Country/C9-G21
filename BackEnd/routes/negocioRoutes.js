@@ -10,7 +10,8 @@ import {
   buscarServicios,
   perfilNegocio,
   actualizarNegocio1,
-  actualizarNegocio2
+  actualizarNegocio2,
+  disponibilidad
 } from "../controllers/negocioController.js";
 import validatorHandler from "../middleware/validator.handler.js";
 import ActualizarNegocio2 from "../schemas/negocio2.schema.js";
@@ -31,6 +32,8 @@ router.post("/login",autenticarNegocio);
 router.post('/password-olvidada', passwordOlvidada);
 router.get('/password-olvidada/:token', comprobarToken);
 router.post('/password-olvidada/:token', nuevoPassword);
+router.put("/disponibilidad/:id", disponibilidad);
+
 //también se puede hacer en modo chain
 //router.route('/password-olvidada/:token/).get(comprobarToken).post(nuevoPassword);
 

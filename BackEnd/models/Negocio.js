@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import generarId from "../helpers/generarId.js";
-
+import availabilitySchema from "../schemas/schema.horarios.js";
 
 const negocioSchema = mongoose.Schema({
   name: {
@@ -9,19 +9,19 @@ const negocioSchema = mongoose.Schema({
     trim: true,
   },
   lastName: {
-    type: String, 
+    type: String,
     trim: true,
   },
   address: {
-    type: String,    
+    type: String,
     trim: true,
   },
-   city: {
-    type: String,    
+  city: {
+    type: String,
     trim: true,
   },
   registeredName: {
-    type: String, 
+    type: String,
     trim: true,
   },
   rubro: {
@@ -30,7 +30,7 @@ const negocioSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
@@ -62,9 +62,22 @@ const negocioSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  availability: 
+    {
+      monday: { isActive: Boolean, horaInicio: String, horaFinal: String },
+      tuesday:  { isActive: Boolean, horaInicio: String, horaFinal: String },
+      wednesday:  { isActive: Boolean, horaInicio: String, horaFinal: String },
+      thursday:  { isActive: Boolean, horaInicio: String, horaFinal: String },
+      friday:  { isActive: Boolean, horaInicio: String, horaFinal: String },
+      saturday:  { isActive: Boolean, horaInicio: String, horaFinal: String },
+      sunday:  { isActive: Boolean, horaInicio: String, horaFinal: String },
+    },
   
+  shiftDuration:{
+    type: String,
+    trim: true,
+  }
 });
-
 
 negocioSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
@@ -74,10 +87,11 @@ negocioSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-negocioSchema.methods.comprobarPasswordNegocio = async function(formularioPassword){
-  return await bcrypt.compare(formularioPassword, this.password)
-}
+negocioSchema.methods.comprobarPasswordNegocio = async function (
+  formularioPassword
+) {
+  return await bcrypt.compare(formularioPassword, this.password);
+};
 
-
-const Negocio = mongoose.model("Negocio",negocioSchema)
-export default Negocio
+const Negocio = mongoose.model("Negocio", negocioSchema);
+export default Negocio;
