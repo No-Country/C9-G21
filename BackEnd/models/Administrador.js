@@ -3,12 +3,12 @@ import bcrypt from "bcrypt";
 import generarId from '../helpers/generarId.js'
 
 const administradorSchema = mongoose.Schema({
-    nombre: {
+    name: {
         type: String,
         required: true,
         trim: true
     },
-    apellido: {
+    lastName: {
         type: String,
         required: true,
         trim: true
@@ -22,7 +22,7 @@ const administradorSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    telefono:{
+    phone:{
         type: String,
         required: true,
         trim: true

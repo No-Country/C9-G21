@@ -1,30 +1,30 @@
 import Negocio from "../models/Negocio.js";
 import {
-  validarTelefonoAr,
-  validarTelefonoPe,
-  validarTelefonoCl,
-  validarTelefonoCo,
-  validarTelefonoVe,
+  validatePhoneAr,
+  validatePhonePe,
+  validatePhoneCl,
+  validatePhoneCo,
+  validatePhoneVe,
   emailRegex,
 } from "../helpers/validaciones.js";
 
 
 import emailRegistro from "../helpers/emailRegistroNegocio.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
-import crearAdministrador from "../schemas/user.schema.js";
-import validatorHandler from "../middleware/validator.handler.js";
 
 
 const registrarNegocio = async (req, res) => {
-  const { email, telefono, nombre } = req.body;
+
+  const { email, phone, name } = req.body;
+
   const existeNegocio = await Negocio.findOne({ email });
 
   if (
-    validarTelefonoAr.test(telefono) ||
-    validarTelefonoPe.test(telefono) ||
-    validarTelefonoCl.test(telefono) ||
-    validarTelefonoCo.test(telefono) ||
-    validarTelefonoVe.test(telefono)
+    validatePhoneAr.test(phone) ||
+    validatePhonePe.test(phone) ||
+    validatePhoneCl.test(phone) ||
+    validatePhoneCo.test(phone) ||
+    validatePhoneVe.test(phone)
   ) {
     if (!emailRegex.test(email)) {
       const error = new Error("Email incorrecto");
@@ -41,14 +41,14 @@ const registrarNegocio = async (req, res) => {
       //enviar email
       emailRegistro({
         email,
-        nombre, 
+        name, 
         token: negocioGuardado.token});
       res.json(negocioGuardado);
     } catch (error) {
       console.log(error);
     }
   } else {
-    const error = new Error("Formato de telefono no valido");
+    const error = new Error("Formato de phone no valido");
     return res.status(400).json({ msg: error.message });
   }
 }
@@ -83,7 +83,7 @@ const confirmarNegocio = async (req, res) => {
     await negocioConfirmar.save();
     res.json({ msg: "Negocio confirmado correctamente" });
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 };
 const autenticarNegocio = async (req, res) => {
@@ -111,7 +111,7 @@ const passwordOlvidada = async (req, res) => {
     await existeNegocio.save();
     emailNuevoPassword({
       email,
-      nombre: existeAdministrador.nombre,
+      name: existeAdministrador.name,
       token: existeAdministrador.token,
     });
     res.json({

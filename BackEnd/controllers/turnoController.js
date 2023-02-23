@@ -49,7 +49,7 @@ const buscarTurnos = async (req, res) => {
         res.status(200).json(data);
       })
       .catch((err) => {
-        const error = new Error("No existe un turno con ese nombre");
+        const error = new Error("No existe un turno con ese name");
         res.status(404).json({ msg: error.message });
       });
   } else {
