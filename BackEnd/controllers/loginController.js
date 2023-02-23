@@ -24,9 +24,9 @@ const login = async (req, res) => {
         }
     }
     if (negocio) {
-        if (await negocio.comprobarPassword(password)) {
+        if (await negocio.comprobarPasswordNegocio(password)) {
             res.json({
-                token: generarJWT(cliente.id),
+                token: generarJWT(negocio.id),
                 data: negocio,
                 user: "negocio"
             });
@@ -37,7 +37,7 @@ const login = async (req, res) => {
         }
     }
     if (cliente) {
-        if (await cliente.comprobarPassword(password)) {
+        if (await cliente.comprobarPasswordCliente(password)) {
             res.json({
                 token: generarJWT(cliente.id),
                 data: cliente,
