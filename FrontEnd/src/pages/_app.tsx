@@ -8,7 +8,6 @@ import type { AppProps } from "next/app";
 function MyApp({ Component, pageProps }: AppProps) {
 
   const { user } = useGlobalContext();
-  console.log(user)
   return (
     <GlobalProvider>
       <NavbarLayout>
