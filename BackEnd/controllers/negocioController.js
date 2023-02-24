@@ -44,7 +44,22 @@ const registrarNegocio = async (req, res) => {
         email,
         name, 
         token: negocioGuardado.token});
-      res.json(negocioGuardado);
+        
+        const response = {
+          name: "",
+          email: negocioGuardado.email,
+          phone: negocioGuardado.phone,
+          adress: "",
+          city: "",
+          registeredName: "",
+          descripcion: "",
+          descripcion2: "",
+          rubro: "",
+          availability: ""
+          
+
+        }
+      res.json(response);
     } catch (error) {
       console.log(error);
     }
