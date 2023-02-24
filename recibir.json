@@ -1,0 +1,53 @@
+{
+  "availability": [
+    {
+      "lunes": {
+        "isActive": true,
+        "horaInicio": "10:00",
+        "horaFinal": "20:00"
+      }
+    },
+    {
+      "martes": {
+        "isActive": true,
+        "horaInicio": "10:00",
+        "horaFinal": "20:00"
+      }
+    },
+    {
+      "miercoles": {
+        "isActive": true,
+        "horaInicio": "10:00",
+        "horaFinal": "20:00"
+      }
+    },
+    {
+      "jueves": {
+        "isActive": true,
+        "horaInicio": "10:00",
+        "horaFinal": "20:00"
+      }
+    },
+    {
+      "viernes": {
+        "isActive": true,
+        "horaInicio": "10:00",
+        "horaFinal": "20:00"
+      }
+    },
+    {
+      "sabado": {
+        "isActive": true,
+        "horaInicio": "10:00",
+        "horaFinal": "20:00"
+      }
+    },
+    {
+      "domingo": {
+        "isActive": true,
+        "horaInicio": "10:00",
+        "horaFinal": "20:00"
+      }
+    }
+  ]
+}

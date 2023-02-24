@@ -10,7 +10,7 @@ import {
 
 import emailRegistro from "../helpers/emailRegistroNegocio.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
-import Turno from "../models/Turno.js";
+import completarNegocio from "../helpers/completardatos.js";
 
 const registrarNegocio = async (req, res) => {
   const { email, phone, name } = req.body;
@@ -35,6 +35,7 @@ const registrarNegocio = async (req, res) => {
 
     try {
       const negocio = new Negocio(req.body);
+      completarNegocio(negocio);
       const negocioGuardado = await negocio.save();
       //enviar email
       emailRegistro({
@@ -42,25 +43,8 @@ const registrarNegocio = async (req, res) => {
         name,
         token: negocioGuardado.token,
       });
-     
-        const response = {
-          name: "",
-          email: negocioGuardado.email,
-          phone: negocioGuardado.phone,
-          adress: "",
-          city: "",
-          registeredName: "",
-          descripcion: "",
-          descripcion2: "",
-          rubro: "",
-          availability: ""
-          
 
-        }
-      res.json(response);
-
-       
-
+      res.json(negocio);
     } catch (error) {
       console.log(error);
     }
@@ -68,8 +52,7 @@ const registrarNegocio = async (req, res) => {
     const error = new Error("Formato de phone no valido");
     return res.status(400).json({ msg: error.message });
   }
-
-}
+};
 const perfilNegocio = async (req, res) => {
   try {
     const perfil = await Negocio.findById(req.params.id).lean();
@@ -77,9 +60,7 @@ const perfilNegocio = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-
 };
-
 
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
@@ -247,60 +228,33 @@ const actualizarNegocio2 = async (req, res) => {
     res.status(404).json({ msg: error.message });
   }
 };
-// const disponibilidad = async (req, res) => {
-//   const { id } = req.params;
-//   const { availability } = req.body;
-//   const negocio = await Negocio.findById(id);
-//   // const dias = [monday, tuesday, wednesday,thursday, friday, saturday, sunday];
-//   try {
-//     if (!negocio) {
-//       const error = new Error("El negocio no existe");
-//       return res.status(404).json({ msg: error.message });
-//     }
-//     for (const dias of availability) {
-//         for (const key in dias) {
-//           if (Object.hasOwnProperty.call(dias, key)) {
-//             const element = dias[key];
-//             await Negocio.updateOne(
-//               { _id: id },
-//              { $set: {
-//                 // [`availability.${key}.${Object.keys(element)}.isActive`]: element.isActive,
-//                [ element.isActive]: element.isActive,
-//                [ element.horaInicio]: element.horaInicio,
-//                [ element.horaFinal]: element.horaFinal,
-//                 // [`availability.${key}.${Object.keys(element)}.horaInicio`]: element.horaInicio,
-//                 // [`availability.${key}.${Object.keys(element)}.horaFinal`]: element.horaFinal
-//               }}
-//             )
-//             // console.log( `availability.${key}.${Object.keys(element)}.isActive`)
-//             // console.log(availability[key].element)
-//             console.log(element)
-//             console.log(element.isActive)
-//             console.log(element.horaInicio)
-//             console.log(element.horaFinal)
-//           }
-//         }
-//       }
-    
-//     // console.log(availability[0].lunes.isActive);
-//     // await Negocio.updateOne({ _id: id }, { $set: availability })
 
-//     return res.json(negocio);
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   // console.log(negocio);
-//   // console.log(availability);
-//   // console.log(id);
-// };
-const disponibilidad = async(req,res)=>{
+
+const subirFotos= async (req, res) => {
+  const id = req.params.id;
+  const fotos = req.files;
+
+  const documento = await Negocio.findOne({_id: id});
+  fotos.forEach(foto => {
+    documento.fotos.push({
+      data: foto.buffer,
+      contentType: foto.mimetype
+    });
+  });
+  await documento.save();
+
+  res.send('Fotos agregadas');
+}
+
+
+const disponibilidad = async (req, res) => {
   const { id } = req.params;
   const { availability, shiftDuration } = req.body;
 
   try {
     const negocioActualizado = await Negocio.findOneAndUpdate(
       { _id: id },
-      { availability,shiftDuration },
+      { availability, shiftDuration },
       { new: true }
     );
 
@@ -308,7 +262,8 @@ const disponibilidad = async(req,res)=>{
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-}
+};
+
 export {
   registrarNegocio,
   confirmarNegocio,
@@ -321,5 +276,7 @@ export {
   buscarServicios,
   actualizarNegocio1,
   actualizarNegocio2,
+  subirFotos,
   disponibilidad,
+
 };
