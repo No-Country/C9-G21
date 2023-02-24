@@ -34,11 +34,7 @@ const negocioSchema = mongoose.Schema({
   },
   distancia: {
     type: String,
-
     trim: true,
-
-    required: true,
-
   },
   password: {
     type: String,
