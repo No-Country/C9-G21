@@ -4,10 +4,17 @@ import { ComerceRegister } from "@/components/register/ComerceRegister";
 
 export default function Index() {
 
-
+    const test = {
+        name: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+    }
 
     return (
-        <ComerceRegister isUserRegister={false}>
+        <ComerceRegister isUserRegister={false} test={test}>
         </ComerceRegister>
 
     );
