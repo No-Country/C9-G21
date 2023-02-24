@@ -28,6 +28,10 @@ const negocioSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
+  distancia: {
+    type: String,
+    trim: true,
+  },
   password: {
     type: String,
     required: true,
@@ -38,7 +42,10 @@ const negocioSchema = mongoose.Schema({
     trim: true,
   },
   fotos: [
-    {type: Buffer}
+    {
+      data: Buffer,
+      contentType: String
+    }
   ],
   descripcion: {
     type: String,
