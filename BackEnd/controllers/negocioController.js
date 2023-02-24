@@ -13,7 +13,6 @@ import emailRegistro from "../helpers/emailRegistroNegocio.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
 import Turno from "../models/Turno.js";
 
-
 const registrarNegocio = async (req, res) => {
 
   const { email, phone, name } = req.body;
@@ -217,13 +216,17 @@ const actualizarNegocio2= async(req,res)=>{
     res.status(404).json({ msg: error.message });
   }
 }
+
 const subirFotos= async (req, res) => {
   const id = req.params.id;
   const fotos = req.files;
 
   const documento = await Negocio.findOne({_id: id});
   fotos.forEach(foto => {
-    documento.fotos.push(foto.buffer);
+    documento.fotos.push({
+      data: foto.buffer,
+      contentType: foto.mimetype
+    });
   });
   await documento.save();
 
