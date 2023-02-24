@@ -1,10 +1,8 @@
-[TOCM]
-
 # APPOINTMENT
-
+______
 ## Proyecto C9-G21
 Este proyecto corresponde a un ejercicio práctico realizado por el grupo 21 de la carrera de Desarrollo Web Full Stack en NoCountry. El objetivo del proyecto es crear una aplicación web turnos
-
+______
 ## Tecnologías utilizadas
 * HTML, CSS y JavaScript para la interfaz de usuario.
 * Node.js y Express para el servidor web.
@@ -14,7 +12,7 @@ Este proyecto corresponde a un ejercicio práctico realizado por el grupo 21 de 
 * Validación de usuarios con JWT 
 * Envío de emails con Nodemailer para contacto, verificacion , bienvenida y recuperación de contraseña.
 * Implementado el BackEnd Railways y el FrontEnd en Vercel
-
+______
 ## Instalación
 Para instalar y ejecutar el proyecto, sigue los siguientes pasos:
 
@@ -68,13 +66,13 @@ Registro e inicio de sesión de usuarios, negocios y administradores
 Búsqueda de turno  por rubro  y nombre de negocio
 Ver el historial de compras realizadas por un usuario
 
-
+______
 
 ## Autores
 Este proyecto fue realizado por el grupo 21 de la carrera de Desarrollo Web Full Stack en CoderHouse. Los miembros del grupo son:
 
 ### BackEnd
-______
+
 * #### [Agustin Soleti](https://www.linkedin.com/in/aguusoleti/)  	-	[Git Hub](https://github.com/aguusoleti)
 * #### [Emmanuel Paul Carrillo Carpio](https://www.linkedin.com/in/emmanuel-pa%C3%BAl-carrillo-carpio/)  	-	[Git Hub](https://github.com/EmaPaul)
 * #### [Marta Alcázar Redondo](https://www.linkedin.com/in/marta-alc%C3%A1zar-redondo/)  	-	[Git Hub](https://github.com/martaalcazarr)
