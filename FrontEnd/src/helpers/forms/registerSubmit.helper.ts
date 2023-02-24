@@ -1,3 +1,4 @@
+import { endpoints } from "@/const/endpoints";
 import axios from "axios";
 import { RegisterFormValues, RegisterUserSchema, RegisterComerceSchema } from "./register";
 
@@ -15,12 +16,12 @@ export async function registerSubmit(data: RegisterFormValues, isUserRegister: b
             password: RegisterComerceSchema.parse(data).password,
             phone: RegisterComerceSchema.parse(data).phone
         }
-        const endpoint = isUserRegister ? "clientes" : "negocio"
+        const register = isUserRegister ? "clientes" : "negocio"
         if (isUserRegister) {
             registerPayload.name = RegisterUserSchema.parse(data).name
             registerPayload.lastName = RegisterUserSchema.parse(data).lastName
         }
-        const user = await axios.post(`${process.env.NEXT_PUBLIC_BACKENDHOST}/api/${endpoint}/registrar`, registerPayload);
+        const user = await axios.post(`${endpoints.base}/api/${register}/registrar`, registerPayload);
         console.log(user)
         return user
     } catch (err: any) {
