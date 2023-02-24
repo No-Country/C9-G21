@@ -63,7 +63,9 @@ Una vez que el servidor esté iniciado, puedes acceder a la aplicación desde tu
 La aplicación cuenta con varias funcionalidades, como:
 
 Registro e inicio de sesión de usuarios, negocios y administradores
+
 Sistema de turnos ofrecidos por negocios
+
 Búsqueda de turno por rubro y nombre de negocio
 
 
