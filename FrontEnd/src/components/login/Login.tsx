@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Col, Button, Text, Input, Row, Card, Container, Link, Modal, Spacer } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import { LoginFormValues, resolver } from "@/helpers/forms/login";
@@ -7,14 +7,13 @@ import { RegisterModal } from "../Modal/RegisterModal";
 import { useRouter } from "next/router";
 import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
 import { loginSubmit } from "@/helpers/forms/loginSubmit.helper";
-import { userT } from "@/context/global.context";
 
 type Ilogin = {
     setModalReg: Dispatch<SetStateAction<boolean>>
     modalReg: boolean
 }
 export default function Login({ setModalReg, modalReg }: Ilogin) {
-    const [errorLoggedUser, setErrorLoggedUser] = useState();
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({ resolver });
 
     const { user, setUser } = useGlobalContext()
@@ -22,10 +21,14 @@ export default function Login({ setModalReg, modalReg }: Ilogin) {
     const onSubmit = handleSubmit(async (data) => {
         setUser(await loginSubmit(data))
     });
-    const router = useRouter()
-  
-    console.log(user, errorLoggedUser)
-    return (
+
+    useEffect(() => {
+        if(user.token){
+            router.push("/")
+        }
+    }, [router, user.token])
+    
+      return (
         <Container css={{ width: "fit-content" }}>
             <Card >
                 <Card.Body css={{ alignContent: "center" }}>

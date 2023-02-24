@@ -8,13 +8,11 @@ import {
   emailRegex,
 } from "../helpers/validaciones.js";
 
-
 import emailRegistro from "../helpers/emailRegistroNegocio.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
-import Turno from "../models/Turno.js";
+import completarNegocio from "../helpers/completardatos.js";
 
 const registrarNegocio = async (req, res) => {
-
   const { email, phone, name } = req.body;
 
   const existeNegocio = await Negocio.findOne({ email });
@@ -37,13 +35,16 @@ const registrarNegocio = async (req, res) => {
 
     try {
       const negocio = new Negocio(req.body);
+      completarNegocio(negocio);
       const negocioGuardado = await negocio.save();
       //enviar email
       emailRegistro({
         email,
-        name, 
-        token: negocioGuardado.token});
-      res.json(negocioGuardado);
+        name,
+        token: negocioGuardado.token,
+      });
+
+      res.json(negocio);
     } catch (error) {
       console.log(error);
     }
@@ -51,11 +52,16 @@ const registrarNegocio = async (req, res) => {
     const error = new Error("Formato de phone no valido");
     return res.status(400).json({ msg: error.message });
   }
-}
-const perfilNegocio = (req, res) => {
-  const { negocio } = req;
-  res.json({ perfil: negocio });
 };
+const perfilNegocio = async (req, res) => {
+  try {
+    const perfil = await Negocio.findById(req.params.id).lean();
+    res.json(perfil);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
@@ -169,53 +175,60 @@ const buscarServicios = async (req, res) => {
   }
 };
 
-const actualizarNegocio1= async(req,res)=>{
+const actualizarNegocio1 = async (req, res) => {
   const { id } = req.params;
-  const { name,address,registeredName,city } = req.body;
+  const { name, address, registeredName, city } = req.body;
   const negocio = await Negocio.findById(id);
-  try{
-    if(!negocio){
+  try {
+    if (!negocio) {
       const error = new Error("Id no valido");
       return res.status(404).json({ msg: error.message });
     }
-    await Negocio.updateOne({ _id: id }, { $set: { name, address, registeredName, city } })
-      .then( (data) => {
-        console.log(data)
+    await Negocio.updateOne(
+      { _id: id },
+      { $set: { name, address, registeredName, city } }
+    )
+      .then((data) => {
+        console.log(data);
         res.json(negocio);
       })
       .catch((err) => {
         const error = new Error("Id no valido para actualizar el negocio");
         res.status(404).json({ msg: error.message });
       });
-  }catch(err){
+  } catch (err) {
     const error = new Error("Error al actualizar el negocio");
     res.status(404).json({ msg: error.message });
   }
-}
+};
 
-const actualizarNegocio2= async(req,res)=>{
+const actualizarNegocio2 = async (req, res) => {
   const { id } = req.params;
-  const { rubro,descripcion,fotos,descripcion2 } = req.body;
+  const { rubro, descripcion, fotos, descripcion2 } = req.body;
   const negocio = await Negocio.findById(id);
-  try{
-    if(!negocio){
+  try {
+    if (!negocio) {
       const error = new Error("Id no valido");
       return res.status(404).json({ msg: error.message });
     }
-    await Negocio.updateOne({ _id: id }, { $set: { rubro,descripcion,fotos,descripcion2 } })
-      .then( (data) => {
-        console.log(data)
+    await Negocio.updateOne(
+      { _id: id },
+      { $set: { rubro, descripcion, fotos, descripcion2 } }
+    )
+      .then((data) => {
+        console.log(data);
         res.json(negocio);
       })
       .catch((err) => {
         const error = new Error("Id no valido para actualizar el negocio");
         res.status(404).json({ msg: error.message });
       });
-  }catch(err){
+  } catch (err) {
     const error = new Error("Error al actualizar el negocio");
     res.status(404).json({ msg: error.message });
   }
-}
+};
+
 
 const subirFotos= async (req, res) => {
   const id = req.params.id;
@@ -233,6 +246,24 @@ const subirFotos= async (req, res) => {
   res.send('Fotos agregadas');
 }
 
+
+const disponibilidad = async (req, res) => {
+  const { id } = req.params;
+  const { availability, shiftDuration } = req.body;
+
+  try {
+    const negocioActualizado = await Negocio.findOneAndUpdate(
+      { _id: id },
+      { availability, shiftDuration },
+      { new: true }
+    );
+
+    res.status(200).json(negocioActualizado);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 export {
   registrarNegocio,
   confirmarNegocio,
@@ -245,5 +276,7 @@ export {
   buscarServicios,
   actualizarNegocio1,
   actualizarNegocio2,
-  subirFotos
+  subirFotos,
+  disponibilidad,
+
 };

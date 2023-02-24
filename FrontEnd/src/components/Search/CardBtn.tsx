@@ -1,12 +1,21 @@
-import { Button, Text } from "@nextui-org/react";
+import { Button, PressEvent, Text } from "@nextui-org/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { Dispatch, SetStateAction } from "react";
 
 type Btntype = {
   name?: string;
   img?: string;
+  setSearchValue?: Dispatch<SetStateAction<string>>;
 };
 
-export default function CardBtn({ name, img }: Btntype) {
+export default function CardBtn({ name, img, setSearchValue }: Btntype) {
+  const router = useRouter()
+  const handleOnPress = (e: PressEvent) => {
+    if (name) {
+      router.push("/search/category/" + name)
+    }
+  }
   return (
     <Button
       icon={
@@ -28,6 +37,7 @@ export default function CardBtn({ name, img }: Btntype) {
         borderRadius: "19px",
         boxShadow: "2px 4px 6px 0px #ACACAC",
       }}
+      onPress={handleOnPress}
     >
       <Text
         size={16}
