@@ -18,7 +18,7 @@ const emailNuevoPassword = async (datos) =>{
         text: "Restablece tu contraseña en App.ointment",
         html:`<p> Hola ${name}, has solicitado restablecer tu contraseña en App.ointment. </p>
         <p> Accede al siguiente enlace para generar una nueva contraseña.
-        <a href="appointment-production-ee4a.up.railway.app/api/administradores/password-olvidada/${token}">Restablecer contraseña</a> </p>
+        <a href="https://appointment-production-ee4a.up.railway.app/api/administradores/password-olvidada/${token}">Restablecer contraseña</a> </p>
         <p> Si no solicitaste restablecer tu contraseña, ignora este mensaje.</p>
         `
     });
