@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import generarId from "../helpers/generarId.js";
+
+import add from 'multer'
+
 import availabilitySchema from "../schemas/schema.horarios.js";
+
 
 const negocioSchema = mongoose.Schema({
   name: {
@@ -28,6 +32,14 @@ const negocioSchema = mongoose.Schema({
     type: String,
     trim: true,
   },
+  distancia: {
+    type: String,
+
+    trim: true,
+
+    required: true,
+
+  },
   password: {
     type: String,
     required: true,
@@ -37,10 +49,12 @@ const negocioSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  foto: {
-    type: String,
-    trim: true,
-  },
+  fotos: [
+    {
+      data: Buffer,
+      contentType: String
+    }
+  ],
   descripcion: {
     type: String,
     trim: true,
@@ -62,6 +76,8 @@ const negocioSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
+
   availability: 
     {
       monday: { isActive: Boolean, horaInicio: String, horaFinal: String },
@@ -76,7 +92,7 @@ const negocioSchema = mongoose.Schema({
   shiftDuration:{
     type: String,
     trim: true,
-  }
+}
 });
 
 negocioSchema.pre("save", async function (next) {
@@ -92,6 +108,7 @@ negocioSchema.methods.comprobarPasswordNegocio = async function (
 ) {
   return await bcrypt.compare(formularioPassword, this.password);
 };
+
 
 const Negocio = mongoose.model("Negocio", negocioSchema);
 export default Negocio;

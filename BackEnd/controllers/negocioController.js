@@ -12,7 +12,6 @@ import emailRegistro from "../helpers/emailRegistroNegocio.js";
 import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
 import completarNegocio from "../helpers/completardatos.js";
 
-
 const registrarNegocio = async (req, res) => {
   const { email, phone, name } = req.body;
 
@@ -230,6 +229,24 @@ const actualizarNegocio2 = async (req, res) => {
   }
 };
 
+
+const subirFotos= async (req, res) => {
+  const id = req.params.id;
+  const fotos = req.files;
+
+  const documento = await Negocio.findOne({_id: id});
+  fotos.forEach(foto => {
+    documento.fotos.push({
+      data: foto.buffer,
+      contentType: foto.mimetype
+    });
+  });
+  await documento.save();
+
+  res.send('Fotos agregadas');
+}
+
+
 const disponibilidad = async (req, res) => {
   const { id } = req.params;
   const { availability, shiftDuration } = req.body;
@@ -246,6 +263,7 @@ const disponibilidad = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
 export {
   registrarNegocio,
   confirmarNegocio,
@@ -258,5 +276,7 @@ export {
   buscarServicios,
   actualizarNegocio1,
   actualizarNegocio2,
+  subirFotos,
   disponibilidad,
+
 };
