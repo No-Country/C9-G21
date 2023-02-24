@@ -69,7 +69,7 @@ Ver el historial de compras realizadas por un usuario
 ______
 
 ## Autores
-Este proyecto fue realizado por el grupo 21 de la carrera de Desarrollo Web Full Stack en CoderHouse. Los miembros del grupo son:
+Este proyecto fue realizado por el grupo 21 de Cohorte 9 de NoCountry. Los miembros del grupo son:
 
 ### BackEnd
 
