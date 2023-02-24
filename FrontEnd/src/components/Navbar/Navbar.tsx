@@ -1,4 +1,5 @@
-import React, { ReactNode, useState, useRef } from "react";
+import React, { ReactNode, useState, useRef, useContext } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,12 +10,14 @@ import {
   Button,
   Divider,
   Row,
+  User,
 } from "@nextui-org/react";
 import { Layout } from "../../components/Navbar/Layout";
 import menuicon from "../../../public/menu.png";
 import closeMenu from "../../../public/closeMenu.png";
 import { RegisterModal } from "../Modal/RegisterModal";
 import { CSSBUTTONNEXT } from "@/const/constantsUI";
+import { globalContext } from "@/context/global.context";
 
 type NavbarLayoutTypes = {
   children: ReactNode;
@@ -27,8 +30,8 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClick = () => isOpen && ref.current?.click();
-
-  let logged = false;
+  const { user } = useContext(globalContext);
+  let logged = user.token ? true : false;
 
   return (
     <Layout>
@@ -71,7 +74,11 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
           <Navbar.Collapse
             css={{
               width: "fit-content",
-              maxHeight: !logged ? "250px" : "329px",
+              maxHeight: !logged
+                ? "250px"
+                : user.user === "negocio"
+                ? "370px"
+                : "315px",
               margin: "0",
               padding: "0",
               display: "flex",
@@ -84,6 +91,18 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
               },
             }}
           >
+            <Navbar.CollapseItem css={{ display: logged ? "" : "none" }}>
+              <Spacer y={0.5} x={0.25} />
+              <Row wrap="nowrap">
+                <Text weight={"semibold"}>
+                  Hola,{" "}
+                  {user?.data?.name
+                    ? user?.data?.name + " !"
+                    : "configura tu negocio "}
+                </Text>
+              </Row>
+            </Navbar.CollapseItem>
+            <Divider css={{ display: logged ? "" : "none" }} />
             <Navbar.CollapseItem>
               <Link href="/" onClick={handleClick}>
                 <Text
@@ -122,8 +141,10 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
 
             <Divider css={{ display: logged ? "" : "none" }} />
 
-            <Navbar.CollapseItem css={{ display: logged ? "" : "none" }}>
-              <Link href="#" onClick={handleClick}>
+            <Navbar.CollapseItem
+              css={{ display: logged && user.user === "negocio" ? "" : "none" }}
+            >
+              <Link href="/EditComerce" onClick={handleClick}>
                 <Spacer y={0.5} />
                 <Text weight={"semibold"} css={{ paddingLeft: "5px" }}>
                   {" "}
@@ -175,10 +196,13 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
               css={{ display: logged ? "" : "none", padding: "0" }}
             >
               <Spacer x={5} />
-              <Link href="#" onClick={handleClick}>
+              <Link href="#" onClick={() => (user.token = "")}>
                 <Spacer y={0.5} />
                 <Row align="center">
-                  <Text weight={"semibold"}> Salir</Text>
+                  <Text weight={"semibold"} css={{ color: "#078E85" }}>
+                    {" "}
+                    Salir
+                  </Text>
                   <Spacer x={0.5} />
                   <Image
                     src="exit.svg"
