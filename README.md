@@ -1,7 +1,7 @@
 # APPOINTMENT
 
 ## Proyecto C9-G21
-Este proyecto corresponde a un ejercicio práctico realizado por el grupo 21 de la carrera de Desarrollo Web Full Stack en NoCountry. El objetivo del proyecto es crear una aplicación web turnos
+Este proyecto corresponde a un ejercicio práctico realizado por el grupo 21 de la Cohorte 9 en NoCountry. El objetivo del proyecto es crear una aplicación web para tomar turnos.
 
 ## Tecnologías utilizadas
 * HTML, CSS y JavaScript para la interfaz de usuario.
@@ -9,9 +9,9 @@ Este proyecto corresponde a un ejercicio práctico realizado por el grupo 21 de 
 * MongoDB para la base de datos.con NodeJs, TypeScript y Express.
 * Validaciones con Express Validator.
 * Creación de filtros con Mongoose y expresiones regulares.
-* Validación de usuarios con JWT 
+* Validación de usuarios con JWT. 
 * Envío de emails con Nodemailer para contacto, verificacion , bienvenida y recuperación de contraseña.
-* Implementado el BackEnd Railways y el FrontEnd en Vercel
+* Implementado el BackEnd en Railways y el FrontEnd en Vercel.
 
 ## Instalación
 Para instalar y ejecutar el proyecto, sigue los siguientes pasos:
@@ -30,7 +30,7 @@ Instala las dependencias del proyecto:
 Inicia el servidor:
 `$npm run dev`
 
-Crea un archivo .env en la carpeta BackEnd del proyecto y configura las variables de entorno necesarias, como
+Crea un archivo .env en la carpeta BackEnd del proyecto y configura las variables de entorno necesarias, como:
 
 MONGO_URI
 
@@ -56,15 +56,15 @@ Inicia el servidor:
 
 Uso
 
-Una vez que el servidor esté iniciado, puedes acceder a la aplicación desde tu navegador web, en la dirección http://localhost:3000
+Una vez que el servidor esté iniciado, puedes acceder a la aplicación desde tu navegador web, en la dirección: http://localhost:3000
 
 
 
 La aplicación cuenta con varias funcionalidades, como:
 
 Registro e inicio de sesión de usuarios, negocios y administradores
-Búsqueda de turno  por rubro  y nombre de negocio
-Ver el historial de compras realizadas por un usuario
+Sistema de turnos ofrecidos por negocios
+Búsqueda de turno por rubro y nombre de negocio
 
 
 ## Autores
