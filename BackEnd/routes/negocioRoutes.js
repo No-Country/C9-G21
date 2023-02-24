@@ -11,6 +11,8 @@ import {
   perfilNegocio,
   actualizarNegocio1,
   actualizarNegocio2,
+  subirFotos,
+  disponibilidad,
 } from "../controllers/negocioController.js";
 import validatorHandler from "../middleware/validator.handler.js";
 import ActualizarNegocio2 from "../schemas/negocio2.schema.js";
