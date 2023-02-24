@@ -47,9 +47,13 @@ const registrarCliente = async (req, res) => {
   }
 };
 
-const perfilCliente = (req, res) => {
-  const { cliente } = req;
-  res.json({ perfil: cliente });
+const perfilCliente = async (req, res) => {
+  try {
+    const perfil = await Cliente.findById(req.params.id).lean();
+    res.json(perfil);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const confirmarCliente = async (req, res) => {
