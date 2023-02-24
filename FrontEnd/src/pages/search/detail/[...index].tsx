@@ -6,7 +6,7 @@ const Index = () => {
     const { comerceSelected } = useGlobalContext()
 
     return (
-        <>tu seleccionaste el comercio {comerceSelected.title}</>
+        <>tu seleccionaste el comercio {comerceSelected?.registeredName}</>
     )
 }
 export default Index
