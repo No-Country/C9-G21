@@ -25,7 +25,7 @@ router.put("/actualizarNegocio1/:id", validatorHandler(actualizarNegocio, 'body'
 router.put("/actualizarNegocio2/:id", validatorHandler(ActualizarNegocio2, 'body') ,actualizarNegocio2);
 router.get("/confirmar/:token", confirmarNegocio);
 router.get("/buscarServicio", buscarServicios);
-router.get('/perfil', perfilNegocio);
+router.get('/perfil/:id', perfilNegocio);
 //router.put("/putRegister/:id",modificarContraseña);
 router.post("/login",autenticarNegocio);
 router.post('/password-olvidada', passwordOlvidada);
