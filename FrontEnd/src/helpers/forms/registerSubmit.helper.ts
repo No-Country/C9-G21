@@ -1,5 +1,5 @@
 import { endpoints } from "@/const/endpoints";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { RegisterFormValues, RegisterUserSchema, RegisterComerceSchema } from "./register";
 
 type RegisterPaylod = {
@@ -22,10 +22,9 @@ export async function registerSubmit(data: RegisterFormValues, isUserRegister: b
             registerPayload.lastName = RegisterUserSchema.parse(data).lastName
         }
         const user = await axios.post(`${endpoints.base}/api/${register}/registrar`, registerPayload);
-        console.log(user)
         return user
-    } catch (err: any) {
-        console.log(err.message)
-        return err.message
+    } catch (err) {
+        const error = err as AxiosError
+        return error.code
     }
 }

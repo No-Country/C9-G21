@@ -1,12 +1,13 @@
 import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
 import { registerSubmit } from "@/helpers/forms/registerSubmit.helper";
 import { RegisterFormValues, RegisterUserSchema, resolverUser, resolverComerce } from "@/helpers/forms/register";
-import { Col, Button, Text, Input, Row, Card, Container, Spacer } from "@nextui-org/react";
+import { Col, Button, Text, Input, Row, Card, Container, Spacer, Modal } from "@nextui-org/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FullNameRegister } from "./FullNameRegister";
+import { EmptyModal } from "../Modal/EmptyModal";
 
 type ComerceRegisterT = {
     children?: ReactNode;
@@ -17,15 +18,18 @@ type ComerceRegisterT = {
 export const ComerceRegister = ({ children, isUserRegister = true, test }: ComerceRegisterT) => {
     const router = useRouter();
     const resolver = isUserRegister ? resolverUser : resolverComerce
-    
+    const [visible, setVisible] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<typeof test>({ resolver });
 
     const onSubmit = handleSubmit(async (data) => {
-        registerSubmit(data, isUserRegister)
+        if (await registerSubmit(data, isUserRegister) === "ERR_BAD_REQUEST") {
+            setVisible(true)
+        }
     });
-    console.log(errors)
+
     return (
         <form onSubmit={onSubmit}>
+           <EmptyModal visible={visible} setVisible={setVisible} msg={"Ups! El usuario ya se encuentra registrado, intenta con un email valido"} />
             <Container css={{ width: "fit-content", height: "100vh" }}>
                 <Card >
                     <Card.Body css={{ alignContent: "center", rowGap: "$10" }}>

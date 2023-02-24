@@ -11,7 +11,10 @@ export default function Index() {
     confirmPassword: "",
   }
   return (
+    <div className="containerLogin">
+      
     <ComerceRegister test={test}>
     </ComerceRegister>
+    </div>
   );
 }
