@@ -50,11 +50,19 @@ const registrarNegocio = async (req, res) => {
     const error = new Error("Formato de phone no valido");
     return res.status(400).json({ msg: error.message });
   }
+
+}
+const perfilNegocio = async (req, res) => {
+  try {
+    const perfil = await Negocio.findById(req.params.id).lean();
+    res.json(perfil);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+
 };
-const perfilNegocio = (req, res) => {
-  const { negocio } = req;
-  res.json({ perfil: negocio });
-};
+
+
 const modificarContraseña = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
