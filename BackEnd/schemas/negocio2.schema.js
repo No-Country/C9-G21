@@ -13,7 +13,6 @@ const ActualizarNegocio2 = Joi.object({
 
   rubro: rubro.required(),
   descripcion: descripcion.required(),
-  fotos: fotos.required(),
   descripcion2: descripcion2.required(),
  
 });
