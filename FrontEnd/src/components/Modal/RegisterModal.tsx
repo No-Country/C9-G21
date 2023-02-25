@@ -16,7 +16,6 @@ export const RegisterModal = ({ visible, setVisible }: ModalType) => {
   const handler = () => setVisible(!true);
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
   return (
     <Modal
