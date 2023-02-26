@@ -25,6 +25,7 @@ export async function registerSubmit(data: RegisterFormValues, isUserRegister: b
         return user
     } catch (err) {
         const error = err as AxiosError
+        console.log(error.code)
         return error.code
     }
 }
