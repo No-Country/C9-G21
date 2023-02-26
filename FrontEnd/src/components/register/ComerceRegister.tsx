@@ -8,6 +8,10 @@ import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FullNameRegister } from "./FullNameRegister";
 import { EmptyModal } from "../Modal/EmptyModal";
+import Pops1 from "../PopsMail/pops1";
+import Pops2 from "../PopsMail/pops2";
+import Pops3 from "../PopsMail/pops3";
+
 
 type ComerceRegisterT = {
     children?: ReactNode;
@@ -20,17 +24,22 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
     const resolver = isUserRegister ? resolverUser : resolverComerce
     const [visible, setVisible] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<typeof test>({ resolver });
-
+    const handler = () => setVisible(true);
     const onSubmit = handleSubmit(async (data) => {
         if (await registerSubmit(data, isUserRegister) === "ERR_BAD_REQUEST") {
             setVisible(true)
         }
+        console.log()
     });
 
     return (
         <form onSubmit={onSubmit}>
-           <EmptyModal visible={visible} setVisible={setVisible} msg={"Ups! El usuario ya se encuentra registrado, intenta con un email valido"} />
+            <EmptyModal visible={visible} setVisible={setVisible} />
+            <Pops1></Pops1>
+            <Pops2></Pops2>
+            <Pops3></Pops3>
             <Container css={{ width: "fit-content", height: "100vh" }}>
+                {/* <Pops1></Pops1> */}
                 <Card >
                     <Card.Body css={{ alignContent: "center", rowGap: "$10" }}>
                         <Col css={{
@@ -86,8 +95,9 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
                             <Button auto flat rounded onPress={() => router.back()} css={CSSBUTTONBACK} >
                                 Volver
                             </Button>
-                            <Button auto type="submit" rounded css={CSSBUTTONNEXT}>
+                            <Button auto type="submit" rounded css={CSSBUTTONNEXT} onPress={handler}>
                                 Registrarse
+
                             </Button>
                         </Row>
                     </Card.Body>
