@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Modal, Button, Text, Row, Card, Spacer, Col, Input } from "@nextui-org/react";
 import Link from "next/link";
 import { UnLockIcon } from "./UnLockIcon";
@@ -22,7 +22,7 @@ type FullNameRegisterT = {
         confirmPassword: string;
     }, "name" | "lastName">>
 }
-export default function Pops4({ register }: FullNameRegisterT) {
+export default function Pops5({ register }: FullNameRegisterT) {
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
     const closeHandler = () => {
@@ -50,39 +50,23 @@ export default function Pops4({ register }: FullNameRegisterT) {
                 }}
             >
                 <Modal.Header>
-                    <Text>Editar Perfil</Text>
+                    <Text>Cambiar contraseña</Text>
                 </Modal.Header>
                 <Modal.Body css={{ fontSize: "16px", color: "#000000" }}>
                     <Row >
                         <Col>
-
-                            <Row>
-                                <Text>Nombre</Text>
-                                <Spacer x={5} />
-                                <Text>Apellido</Text>
-                            </Row>
-
-
-                            <Row>
-                                <Input {...INPUTPROPS}></Input>
-                                <Spacer x={1} />
-                                <Input {...INPUTPROPS}></Input>
-                                <Spacer y={3} />
-                            </Row>
-                            <Text>Email</Text>
-                            <Row>
-                                <Input {...INPUTPROPS}></Input>
-                                <Spacer y={3} />
-                            </Row>
-                            <Text>Telefono</Text>
-                            <Row>
-                                <Input {...INPUTPROPS}></Input>
-                                <Spacer y={3} />
-                            </Row>
-                            <Text>Cambiar contraseña</Text>
+                            <Text>Contraseña actual</Text>
+                            <Input.Password {...INPUTPROPS} initialValue="nextui123" />
                             <Spacer y={1} />
+                            <Text>Nueva contraseña</Text>
+                            <Input.Password {...INPUTPROPS} initialValue="nextui123" />
+                            <Spacer y={1} />
+                            <Text>Repetir contraseña</Text>
+                            <Input.Password {...INPUTPROPS} initialValue="nextui123" />
+                            <Spacer y={1} />
+
                             <Row css={{ height: "56px", width: "1px" }}>
-                                <Spacer y={1.6} />
+                            <Spacer y={1.6} />
 
 
                                 
@@ -91,9 +75,10 @@ export default function Pops4({ register }: FullNameRegisterT) {
                                 <Button  css={CSSBUTTONNEXT}>Guardar</Button>
                             
                             </Row>
-                            <Text>Eliminar cuenta</Text>
                         </Col>
+                        
                     </Row>
+                    
                 </Modal.Body>
                 <Modal.Footer>
 
@@ -101,6 +86,6 @@ export default function Pops4({ register }: FullNameRegisterT) {
 
                 </Modal.Footer>
             </Modal>
-        </div >
-    );
+        </div>
+    )
 }
