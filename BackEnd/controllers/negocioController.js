@@ -13,7 +13,7 @@ import emailNuevoPassword from "../helpers/emailPasswordOlvidadaNegocio.js";
 import completarNegocio from "../helpers/completardatos.js";
 
 const registrarNegocio = async (req, res) => {
-  const { email, phone, name } = req.body;
+  const { email, phone, name, isDev } = req.body;
 
   const existeNegocio = await Negocio.findOne({ email });
 
@@ -42,6 +42,7 @@ const registrarNegocio = async (req, res) => {
         email,
         name,
         token: negocioGuardado.token,
+        isDev,
       });
 
       res.json(negocio);
