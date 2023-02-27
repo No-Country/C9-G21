@@ -35,6 +35,9 @@ const administradorSchema = mongoose.Schema({
         type: String,
         default: generarId()
     },
+    type: {
+        type: String,
+      },
     //empieza en false, si su cuenta está confirmada se pasará a true
     confirmado:{
         type: Boolean,
