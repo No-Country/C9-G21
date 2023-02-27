@@ -85,6 +85,9 @@ Este proyecto fue realizado por el grupo 21 de Cohorte 9 de NoCountry. Los miemb
 
 ### Diseño UX/UI
 * #### Mariana Camisasca[Linkedin](https://www.linkedin.com/in/mariana-camisasca/)  	-	[Behance](https://www.behance.net/mcamisasca)
+
+### TL
+* #### Victor Uroza   	-	[Linkedin]https://www.linkedin.com/in/vuroza/)  	-	[Git Hub](github.com/viktorkrill)
 ## Contribución
 Si deseas contribuir a este proyecto, puedes hacerlo de varias formas:
 
