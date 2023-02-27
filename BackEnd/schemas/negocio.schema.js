@@ -13,6 +13,8 @@ const crearNegocio = Joi.object({
   password: password.required(),
   email: email.required(),
   phone: phone.required(),
+  type: Joi.string().required()
+
 });
 
 export default crearNegocio;
