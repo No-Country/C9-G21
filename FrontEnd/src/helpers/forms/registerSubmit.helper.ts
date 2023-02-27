@@ -8,15 +8,17 @@ type RegisterPaylod = {
     phone: string,
     name?: string,
     lastName?: string,
+    // type: "negocio" | "clientes"
 }
 export async function registerSubmit(data: RegisterFormValues, isUserRegister: boolean) {
     try {
+        const register = isUserRegister ? "clientes" : "negocio"
         const registerPayload: RegisterPaylod = {
             email: RegisterComerceSchema.parse(data).email,
             password: RegisterComerceSchema.parse(data).password,
-            phone: RegisterComerceSchema.parse(data).phone
+            phone: RegisterComerceSchema.parse(data).phone,
+            // type: register
         }
-        const register = isUserRegister ? "clientes" : "negocio"
         if (isUserRegister) {
             registerPayload.name = RegisterUserSchema.parse(data).name
             registerPayload.lastName = RegisterUserSchema.parse(data).lastName

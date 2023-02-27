@@ -3,5 +3,9 @@ export const endpoints = {
     login: "/login",
     registrar: "/",
     searchByCategory: "/negocio/buscarServicio", //Todo: buscar ruta desde el servidor
-    detail: "/negocio/perfil"
+    detail: "/negocio/perfil",
+    confirm: {
+        clientes: "/clientes/confirmar",
+        negocio: "/negocio/confirmar"
+    }
 }

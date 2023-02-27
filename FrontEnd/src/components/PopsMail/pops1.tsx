@@ -1,18 +1,22 @@
 import React from "react";
 import { Modal, Button, Text, Row, Card, Spacer } from "@nextui-org/react";
 import Link from "next/link";
+import { visibleT } from "../register/ComerceRegister";
 
 
-type Modaltype = {
-  visible:boolean;
-  setVisible:React.Dispatch<React.SetStateAction<boolean>>
+export type Modaltype = {
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<visibleT>>
 }
 
-export default function Pops1({visible,setVisible}:Modaltype) {
-  const handler = () => setVisible(true);
+export default function Pops1({ visible, setVisible }: Modaltype) {
+  const handler = () =>  setVisible((prev) => {
+    return { ...prev, registered: true }
+  })
   const closeHandler = () => {
-    setVisible(false);
-    console.log("closed");
+    setVisible((prev) => {
+      return { ...prev, registered: false }
+    })
   };
   return (
     <div>
@@ -40,7 +44,7 @@ export default function Pops1({visible,setVisible}:Modaltype) {
           <Text css={{ fontSize: "20px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}>
             Genial ya estas registrado
           </Text>
-          <Text css={{ fontSize: "16px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign:"center" }}>
+          <Text css={{ fontSize: "16px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}>
             Revisa tu email para poder activar tu cuenta, y ya
             poder comenzar a usar la aplicación.
           </Text>

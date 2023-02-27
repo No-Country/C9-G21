@@ -18,26 +18,41 @@ type ComerceRegisterT = {
     isUserRegister?: boolean
     test: RegisterFormValues
 }
+export type visibleT = {
+    registered: boolean,
+    alreadyCreated: boolean
+}
 
+// guardar token el localstorage
 export const ComerceRegister = ({ children, isUserRegister = true, test }: ComerceRegisterT) => {
     const router = useRouter();
     const resolver = isUserRegister ? resolverUser : resolverComerce
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState<visibleT>({
+        registered: false,
+        alreadyCreated: false
+    })
     const { register, handleSubmit, formState: { errors } } = useForm<typeof test>({ resolver });
-    const handler = () => setVisible(true);
     const onSubmit = handleSubmit(async (data) => {
-        if (await registerSubmit(data, isUserRegister) === "ERR_BAD_REQUEST") {
-            setVisible(true)
+        const response = await registerSubmit(data, isUserRegister)
+        if (response === "ERR_BAD_REQUEST") {
+            setVisible((prev) => {
+                return { ...prev, alreadyCreated: true }
+            })
+        } else {
+            localStorage.setItem("token", (response as any).data.token)
+            localStorage.setItem("isUserRegister", isUserRegister ? "true" : "false")
+            setVisible((prev) => {
+                return { ...prev, registered: true }
+            })
         }
-        console.log()
     });
-
     return (
         <form onSubmit={onSubmit}>
-            <EmptyModal visible={visible} setVisible={setVisible} />
-            <Pops1></Pops1>
-            <Pops2></Pops2>
-            <Pops3></Pops3>
+            <EmptyModal
+                visible={visible.alreadyCreated} setVisible={setVisible}
+                body={<Text>El email ya ha sido registrado</Text>}
+            />
+            <Pops1 visible={visible.registered} setVisible={setVisible} ></Pops1>
             <Container css={{ width: "fit-content", height: "100vh" }}>
                 {/* <Pops1></Pops1> */}
                 <Card >
@@ -95,7 +110,7 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
                             <Button auto flat rounded onPress={() => router.back()} css={CSSBUTTONBACK} >
                                 Volver
                             </Button>
-                            <Button auto type="submit" rounded css={CSSBUTTONNEXT} onPress={handler}>
+                            <Button auto type="submit" rounded css={CSSBUTTONNEXT}>
                                 Registrarse
 
                             </Button>

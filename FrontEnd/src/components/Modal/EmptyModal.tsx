@@ -1,39 +1,48 @@
 import { Modal, Text } from '@nextui-org/react'
 import React, { Dispatch, SetStateAction } from 'react'
+import { visibleT } from '../register/ComerceRegister';
 
 export type EmptyModalT = {
     visible: boolean,
-    setVisible: Dispatch<SetStateAction<boolean>>;
-    msg?: string
+    setVisible: Dispatch<SetStateAction<visibleT>>;
+    header?: React.ReactNode,
+    body?: React.ReactNode,
+    footer?: React.ReactNode
 }
-export const EmptyModal = ({ visible, setVisible, msg }: EmptyModalT) => {
+export const EmptyModal = ({ visible, setVisible, body, footer, header }: EmptyModalT) => {
+    const closeHandler = () => {
+        setVisible((prev) => {
+            return { ...prev, alreadyCreated: false }
+        })
+        console.log("closed");
+    };
     return (
         <Modal
             closeButton
-            blur
+            preventClose
             aria-labelledby="modal-title"
             open={visible}
-            onClose={() => setVisible(false)}
+            onClose={closeHandler}
             css={{
-                height: "340px",
-                margin: "15px",
-                backgroundColor: "White",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "27px",
+                padding: "0",
+                paddingBottom: "18px",
+                paddingTop: "18px",
             }}
         >
             <Modal.Header css={{ m: "0", p: "0" }}>
-
+                {header}
             </Modal.Header>
             <Modal.Body>
-                {msg ?
-                    <Text>{msg}</Text>
-                    : <Text>Hola</Text>
-                }
+                {body}
             </Modal.Body>
             <Modal.Footer
                 justify="center"
                 css={{ position: "relative", top: "-55px" }}
             >
-
+                {footer}
             </Modal.Footer>
         </Modal>
     )

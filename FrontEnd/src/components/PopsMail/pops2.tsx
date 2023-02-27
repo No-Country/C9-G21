@@ -2,20 +2,27 @@ import React from "react";
 import { Modal, Button, Text, Row, Card, Spacer } from "@nextui-org/react";
 import Link from "next/link";
 
-export default function Pops2() {
-  const [visible, setVisible] = React.useState(false);
-  const handler = () => setVisible(true);
+export  type Modaltype = {
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<visibleT>>
+}
+type visibleT = {
+  negocio: boolean;
+  clientes: boolean;
+}
+export default function Pops2({ visible, setVisible }: Modaltype) {
   const closeHandler = () => {
-    setVisible(false);
+    setVisible({
+      negocio: false,
+      clientes: false,
+    });
     console.log("closed");
   };
   return (
     <div>
-      <Button auto ghost color="error" onPress={handler}>
-        pops 2
-      </Button>
+   
       <Modal
-      closeButton
+        closeButton
         preventClose
         aria-labelledby="modal-title"
         open={visible}
@@ -33,8 +40,8 @@ export default function Pops2() {
           <Card.Image src='iconComercio.svg'></Card.Image>
         </Modal.Header>
         <Modal.Body css={{ fontSize: "16px", color: "#000000" }}>
-          <Text css={{ fontSize: "20px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign:"center"}}>¡Gracias por activar tu cuenta!</Text>
-          <Text css={{ fontSize: "16px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign:"center" }}> Ya podes comenzar a usar la aplicación. Solo necesitamos que  configures tu perfil de negocio para que tus futuros clientes puedan encontrarte.</Text>
+          <Text css={{ fontSize: "20px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}>¡Gracias por activar tu cuenta!</Text>
+          <Text css={{ fontSize: "16px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}> Ya podes comenzar a usar la aplicación. Solo necesitamos que  configures tu perfil de negocio para que tus futuros clientes puedan encontrarte.</Text>
 
         </Modal.Body>
         <Modal.Footer>
@@ -43,13 +50,13 @@ export default function Pops2() {
             <Link href="/EditComerce">
               <Text
                 size={11}
-                css={{ textDecoration: "underline",fontWeight: "700", fontSize: "16px", color: "#59B3AD", textAlign:"center"}}
+                css={{ textDecoration: "underline", fontWeight: "700", fontSize: "16px", color: "#59B3AD", textAlign: "center" }}
               >
                 Configurar Perfil
               </Text>
             </Link>
-            
-           
+
+
             <Spacer x={0.5} />
 
           </Row>
