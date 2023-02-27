@@ -24,6 +24,7 @@ const emailRegistro = async (datos) =>{
         <p> Tu cuenta está lista, sólo debes validarla en el siguiente enlace:
         <a href="${isDev?urlDesarrollo :urlDeployed}/confirm">Comprobar cuenta</a> </p>
         <p> Si tu no creaste esta cuenta, ignora este mensaje.</p>
+        
         `
     });
     console.log("Mensaje enviado: %s", info.messageId)
