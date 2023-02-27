@@ -1,10 +1,13 @@
 import React from "react";
-import { Modal, Button, Text, Row, Card, Spacer, Col, Input } from "@nextui-org/react";
+import { Modal, Container, Button, Text, Row, Card, Spacer, Col, Input } from "@nextui-org/react";
 import Link from "next/link";
 import { UnLockIcon } from "./UnLockIcon";
 import { LockIcon } from "./LockIcon.js";
 import { INPUTPROPS, CSSBUTTONBACK, CSSBUTTONNEXT } from "@/const/constantsUI";
 import { UseFormRegister } from "react-hook-form/dist/types";
+
+//pantalla de editar perfil comercio 
+
 type FullNameRegisterT = {
     register: UseFormRegister<{
         email: string;
@@ -29,6 +32,8 @@ export default function Pops4({ register }: FullNameRegisterT) {
         setVisible(false);
         console.log("closed");
     };
+
+    
     return (
         <div>
             <Button auto ghost color="error" onPress={handler}>
@@ -57,17 +62,15 @@ export default function Pops4({ register }: FullNameRegisterT) {
                         <Col>
 
                             <Row>
-                                <Text>Nombre</Text>
+                                <Text>Nombre del comercio</Text>
                                 <Spacer x={5} />
-                                <Text>Apellido</Text>
                             </Row>
 
 
                             <Row>
                                 <Input {...INPUTPROPS}></Input>
                                 <Spacer x={1} />
-                                <Input {...INPUTPROPS}></Input>
-                                <Spacer y={3} />
+                                
                             </Row>
                             <Text>Email</Text>
                             <Row>
@@ -81,6 +84,19 @@ export default function Pops4({ register }: FullNameRegisterT) {
                             </Row>
                             <Text>Cambiar contraseña</Text>
                             <Spacer y={1} />
+                            <Row>
+                                <Card shadow style={{ padding: "10px", display: "flex", alignItems: "center" }}>
+                                    <img src="/lock-icon.png" alt="Lock icon" style={{ height: "24px", marginRight: "10px" }} />
+                                    
+                                </Card>
+                                
+                            </Row>
+                            <Text style={{ textAlign: "right" }}>Editar fotos</Text>
+                            <Spacer y={1.6}/>
+                            <Text>Texto para descripción del negocio</Text>
+                            <Spacer y={1.6}/>
+                            <Text style={{ textAlign: "right" }}>Editar descripción</Text>
+                            <Spacer y={1.6}/>
                             <Row css={{ height: "56px", width: "1px" }}>
                                 <Spacer y={1.6} />
 
