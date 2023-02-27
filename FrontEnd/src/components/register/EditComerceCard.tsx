@@ -1,12 +1,5 @@
 import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
-import {
-  useState,
-  useContext,
-  useEffect,
-  ChangeEventHandler,
-  ChangeEvent,
-  FormEvent,
-} from "react";
+import { useState, useContext, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/router";
 import { globalContext } from "@/context/global.context";
 import {
@@ -17,36 +10,94 @@ import {
   Button,
   Row,
   Col,
-  Spacer,
   Textarea,
   Dropdown,
+  Switch,
+  Spacer,
+  Collapse,
 } from "@nextui-org/react";
+import axios from "axios";
+import { Twinkle_Star } from "@next/font/google";
 
 interface MyFormProps {
   initialValues: {
-    stepOne: {
-      name: string;
-      address: string;
-      city: string;
-      registeredName: string;
-    };
+    name: string;
+    address: string;
+    city: string;
+    registeredName: string;
+    rubro: string;
+    descripcion: string;
+    descripcion2: string;
+    availability: [
+      {
+        monday: {
+          isActive: true;
+          horaInicio: "10:00";
+          horaFinal: "20:00";
+        };
+      },
+      {
+        tuesday: {
+          isActive: false;
+          horaInicio: "10:00";
+          horaFinal: "20:00";
+        };
+      },
+      {
+        wednesday: {
+          isActive: false;
+          horaInicio: "10:00";
+          horaFinal: "20:00";
+        };
+      },
+      {
+        thursday: {
+          isActive: false;
+          horaInicio: "10:00";
+          horaFinal: "20:00";
+        };
+      },
+      {
+        friday: {
+          isActive: false;
+          horaInicio: "10:00";
+          horaFinal: "20:00";
+        };
+      },
+      {
+        saturday: {
+          isActive: false;
+          horaInicio: "10:00";
+          horaFinal: "20:00";
+        };
+      },
+      {
+        sunday: {
+          isActive: false;
+          horaInicio: "10:00";
+          horaFinal: "20:00";
+        };
+      }
+    ];
+    shiftDuration: "1:00";
   };
 }
 
 const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
   const [step, setstep] = useState(1);
   const [selected, setSelected] = useState<any>(new Set(["Rubro"]));
+  const [selectedTime, setSelectedTime] = useState<any>(new Set(["1 hora"]));
   const [values, setValues] = useState(initialValues);
   const { user } = useContext(globalContext);
   const router = useRouter();
 
-  const handleRubro = (e: any) => {
-    setSelected(e.target.value);
-  };
+  // path step 1 and 2
+  const path = `http://localhost:5000/api/negocio/actualizarNegocio${step}/${user.data._id}`;
 
   useEffect(() => {
     if (!user.token) {
       router.push("/");
+    } else {
     }
   }, [router, user.token]);
 
@@ -54,15 +105,41 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-
     setValues({ ...values, [name]: value });
-    console.log("hola");
+  };
+
+  // step 1 and 2
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const response = await axios.put(`${path}`, values);
+      setstep(step + 1);
+      setValues(initialValues);
+      console.log("Form submitted:", response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRubro = (e: any) => {
+    setSelected(e.currentKey);
+    setValues({
+      ...values,
+      ["rubro"]: e.currentKey.toLowerCase(),
+    });
+  };
+  const handletime = (e: any) => {
+    setSelectedTime(e.currentKey);
+    setValues({
+      ...values,
+      ["shiftDuration"]: e.currentKey.toLowerCase(),
+    });
   };
 
   return (
     <Container css={{ width: "100%", height: "100vh", marginTop: "3rem" }}>
       {step === 1 ? (
-        <form>
+        <form onSubmit={handleSubmit}>
           <Card aria-labelledby="Card-title">
             <Card.Header css={{ justifyContent: "center" }}>
               <Text b size={18}>
@@ -80,61 +157,56 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
               <Input
                 {...INPUTPROPS}
                 required={true}
-                placeholder="Las flores"
+                placeholder={user.data?.name ? user.data?.name : "Las flores"}
                 label="Nombre del comercio"
                 aria-label="Nombre del comercio"
-                initialValue={user.data?.name}
-                value={values?.stepOne?.name}
+                value={values?.name}
                 id="name"
                 name="name"
                 onChange={handleChange}
               />
               <Input
                 {...INPUTPROPS}
-                placeholder="Peluquería Las Flores S. L."
+                required={true}
+                placeholder={
+                  user.data?.registeredName
+                    ? user.data?.registeredName
+                    : "Peluquería Las Flores S. L."
+                }
                 label="Razón Social"
                 aria-label="Razón Social"
-                initialValue={user.data?.registeredName}
-                value={values?.stepOne?.registeredName}
+                value={values?.registeredName}
                 name="registeredName"
                 onChange={handleChange}
               />
               <Input
                 {...INPUTPROPS}
-                placeholder="Mar del Plata"
+                required={true}
+                placeholder={
+                  user.data?.address ? user.data?.address : "Mar del Plata"
+                }
                 label="Dirección"
                 aria-label="Nombre del comercio"
-                initialValue={user.data?.address}
-                value={values?.stepOne?.address}
+                value={values?.address}
                 name="address"
                 onChange={handleChange}
               />
               <Input
                 {...INPUTPROPS}
-                placeholder="Mar del Plata"
+                required={true}
+                placeholder={
+                  user.data?.city ? user.data?.city : "Mar del Plata"
+                }
                 label="Ciudad"
                 aria-label="Nombre del comercio"
-                initialValue={user.data?.city}
-                value={values?.stepOne?.city}
+                value={values?.city}
                 name="city"
                 onChange={handleChange}
               />
             </Card.Body>
             <Card.Footer>
               <Row justify="center" css={{ paddingtop: "20px" }}>
-                <Button
-                  auto
-                  rounded
-                  css={CSSBUTTONNEXT}
-                  onPress={() =>
-                    values.stepOne?.name &&
-                    values.stepOne?.address &&
-                    values.stepOne?.city &&
-                    values.stepOne?.registeredName
-                      ? setstep(2)
-                      : ""
-                  }
-                >
+                <Button auto type="submit" rounded css={CSSBUTTONNEXT}>
                   Continuar
                 </Button>
               </Row>
@@ -142,90 +214,7 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
           </Card>
         </form>
       ) : step === 2 ? (
-        <Card aria-labelledby="Card-title">
-          <Card.Header>
-            <Text b size={18}>
-              Configura tu perfil
-            </Text>
-          </Card.Header>
-          <Card.Body>
-            <Col
-              css={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            ></Col>
-            <Dropdown>
-              <Dropdown.Button flat css={CSSBUTTONNEXT}>
-                {selected}
-              </Dropdown.Button>
-              <Dropdown.Menu
-                aria-label="Single selection actions"
-                disallowEmptySelection
-                selectionMode="single"
-                selectedKeys={selected}
-                onSelectionChange={setSelected}
-              >
-                <Dropdown.Item key="Mecánico">Mecánico</Dropdown.Item>
-                <Dropdown.Item key="Peluquería">Peluquería</Dropdown.Item>
-                <Dropdown.Item key="Veterinaria">Veterinaria</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Textarea
-              {...INPUTPROPS}
-              required
-              minRows={2}
-              maxRows={2}
-              placeholder="¿Algo que quieras contar sobre tu comercio?"
-              label="Descripción"
-              aria-label="Descripción"
-              css={{ boxSizing: "border-box" }}
-            />
-            <Textarea
-              {...INPUTPROPS}
-              required
-              minRows={2}
-              maxRows={2}
-              placeholder="Podes subir las fotos de tu comercio aquí. (Máximo 12)"
-              label="Fotos"
-              aria-label="Fotos"
-              css={{ boxSizing: "border-box" }}
-            />
-            <Textarea
-              {...INPUTPROPS}
-              minRows={1}
-              maxRows={1}
-              placeholder="Lunes a viernes de 09:00 a 18:00"
-              label="Horarios de atención"
-              aria-label="Horarios de atención"
-              css={{ boxSizing: "border-box" }}
-            />
-          </Card.Body>
-          <Card.Footer>
-            <Row justify="center" css={{ paddingtop: "20px" }}>
-              <Button
-                auto
-                flat
-                rounded
-                onPress={() => setstep(1)}
-                css={CSSBUTTONBACK}
-              >
-                Volver
-              </Button>
-              <Button
-                auto
-                rounded
-                css={CSSBUTTONNEXT}
-                onPress={() => setstep(3)}
-              >
-                Continuar
-              </Button>
-            </Row>
-          </Card.Footer>
-        </Card>
-      ) : (
-        step === 3 && (
+        <form onSubmit={handleSubmit}>
           <Card aria-labelledby="Card-title">
             <Card.Header>
               <Text b size={18}>
@@ -240,29 +229,64 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
                   flexDirection: "column",
                 }}
               ></Col>
-              <Input
+              <Dropdown>
+                <Dropdown.Button flat css={CSSBUTTONNEXT}>
+                  {selected}
+                </Dropdown.Button>
+                <Dropdown.Menu
+                  aria-label="Single selection actions"
+                  disallowEmptySelection
+                  selectionMode="single"
+                  selectedKeys={selected}
+                  onSelectionChange={handleRubro}
+                >
+                  <Dropdown.Item key="Mecanico">Mecanico</Dropdown.Item>
+                  <Dropdown.Item key="Peluqueria">Peluqueria</Dropdown.Item>
+                  <Dropdown.Item key="Veterinaria">Veterinaria</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <Textarea
                 {...INPUTPROPS}
-                placeholder="Las flores"
-                label="Nombre del comercio"
-                aria-label="Nombre del comercio"
+                required={true}
+                minRows={2}
+                maxRows={2}
+                placeholder={
+                  user.data?.descripcion
+                    ? user.data?.descripcion
+                    : "¿Algo que quieras contar sobre tu comercio?"
+                }
+                label="Descripción"
+                aria-label="Descripción"
+                css={{ boxSizing: "border-box" }}
+                value={values?.descripcion}
+                name="descripcion"
+                onChange={handleChange}
               />
-              <Input
+              <Textarea
                 {...INPUTPROPS}
-                placeholder="Peluquería Las Flores S. L."
-                label="Razón Social"
-                aria-label="Nombre del comercio"
+                minRows={2}
+                maxRows={2}
+                placeholder="Podes subir las fotos de tu comercio aquí. (Máximo 12)"
+                label="Fotos"
+                aria-label="Fotos"
+                css={{ boxSizing: "border-box" }}
               />
-              <Input
+              <Textarea
                 {...INPUTPROPS}
-                placeholder="Mar del Plata"
-                label="Dirección"
-                aria-label="Nombre del comercio"
-              />
-              <Input
-                {...INPUTPROPS}
-                placeholder="Mar del Plata"
-                label="Ciudad"
-                aria-label="Nombre del comercio"
+                minRows={1}
+                maxRows={1}
+                required={true}
+                placeholder={
+                  user.data?.descripcion2
+                    ? user.data?.descripcion2
+                    : "Lunes a viernes de 09:00 a 18:00"
+                }
+                label="Horarios de atención"
+                aria-label="Horarios de atención"
+                css={{ boxSizing: "border-box" }}
+                value={values?.descripcion2}
+                name="descripcion2"
+                onChange={handleChange}
               />
             </Card.Body>
             <Card.Footer>
@@ -271,22 +295,129 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
                   auto
                   flat
                   rounded
-                  onPress={() => setstep(2)}
+                  onPress={() => (setstep(1), setValues(initialValues))}
                   css={CSSBUTTONBACK}
                 >
                   Volver
                 </Button>
-                <Button
-                  auto
-                  rounded
-                  css={CSSBUTTONNEXT}
-                  onPress={() => router.push("/")}
-                >
-                  Guardar
+                <Button auto rounded css={CSSBUTTONNEXT} type="submit">
+                  Continuar
                 </Button>
               </Row>
             </Card.Footer>
           </Card>
+        </form>
+      ) : (
+        step === 3 && (
+          <form>
+            <Card aria-labelledby="Card-title">
+              <Card.Header css={{ justifyContent: "center" }}>
+                <Text b size={18}>
+                  Añadí tus turnos disponibles
+                </Text>
+              </Card.Header>
+              <Card.Body>
+                <Col
+                  css={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Text css={{ textAlign: "left" }}>
+                    Los turnos se confuguran cada:
+                  </Text>
+                  <Dropdown>
+                    <Dropdown.Button flat css={CSSBUTTONNEXT}>
+                      {selectedTime}
+                    </Dropdown.Button>
+                    <Dropdown.Menu
+                      aria-label="Single selection actions"
+                      disallowEmptySelection
+                      selectionMode="single"
+                      selectedKeys={selected}
+                      onSelectionChange={handletime}
+                    >
+                      <Dropdown.Item key="00:30">30 minutos</Dropdown.Item>
+                      <Dropdown.Item key="1:00">1 hora</Dropdown.Item>
+                      <Dropdown.Item key="1:30">1h 30m</Dropdown.Item>
+                      <Dropdown.Item key="2:00">2 horas</Dropdown.Item>
+                      <Dropdown.Item key="2:30">2h 30min</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+                <Col>
+                  <Text>Días y horarios</Text>
+
+                  <Card
+                    css={{
+                      boxShadow: "2px 2px 6px #ACACAC",
+                      borderRadius: "20px",
+                      padding: "10px",
+                    }}
+                  >
+                    <Row>
+                      <Spacer x={1} />
+                      <Text size={14} css={{ padding: "20x" }}>
+                        Lunes
+                      </Text>
+                      <Spacer x={8.5} />
+                      <Switch size="xs" color="success" />
+                    </Row>
+                    <Spacer y={0.5} />
+
+                    <Row justify="center">
+                      <Spacer x={-0.3} />
+                      <Text size={12}>Desde</Text>
+                      <Spacer x={0.3} />
+                      <Input
+                        size="xs"
+                        type={"time"}
+                        required={true}
+                        placeholder="00:00"
+                        aria-label="horaInicio"
+                        value={values?.address}
+                        name="horaFinal"
+                        onChange={handleChange}
+                      />
+                      <Spacer x={0.3} />
+                      <Text size={12}>Hasta</Text>
+                      <Spacer x={0.3} />
+                      <Input
+                        size="xs"
+                        type={"time"}
+                        required={true}
+                        placeholder="00:00"
+                        aria-label="horaFinal"
+                        name="horaFinal"
+                      />
+                    </Row>
+                  </Card>
+                </Col>
+              </Card.Body>
+              <Card.Footer>
+                <Row justify="center" css={{ paddingtop: "20px" }}>
+                  <Button
+                    auto
+                    flat
+                    rounded
+                    onPress={() => (setstep(2), setValues(initialValues))}
+                    css={CSSBUTTONBACK}
+                  >
+                    Volver
+                  </Button>
+                  <Button
+                    auto
+                    rounded
+                    css={CSSBUTTONNEXT}
+                    onPress={() => router.push("/")}
+                  >
+                    Guardar
+                  </Button>
+                </Row>
+              </Card.Footer>
+            </Card>
+          </form>
         )
       )}
     </Container>
