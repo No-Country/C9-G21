@@ -12,6 +12,7 @@ type InputProps = {
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined
     css: CSS
 }
+
 export const INPUTPROPS: InputProps = {
     clearable: true,
     bordered: true,
