@@ -1,4 +1,10 @@
-import React, { ReactNode, useState, useRef, useContext } from "react";
+import React, {
+  ReactNode,
+  useState,
+  useRef,
+  useContext,
+  useEffect,
+} from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -28,10 +34,14 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const handleClick = () => isOpen && ref.current?.click();
   const { user } = useContext(globalContext);
+  const [userLogged, setUserLogged] = useState<string>(user?.data?.name);
   let logged = user.token ? true : false;
+
+  useEffect(() => {
+    setUserLogged(user?.data?.name);
+  }, [user]);
 
   return (
     <Layout>
@@ -94,10 +104,13 @@ export default function NavbarLayout({ children }: NavbarLayoutTypes) {
             <Navbar.CollapseItem css={{ display: logged ? "" : "none" }}>
               <Spacer y={0.5} x={0.25} />
               <Row wrap="nowrap">
-                <Text weight={"semibold"}>
+                <Text
+                  weight={"semibold"}
+                  css={{ width: "180px", overflowWrap: "anywhere" }}
+                >
                   Hola,{" "}
                   {user?.data?.name
-                    ? user?.data?.name + " !"
+                    ? userLogged?.slice(0, 18)
                     : "configura tu negocio "}
                 </Text>
               </Row>
