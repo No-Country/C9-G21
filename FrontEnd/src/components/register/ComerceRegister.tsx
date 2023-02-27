@@ -11,6 +11,8 @@ import { EmptyModal } from "../Modal/EmptyModal";
 import Pops1 from "../PopsMail/pops1";
 import Pops2 from "../PopsMail/pops2";
 import Pops3 from "../PopsMail/pops3";
+import Pops4 from "../PopsMail/pops4";
+import Pops5 from "../PopsMail/pops5"
 
 
 type ComerceRegisterT = {
@@ -53,6 +55,7 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
                 body={<Text>El email ya ha sido registrado</Text>}
             />
             <Pops1 visible={visible.registered} setVisible={setVisible} ></Pops1>
+            
             <Container css={{ width: "fit-content", height: "100vh" }}>
                 {/* <Pops1></Pops1> */}
                 <Card >
