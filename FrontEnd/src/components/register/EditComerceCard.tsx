@@ -18,6 +18,7 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 import { Twinkle_Star } from "@next/font/google";
+import { endpoints } from "@/const/endpoints";
 
 interface MyFormProps {
   initialValues: {
@@ -92,7 +93,7 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
   const router = useRouter();
 
   // path step 1 and 2
-  const path = `http://localhost:5000/api/negocio/actualizarNegocio${step}/${user.data._id}`;
+  const path = `${endpoints.base}/api/negocio/actualizarNegocio${step}/${user.data._id}`;
 
   useEffect(() => {
     if (!user.token) {
@@ -362,7 +363,7 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
                         Lunes
                       </Text>
                       <Spacer x={8.5} />
-                      <Switch size="xs" color="success" />
+                      <Switch size="xs"  />
                     </Row>
                     <Spacer y={0.5} />
 

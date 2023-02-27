@@ -7,13 +7,16 @@ const bussines = [
   {
     name: "Mecánico",
     icon: "car.svg",
+    mockName: "mecanico"
   },
   {
     name: "Peluquería",
+    mockName: "Peluquería",
     icon: "scissor.svg",
   },
   {
     name: "Veterinaria",
+    mockName: "Veterinaria",
     icon: "pet.svg",
   },
 ];
@@ -68,7 +71,7 @@ export default function Search() {
         {limitedData.map((e, i) => {
           return (
             <Grid key={i}>
-              <CardBtn name={e?.name} img={e?.icon} setSearchValue={setSearchValue}/>
+              <CardBtn name={e?.name} img={e?.icon} mockName={e.mockName} setSearchValue={setSearchValue}/>
               <Spacer y={-0.3} />
             </Grid>
           );

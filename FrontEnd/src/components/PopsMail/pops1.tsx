@@ -10,9 +10,6 @@ export type Modaltype = {
 }
 
 export default function Pops1({ visible, setVisible }: Modaltype) {
-  const handler = () =>  setVisible((prev) => {
-    return { ...prev, registered: true }
-  })
   const closeHandler = () => {
     setVisible((prev) => {
       return { ...prev, registered: false }
@@ -20,9 +17,6 @@ export default function Pops1({ visible, setVisible }: Modaltype) {
   };
   return (
     <div>
-      <Button auto ghost color="error" onPress={handler}>
-        pops 1
-      </Button>
       <Modal
         preventClose
         aria-labelledby="modal-title"

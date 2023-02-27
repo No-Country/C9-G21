@@ -46,14 +46,14 @@ const Index = () => {
       fetchData();
     }
   }, [router.query])
-  
+
   return (
     <>
       <SearchBar setSearchValue={setSearchValue} searchValue={searchValue} />
       <Grid.Container justify='center' css={{ padding: 10, rowGap: 10 }}>
         {comercios && comercios.map((comercio) =>
           <div key={comercio._id} onClick={(ev) => handleCardClick(ev, comercio)}>
-            <Card css={{ padding: 10, width: "100%"}} >
+            <Card css={{ padding: 10, width: "100%" }}  >
               <Row css={{ flexDirection: "column", padding: 10 }}  >
                 <Text size={25} >
                   {comercio.registeredName}
@@ -62,14 +62,17 @@ const Index = () => {
                   {/* {comercio.distancia} */}
                 </Text>
               </Row>
-              <Row justify='space-between' css={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 5 }}>
-                <Text css={{ paddingRight: 5, width: "50%" }}>
+              <Row justify='space-between' align='center' css={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 5 }}>
+                <Text css={{ paddingRight: 5, }}>
                   {comercio.descripcion}
                 </Text>
-                <Rectangle />
+                <div style={{ width: "96px" }}>
+                  <Rectangle />
+                </div>
               </Row>
             </Card>
           </div>
+
         )}
         {comercios && comercios.length === 0 && <Text>No hay Comercios para esta busqueda, porfavor intenta algo distinto</Text>}
       </Grid.Container>

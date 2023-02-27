@@ -6,14 +6,15 @@ import { Dispatch, SetStateAction } from "react";
 type Btntype = {
   name?: string;
   img?: string;
+  mockName?: string
   setSearchValue?: Dispatch<SetStateAction<string>>;
 };
 
-export default function CardBtn({ name, img, setSearchValue }: Btntype) {
+export default function CardBtn({ name, img, mockName,setSearchValue }: Btntype) {
   const router = useRouter()
   const handleOnPress = (e: PressEvent) => {
-    if (name) {
-      router.push("/search/category/" + name)
+    if (mockName) {
+      router.push("/search/freesearch/" + mockName)
     }
   }
   return (
