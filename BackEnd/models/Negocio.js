@@ -72,6 +72,9 @@ const negocioSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  type: {
+    type: String,
+  },
 
 
   availability: 
