@@ -6,6 +6,7 @@ const validationSchemaAdministrador = Joi.object({
   password: Joi.string().min(8).required(),
   email: Joi.string().email().required(),
   phone: Joi.string().required(),
+  type:Joi.string()
 });
 
 export { validationSchemaAdministrador };
