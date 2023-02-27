@@ -4,7 +4,14 @@ import { Container, Row, Spacer, Text, Col } from "@nextui-org/react";
 
 const Footer = () => {
   return (
+<<<<<<< HEAD
     <Container justify="center" css={{ backgroundColor: "#535971", h: "81px", position: "absolute", bottom: "0" }}>
+=======
+    <Container
+      justify="center"
+      css={{ backgroundColor: "#535971", h: "81px", maxW: "1400px" }}
+    >
+>>>>>>> 9e2903b449dea3ee62e8dd41912e0f42a7181672
       <Row justify="center" wrap="nowrap" css={{ paddingTop: "10px" }}>
         <Link href="/#">
           <Text

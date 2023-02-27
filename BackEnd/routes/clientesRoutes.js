@@ -8,7 +8,6 @@ import {
   nuevoPasswordCliente,
   perfilCliente
 } from "../controllers/clientesController.js";
-import checkAuth from '../middleware/authMiddleware.js';
 import validatorHandler from "../middleware/validator.handler.js";
 import crearUsuario from "../schemas/client.schema.js";
 
@@ -22,5 +21,5 @@ router.post("/password-olvidada",passwordClienteOlvidada)
 router.get("/password-olvidada/:token", comprobarTokenCliente);
 router.post("/password-olvidada/:token",  nuevoPasswordCliente);
 
-router.get('/perfil', checkAuth, perfilCliente);
+router.get('/perfil/:id', perfilCliente);
 export default router;

@@ -1,32 +1,63 @@
 import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
 import { registerSubmit } from "@/helpers/forms/registerSubmit.helper";
 import { RegisterFormValues, RegisterUserSchema, resolverUser, resolverComerce } from "@/helpers/forms/register";
-import { Col, Button, Text, Input, Row, Card, Container, Spacer } from "@nextui-org/react";
+import { Col, Button, Text, Input, Row, Card, Container, Spacer, Modal } from "@nextui-org/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FullNameRegister } from "./FullNameRegister";
+import { EmptyModal } from "../Modal/EmptyModal";
+import Pops1 from "../PopsMail/pops1";
+import Pops2 from "../PopsMail/pops2";
+import Pops3 from "../PopsMail/pops3";
+import Pops4 from "../PopsMail/pops4";
+import Pops5 from "../PopsMail/pops5"
+
 
 type ComerceRegisterT = {
     children?: ReactNode;
     isUserRegister?: boolean
     test: RegisterFormValues
 }
+export type visibleT = {
+    registered: boolean,
+    alreadyCreated: boolean
+}
 
+// guardar token el localstorage
 export const ComerceRegister = ({ children, isUserRegister = true, test }: ComerceRegisterT) => {
     const router = useRouter();
     const resolver = isUserRegister ? resolverUser : resolverComerce
-    
+    const [visible, setVisible] = useState<visibleT>({
+        registered: false,
+        alreadyCreated: false
+    })
     const { register, handleSubmit, formState: { errors } } = useForm<typeof test>({ resolver });
-
     const onSubmit = handleSubmit(async (data) => {
-        registerSubmit(data, isUserRegister)
+        const response = await registerSubmit(data, isUserRegister)
+        if (response === "ERR_BAD_REQUEST") {
+            setVisible((prev) => {
+                return { ...prev, alreadyCreated: true }
+            })
+        } else {
+            localStorage.setItem("token", (response as any).data.token)
+            localStorage.setItem("isUserRegister", isUserRegister ? "true" : "false")
+            setVisible((prev) => {
+                return { ...prev, registered: true }
+            })
+        }
     });
-    console.log(errors)
     return (
         <form onSubmit={onSubmit}>
+            <EmptyModal
+                visible={visible.alreadyCreated} setVisible={setVisible}
+                body={<Text>El email ya ha sido registrado</Text>}
+            />
+            <Pops1 visible={visible.registered} setVisible={setVisible} ></Pops1>
+            
             <Container css={{ width: "fit-content", height: "100vh" }}>
+                {/* <Pops1></Pops1> */}
                 <Card >
                     <Card.Body css={{ alignContent: "center", rowGap: "$10" }}>
                         <Col css={{
@@ -84,6 +115,7 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
                             </Button>
                             <Button auto type="submit" rounded css={CSSBUTTONNEXT}>
                                 Registrarse
+
                             </Button>
                         </Row>
                     </Card.Body>

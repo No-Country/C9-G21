@@ -11,7 +11,9 @@ const emailRegistro = async (datos) =>{
         pass: process.env.EMAIL_PASS
         }
     });
-    const {email, name, token} = datos;
+    urlDeployed= process.env.URL_DEPLOYED
+    urlDesarrollo=process.env.URL_DESARROLLO
+    const {email, name, token ,isDev} = datos;
     //enviar email
     const info = await transport.sendMail({
         from: '"App.ointment"<correo@appointment.com',
@@ -20,8 +22,9 @@ const emailRegistro = async (datos) =>{
         text: "Valida tu cuenta en App.ointment",
         html:`<p> Hola ${name}, valida tu cuenta en App.ointment. </p>
         <p> Tu cuenta está lista, sólo debes validarla en el siguiente enlace:
-        <a href="http://localhost:5000/api/clientes/confirmar/${token}">Comprobar cuenta</a> </p>
+        <a href="${isDev?urlDesarrollo :urlDeployed}/confirm">Comprobar cuenta</a> </p>
         <p> Si tu no creaste esta cuenta, ignora este mensaje.</p>
+        
         `
     });
     console.log("Mensaje enviado: %s", info.messageId)

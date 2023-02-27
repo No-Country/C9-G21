@@ -1,15 +1,13 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
-import { Button } from "@nextui-org/react/";
-import Login from "@/components/login/Login";
 import SlideShow from "@/components/SlideShow/SlideShow";
 import InfoHome from "@/components/InfoHome/InfoHome";
 import Search from "@/components/Search/Search";
 import Footer from "@/components/Footer/Footer";
 
+import { AcountActivation } from "@/components/AcountActivation";
+
 export default function Home() {
+
   return (
     <>
       <Head>

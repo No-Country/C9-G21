@@ -1,6 +1,7 @@
 import { Grid, Text, Spacer, Row } from "@nextui-org/react";
 import SearchBar from "./SearchBar";
 import CardBtn from "./CardBtn";
+import { useState } from "react";
 
 const bussines = [
   {
@@ -19,16 +20,10 @@ const bussines = [
 
 const limitedData = bussines.slice(0, 3);
 
-const renderedData = limitedData.map((e, i) => {
-  return (
-    <Grid key={i}>
-      <CardBtn name={e?.name} img={e?.icon} />
-      <Spacer y={-0.3} />
-    </Grid>
-  );
-});
 
 export default function Search() {
+  const [searchValue, setSearchValue] = useState<string>("");
+  
   return (
     <Grid.Container
       justify="center"
@@ -58,7 +53,7 @@ export default function Search() {
         </Grid>
       </Row>
       <Spacer y={0.2} />
-      <SearchBar />
+      <SearchBar setSearchValue={setSearchValue} searchValue={searchValue} />
       <Spacer y={0.2} />
 
       <Row
@@ -70,7 +65,14 @@ export default function Search() {
           i: "50px",
         }}
       >
-        {renderedData}
+        {limitedData.map((e, i) => {
+          return (
+            <Grid key={i}>
+              <CardBtn name={e?.name} img={e?.icon} setSearchValue={setSearchValue}/>
+              <Spacer y={-0.3} />
+            </Grid>
+          );
+        })}
         <CardBtn name="Ver más..." img={"more.svg"} />
       </Row>
     </Grid.Container>
