@@ -14,7 +14,11 @@ export default function CardBtn({ name, img, mockName,setSearchValue }: Btntype)
   const router = useRouter()
   const handleOnPress = (e: PressEvent) => {
     if (mockName) {
-      router.push("/search/freesearch/" + mockName)
+      if (mockName === "ver mas") {
+        router.push("/verMas")
+      }else{
+        router.push("/search/freesearch/" + mockName)
+      }
     }
   }
   return (

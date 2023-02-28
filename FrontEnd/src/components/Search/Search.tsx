@@ -76,7 +76,7 @@ export default function Search() {
             </Grid>
           );
         })}
-        <CardBtn name="Ver más..." img={"more.svg"} />
+        <CardBtn name="Ver más..." img={"more.svg"} mockName={"ver mas"}/>
       </Row>
     </Grid.Container>
   );
