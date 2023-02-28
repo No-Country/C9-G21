@@ -74,17 +74,20 @@ Este proyecto fue realizado por el grupo 21 de Cohorte 9 de NoCountry. Los miemb
 
 ### BackEnd
 
-* #### [Agustin Soleti](https://www.linkedin.com/in/aguusoleti/)  	-	[Git Hub](https://github.com/aguusoleti)
-* #### [Emmanuel Paul Carrillo Carpio](https://www.linkedin.com/in/emmanuel-pa%C3%BAl-carrillo-carpio/)  	-	[Git Hub](https://github.com/EmaPaul)
-* #### [Marta Alcázar Redondo](https://www.linkedin.com/in/marta-alc%C3%A1zar-redondo/)  	-	[Git Hub](https://github.com/martaalcazarr)
+* #### Agustin Soleti  	-	[Linkedin](https://www.linkedin.com/in/aguusoleti/)  	-	[Git Hub](https://github.com/aguusoleti)
+* #### Emmanuel Paul Carrillo Carpio  	-	[Linkedin](https://www.linkedin.com/in/emmanuel-pa%C3%BAl-carrillo-carpio/)  	-	[Git Hub](https://github.com/EmaPaul)
+* #### Marta Alcázar Redondo  	-	[Linkedin](https://www.linkedin.com/in/marta-alc%C3%A1zar-redondo/)  	-	[Git Hub](https://github.com/martaalcazarr)
 
 ### FrontEnd
-* #### [Cristhian Paez](https://www.linkedin.com/in/crissxp76/)  	-	[Git Hub](https://github.com/Crissxp)
-* #### [Jimmy Alejandro Lopez Piza](https://github.com/jimmylo16)  	-	[Git Hub](https://www.linkedin.com/in/aguusoleti/)
-* #### [Marcelo Ezequiel Acevedo](https://www.linkedin.com/in/marcelo-ezequiel-acevedo-3b0aa6238/)  	-	[Git Hub](https://github.com/miqueas35)
+* #### Cristhian Paez  	-	[Linkedin](https://www.linkedin.com/in/crissxp76/)  	-	[Git Hub](https://github.com/Crissxp)
+* #### Jimmy Alejandro Lopez Piza  	-	[Linkedin](https://github.com/jimmylo16)  	-	[Git Hub](https://www.linkedin.com/in/aguusoleti/)
+* #### Marcelo Ezequiel Acevedo  	-	[Linkedin](https://www.linkedin.com/in/marcelo-ezequiel-acevedo-3b0aa6238/)  	-	[Git Hub](https://github.com/miqueas35)
 
 ### Diseño UX/UI
-* #### [Mariana Camisasca](https://www.linkedin.com/in/mariana-camisasca/)  	-	[Behance](https://www.behance.net/mcamisasca)
+* #### Mariana Camisasca[Linkedin](https://www.linkedin.com/in/mariana-camisasca/)  	-	[Behance](https://www.behance.net/mcamisasca)
+
+### TL
+* #### Victor Uroza   	-	[Linkedin]https://www.linkedin.com/in/vuroza/)  	-	[Git Hub](github.com/viktorkrill)
 ## Contribución
 Si deseas contribuir a este proyecto, puedes hacerlo de varias formas:
 
