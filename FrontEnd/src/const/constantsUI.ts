@@ -45,3 +45,29 @@ export const CSSBUTTONNEXT: CSS = {
     boxShadow: "2px 2px 6px #ACACAC",
     borderRadius: "30px",
 }
+export const CSSBUTTONBACK2: CSS = {
+    width: "256px",
+    height:"56px",
+    left:"53px",
+    backgroundColor:"#E04841",
+    marginRight: "5px",
+    padding: "18px 24px",
+    gap: "8px",
+    color:"White",
+    boxShadow: "2px 2px 6px #ACACAC",
+    borderRadius: "30px",
+}
+export const CSSBUTTONBACK3: CSS = {
+    width: "256px",
+    height:"56px",
+    left:"53px",
+    bg: whiteColor,
+    border: darkerGreen,
+    borderWidth: "1.5px",
+    color: greenColor,
+    borderStyle: "solid",
+    boxShadow: "2px 2px 6px #ACACAC",
+    borderRadius: "30px",
+}
+
+
