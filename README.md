@@ -81,7 +81,6 @@ Este proyecto fue realizado por el grupo 21 de Cohorte 9 de NoCountry. Los miemb
 ### FrontEnd
 * #### Cristhian Paez  	-	[Linkedin](https://www.linkedin.com/in/crissxp76/)  	-	[Git Hub](https://github.com/Crissxp)
 * #### Jimmy Alejandro Lopez Piza  	-	[Linkedin](https://github.com/jimmylo16)  	-	[Git Hub](https://www.linkedin.com/in/aguusoleti/)
-* #### Marcelo Ezequiel Acevedo  	-	[Linkedin](https://www.linkedin.com/in/marcelo-ezequiel-acevedo-3b0aa6238/)  	-	[Git Hub](https://github.com/miqueas35)
 
 ### Diseño UX/UI
 * #### Mariana Camisasca[Linkedin](https://www.linkedin.com/in/mariana-camisasca/)  	-	[Behance](https://www.behance.net/mcamisasca)
