@@ -20,71 +20,73 @@ import axios from "axios";
 import { Twinkle_Star } from "@next/font/google";
 import { endpoints } from "@/const/endpoints";
 
-interface MyFormProps {
-  initialValues: {
-    name: string;
-    address: string;
-    city: string;
-    registeredName: string;
-    rubro: string;
-    descripcion: string;
-    descripcion2: string;
-    availability: [
-      {
-        monday: {
-          isActive: true;
-          horaInicio: "10:00";
-          horaFinal: "20:00";
-        };
-      },
-      {
-        tuesday: {
-          isActive: false;
-          horaInicio: "10:00";
-          horaFinal: "20:00";
-        };
-      },
-      {
-        wednesday: {
-          isActive: false;
-          horaInicio: "10:00";
-          horaFinal: "20:00";
-        };
-      },
-      {
-        thursday: {
-          isActive: false;
-          horaInicio: "10:00";
-          horaFinal: "20:00";
-        };
-      },
-      {
-        friday: {
-          isActive: false;
-          horaInicio: "10:00";
-          horaFinal: "20:00";
-        };
-      },
-      {
-        saturday: {
-          isActive: false;
-          horaInicio: "10:00";
-          horaFinal: "20:00";
-        };
-      },
-      {
-        sunday: {
-          isActive: false;
-          horaInicio: "10:00";
-          horaFinal: "20:00";
-        };
-      }
-    ];
-    shiftDuration: "1:00";
-  };
+export interface MyFormProps {
+  initialValues: InitialValueEditComerce
 }
+export type InitialValueEditComerce = {
+  name: string;
+  address: string;
+  city: string;
+  registeredName: string;
+  rubro: string;
+  descripcion: string;
+  descripcion2: string;
+  availability: [
+    {
+      monday: {
+        isActive: true;
+        horaInicio: "10:00";
+        horaFinal: "20:00";
+      };
+    },
+    {
+      tuesday: {
+        isActive: false;
+        horaInicio: "10:00";
+        horaFinal: "20:00";
+      };
+    },
+    {
+      wednesday: {
+        isActive: false;
+        horaInicio: "10:00";
+        horaFinal: "20:00";
+      };
+    },
+    {
+      thursday: {
+        isActive: false;
+        horaInicio: "10:00";
+        horaFinal: "20:00";
+      };
+    },
+    {
+      friday: {
+        isActive: false;
+        horaInicio: "10:00";
+        horaFinal: "20:00";
+      };
+    },
+    {
+      saturday: {
+        isActive: false;
+        horaInicio: "10:00";
+        horaFinal: "20:00";
+      };
+    },
+    {
+      sunday: {
+        isActive: false;
+        horaInicio: "10:00";
+        horaFinal: "20:00";
+      };
+    }
+  ];
+  type: "negocio" | "admin" | "client"
+  shiftDuration: "1:00";
+};
 
-const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
+const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }: MyFormProps) => {
   const [step, setstep] = useState(1);
   const [selected, setSelected] = useState<any>(new Set(["Rubro"]));
   const [selectedTime, setSelectedTime] = useState<any>(new Set(["1 hora"]));
@@ -94,7 +96,6 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
 
   // path step 1 and 2
   const path = `${endpoints.base}/api/negocio/actualizarNegocio${step}/${user.data._id}`;
-
   useEffect(() => {
     if (!user.token) {
       router.push("/");
@@ -113,7 +114,7 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.put(`${path}`, values);
+      const response = await axios.put(`${path}`, { ...values, type: user.user });
       setstep(step + 1);
       setValues(initialValues);
       console.log("Form submitted:", response.data);
@@ -121,12 +122,13 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
       console.error(error);
     }
   };
-
+  console.log(values)
   const handleRubro = (e: any) => {
     setSelected(e.currentKey);
     setValues({
       ...values,
       ["rubro"]: e.currentKey.toLowerCase(),
+      type: user.user
     });
   };
   const handletime = (e: any) => {
@@ -134,6 +136,7 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
     setValues({
       ...values,
       ["shiftDuration"]: e.currentKey.toLowerCase(),
+      type: user.user
     });
   };
 
@@ -363,7 +366,7 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }) => {
                         Lunes
                       </Text>
                       <Spacer x={8.5} />
-                      <Switch size="xs"  />
+                      <Switch size="xs" />
                     </Row>
                     <Spacer y={0.5} />
 

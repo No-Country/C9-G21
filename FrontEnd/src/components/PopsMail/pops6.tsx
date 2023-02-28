@@ -1,30 +1,11 @@
 import React from "react";
 import { Modal, Button, Text, Row, Card, Spacer, Col, Input } from "@nextui-org/react";
-import Link from "next/link";
-import { UnLockIcon } from "./UnLockIcon";
-import { LockIcon } from "./LockIcon.js";
 import { INPUTPROPS, CSSBUTTONBACK, CSSBUTTONNEXT } from "@/const/constantsUI";
 import { UseFormRegister } from "react-hook-form/dist/types";
+import { FullNameRegisterT } from "../register/FullNameRegister";
 
 //pantalla de editar perfil cliente
 
-type FullNameRegisterT = {
-    register: UseFormRegister<{
-        email: string;
-        name: string;
-        lastName: string;
-        phone: string;
-        password: string;
-        confirmPassword: string;
-    } | Omit<{
-        email: string;
-        name: string;
-        lastName: string;
-        phone: string;
-        password: string;
-        confirmPassword: string;
-    }, "name" | "lastName">>
-}
 export default function Pops4({ register }: FullNameRegisterT) {
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
@@ -88,11 +69,11 @@ export default function Pops4({ register }: FullNameRegisterT) {
                                 <Spacer y={1.6} />
 
 
-                                
-                                <Button  css={CSSBUTTONBACK}>Volver</Button>
-                            
-                                <Button  css={CSSBUTTONNEXT}>Guardar</Button>
-                            
+
+                                <Button css={CSSBUTTONBACK}>Volver</Button>
+
+                                <Button css={CSSBUTTONNEXT}>Guardar</Button>
+
                             </Row>
                             <Text>Eliminar cuenta</Text>
                         </Col>

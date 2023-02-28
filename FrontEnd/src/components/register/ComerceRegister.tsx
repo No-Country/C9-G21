@@ -56,7 +56,7 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
                 body={<Text>El email ya ha sido registrado</Text>}
             />
             <Pops1 visible={visible.registered} setVisible={setVisible} ></Pops1>
-            <Pops6 visible={visible.registered} setVisible={setVisible} ></Pops6>
+            <Pops6   register={register}></Pops6>
 
             
             <Container css={{ width: "fit-content", height: "100vh" }}>
