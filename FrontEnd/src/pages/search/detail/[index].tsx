@@ -5,73 +5,38 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { endpoints } from '@/const/endpoints'
 import { Detail } from '@/types/comerce'
-import { Card, Container, Row, Text } from '@nextui-org/react'
-import Rectangle from '@/components/svg/rectangle'
-import { useLocation } from '@/hooks/useLocation'
 
-const Index = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+import { useLocation } from '@/hooks/useLocation'
+import { AssingTurn } from '@/components/comerceDetail/AssingTurn'
+import { useRouter } from 'next/router'
+
+const Index = () => {
+  const [detail, setDetail] = useState<Detail | undefined>()
   const { comerceSelected } = useGlobalContext();
 
   const { lat, lng, status } = useLocation();
-  let availability 
-  if (typeof data !== "string") {
-    data.availability.filter((day)=>{
-      console.log(day)
-      return day
-    })
-  }
-  return (
-    typeof data === "string"
-      ? <></>
-      : <Container>
-        <Card >
-          <Card.Body>
-            <Row justify='space-between'>
-              <Text size={20}>{data.registeredName}</Text>
-              <Text size={10}>0.7 km</Text>
-            </Row>
-            <Rectangle width={300} height={300}></Rectangle>
-            <Text>
-              {data.descripcion}
-            </Text>
-            <Row>
-              <Text weight={"bold"} css={{paddingRight: 5}}>Dirección: </Text>
-              <Text>
-              {data.city + " " + data.address} 
-              </Text>
-            </Row>
-            <Row>
-              <Text weight={"bold"} css={{paddingRight: 5}}>Horario de atención: </Text>
-              <Text>
-             
-              
-              </Text>
-            </Row>
-          </Card.Body>
-        </Card>
+  const router = useRouter()
 
-      </Container>
+  useEffect(() => {
+    const fetchFn = async () => {
+
+      const res = await axios.get(`${endpoints.base}/api${endpoints.detail}/${router.query.index}`);
+      const data: Detail = res.data
+      setDetail(data)
+
+    }
+    if (router.query.index) {
+      fetchFn()
+    }
+
+  }, [router.query.index])
+
+
+  return (detail ? <AssingTurn data={detail} /> : <></>
+
   )
 
 }
 
 
-export const getServerSideProps: GetServerSideProps<{ data: Detail | string }> = async (context) => {
-  if (context.query.index === "logo.svg") {
-    return {
-      props: {
-        data: "se renderiza en el servidor"
-      },
-    }
-  }
-  const res = await axios.get(`${endpoints.base}/api${endpoints.detail}/${context.query.index}`);
-  const data: Detail = res.data
-
-  return {
-    props: {
-      data,
-      query: context.query.index
-    },
-  }
-}
 export default Index

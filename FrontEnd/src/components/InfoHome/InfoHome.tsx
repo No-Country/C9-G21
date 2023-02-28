@@ -2,6 +2,7 @@ import { Grid, Row, Spacer } from "@nextui-org/react";
 import InfoCard from "./InfoCard";
 import infocliente from "../../../public/infoCliente.png";
 import infocomercio from "../../../public/infoComercio.png";
+import PopsTurnos from "../PopsMail/popsTurnos";
 
 function InfoHome() {
   return (
@@ -15,6 +16,7 @@ function InfoHome() {
         paddingBottom: "9px",
       }}
     >
+      <PopsTurnos></PopsTurnos>
       <Row justify="center" css={{ maxW: "1400px" }}>
         <Grid xs={6}>
           <InfoCard

@@ -1,8 +1,12 @@
 import React from "react";
+
 import { Modal, Container, Button, Text, Row, Card, Spacer, Col, Input } from "@nextui-org/react";
 import Link from "next/link";
 import { UnLockIcon } from "./UnLockIcon";
 import { LockIcon } from "./LockIcon.js";
+
+
+
 import { INPUTPROPS, CSSBUTTONBACK, CSSBUTTONNEXT } from "@/const/constantsUI";
 import { UseFormRegister } from "react-hook-form/dist/types";
 

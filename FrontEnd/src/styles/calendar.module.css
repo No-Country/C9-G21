@@ -1,0 +1,65 @@
+.react-calendar {
+    border: 1px solid #045F59;
+    border-radius: 8px;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #045F59
+}
+
+.react-calendar button {
+    border-radius: 100px;
+}
+
+.react-calendar__tile--now {
+    background: #EDEDED;
+}
+
+.react-calendar__tile--active {
+    background: #078E85;
+}
+
+.react-calendar__tile--active>abbr {
+    color: white;
+}
+
+.HoursContainer {
+    border: 1px solid #045F59;
+    border-radius: 8px;
+    width: 208px;
+    align-self: center;
+
+    color: #3B3C3E;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.HoursList {
+    height: 120px;
+    width: 208px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.HoursList  {
+    margin: 0 !important;
+}
+.HoursList>li {
+    font-size: 20px;
+    padding-left: 5px;
+    margin-right: 10px;
+}
+
+.HoursList>li:hover {
+    background:  #078E85;
+    color: white;
+}
+
+.HoursList::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 10px;
+}
+
+.HoursContainer::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 10px;
+}
