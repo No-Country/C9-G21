@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Container, Text, PressEvent, Button, Col } from "@nextui-org/react";
+import { Card, Container, Text, PressEvent, Button, Col, Row } from "@nextui-org/react";
 import Footer from "@/components/Footer/Footer";
 import Image from "next/image";
 
@@ -17,10 +17,8 @@ export default function useVerMas() {
     <Container css={{alignItems: "center", width:"100%", height:"100vh" }}>
     <Card css={{top:"41px"}} >
         <Card.Body css={{alignContent: "center", width:"100%" }}>
-            <Text css={{fontFamily:"Comfortaa",width:"286px", height: "32px", fontWeight: "bold", color:"#535971", fontSize:"20px"}}>Rubros disponibles</Text>
-                <Col>
-                    <Text>asasasas</Text>
-                </Col>
+            <Text css={{fontFamily:"Comfortaa", width:"258px", height: "24px", fontWeight: "bold", color:"#535971", fontSize:"20px"}}>Rubros disponibles</Text>
+                <Row>
             <Button icon={
                 
                 <Image 
@@ -62,7 +60,7 @@ export default function useVerMas() {
                 css={{
                     alignItems: "center",
                     backgroundColor: "#078E85",
-                    width: "160px",
+                    width: "127px",
                     height: "40px",
                     margin: "10px",
                     borderRadius: "19px",
@@ -79,7 +77,9 @@ export default function useVerMas() {
                 }}
               >
                 Barbería
-              </Text></Button>
+              </Text></Button> 
+                </Row>
+                <Row>
             <Button icon={
                 <Image 
                     src={"estetica.svg"} 
@@ -91,7 +91,7 @@ export default function useVerMas() {
                 css={{
                     alignItems: "center",
                     backgroundColor: "#078E85",
-                    width: "160px",
+                    width: "127px",
                     height: "40px",
                     margin: "10px",
                     borderRadius: "19px",
@@ -138,6 +138,8 @@ export default function useVerMas() {
               >
                 Veterinaria
               </Text></Button>
+                </Row>
+                <Row>
             <Button icon={
                 <Image 
                     src={"vector.svg"} 
@@ -178,7 +180,7 @@ export default function useVerMas() {
                 css={{
                     alignItems: "center",
                     backgroundColor: "#078E85",
-                    width: "160px",
+                    width: "127px",
                     height: "40px",
                     margin: "10px",
                     borderRadius: "19px",
@@ -196,6 +198,8 @@ export default function useVerMas() {
               >
                 Salud
               </Text></Button>
+                </Row>
+                <Row>
             <Button icon={
                 <Image 
                     src={"diente.svg"} 
@@ -254,6 +258,8 @@ export default function useVerMas() {
               >
                 Manicura
               </Text></Button>
+                </Row>
+                <Row>
             <Button icon={
                 <Image 
                     src={"mental.svg"} 
@@ -312,6 +318,7 @@ export default function useVerMas() {
               >
                 Otros
               </Text></Button>
+                </Row>
               
         </Card.Body>
     </Card>
