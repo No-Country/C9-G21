@@ -27,13 +27,26 @@ const edit = () => {
                     flexDirection: "column",
                   }}
                 >
+                <Row justify="space-between">
                   <Input
+                  
                     {...INPUTPROPS}
-                    placeholder="Peluquería Flores"
-                    id="nombrecomercioInput"
-                    label="Nombre del comercio"
-                    aria-label="Nombre del comercio"
+                    css={{ width: "48%" }}
+                    placeholder="María"
+                    id="nombreInput"
+                    label="Nombre"
+                    aria-label="Nombre"
                   />
+                   <Input
+                   
+                    {...INPUTPROPS}
+                    css={{ width: "48%" }}
+                    placeholder="López"
+                    id="apellidoInput"
+                    label="Apellido"
+                    aria-label="Apellido"
+                  />
+                </Row>
                   <Input
                     {...INPUTPROPS}
                     placeholder="ejemplo@gmail.com"
@@ -51,45 +64,14 @@ const edit = () => {
                   />
                   <Spacer x={1.6} />
                 </Col>
-                <Row justify="flex-start" css={{ paddingBottom: "20px" }}>
+                <Row justify="flex-start" css={{ paddingBottom: "10px" }}>
                   <Text>
                     <Link href="/" style={{ color: "#09BEB2" }}>
                       Cambiar contraseña
                     </Link>
                   </Text>
                 </Row>
-                <Card
-                  style={{
-                    padding: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src="/lock-icon.png"
-                    alt="Lock icon"
-                    style={{ height: "24px", marginRight: "10px" }}
-                  />
-                </Card>
-                <Spacer x={1.6} />
-                <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
-                  <Text>
-                    <Link href="/" style={{ color: "#09BEB2" }}>
-                      Editar fotos
-                    </Link>
-                  </Text>
-                </Row>
-                <Row>
-                  <Text>Texto para descripción del negocio</Text>
-                </Row>
-                <Spacer x={1.6} />
-                <Row justify="flex-end" css={{ paddingBottom: "20px" }}>
-                  <Text>
-                    <Link href="/" style={{ color: "#09BEB2" }}>
-                      Editar descripción
-                    </Link>
-                  </Text>
-                </Row>
+                
                 <Row justify="space-between" css={{ paddingTop: "20px" }}>
                   <Button
                     auto
