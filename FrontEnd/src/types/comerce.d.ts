@@ -17,6 +17,7 @@ export type Detail = {
   shiftDuration: string;
   __v: number;
   availability: Availability[];
+  type?: "negocio" | "admin" | "client"
 }
 
 export type Availability =  {

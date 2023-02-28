@@ -4,7 +4,7 @@ import { Col, Input, Row, Spacer } from '@nextui-org/react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import React from 'react'
 
-type FullNameRegisterT = {
+export type FullNameRegisterT = {
     register: UseFormRegister<{
         email: string;
         name: string;
