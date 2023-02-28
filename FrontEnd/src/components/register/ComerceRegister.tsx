@@ -16,6 +16,7 @@ import Pops5 from "../PopsMail/pops5";
 import Pops6 from "../PopsMail/pops6";
 
 
+
 type ComerceRegisterT = {
     children?: ReactNode;
     isUserRegister?: boolean
@@ -56,7 +57,9 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
                 body={<Text>El email ya ha sido registrado</Text>}
             />
             <Pops1 visible={visible.registered} setVisible={setVisible} ></Pops1>
+
             <Pops6   register={register}></Pops6>
+
 
             
             <Container css={{ width: "fit-content", height: "100vh" }}>
