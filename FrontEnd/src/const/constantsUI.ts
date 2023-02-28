@@ -56,7 +56,7 @@ export const CSSBUTTONBACK2: CSS = {
     color:"White",
     boxShadow: "2px 2px 6px #ACACAC",
     borderRadius: "30px",
-    marginTop:"35px",
+    marginTop:"55px",
 
 }
 export const CSSBUTTONBACK3: CSS = {
