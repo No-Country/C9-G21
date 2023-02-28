@@ -14,6 +14,7 @@ import Pops3 from "../PopsMail/pops3";
 import Pops4 from "../PopsMail/pops4";
 import Pops5 from "../PopsMail/pops5";
 import Pops6 from "../PopsMail/pops6";
+import Pops9 from "../PopsMail/pops9"
 
 
 
@@ -57,7 +58,7 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
                 body={<Text>El email ya ha sido registrado</Text>}
             />
             <Pops1 visible={visible.registered} setVisible={setVisible} ></Pops1>
-
+            <Pops9 visible={visible.registered} setVisible={setVisible} ></Pops9>
             <Pops6   register={register}></Pops6>
 
 
