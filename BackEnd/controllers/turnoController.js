@@ -3,22 +3,28 @@ import Turno from "../models/Turno.js";
 
 
 const crearTurno = async (req, res) => {
-  const { Hora, Fecha, Servicio } = req.body;
-  const existeTurno = await Turno.findOne({ Hora, Fecha, Servicio });
+  const { hora, fecha, servicio } = req.body;
+  const existeTurno = await Turno.findOne({ hora, fecha, servicio });
 
+console.log(existeTurno + "soy existe turno")
+console.log(hora + " " + fecha + " "+servicio)
+
+
+try {
   if (existeTurno) {
     const error = new Error("Turno ya dado");
     return res.status(400).json({ msg: error.message });
-  }
-
-  try {
+    }
     const turno = new Turno(req.body);
+    console.log(turno)
+    console.log(turno.disponible)
     turno.Disponible = false;
     const turnoSave = await turno.save();
+  
     res.json(turnoSave);
   } catch (err) {
-    const error = new Error("Error no se puedo crear el turno");
-    return res.status(400).json({ msg: error.message });
+    // const error = new Error("Error no se puedo crear el turno");
+    return res.status(400).json(err);
   }
 };
 
