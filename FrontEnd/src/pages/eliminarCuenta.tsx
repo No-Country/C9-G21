@@ -26,7 +26,7 @@ export default function Index() {
         }}>Eliminar cuenta</Text>
 
 
-        <Card.Image src='interrogacionRojo.svg' css={{
+        <Card.Image src='exclamacionRojo.svg' css={{
           width: "90px",
           height: "90px",
           marginTop:"48px"

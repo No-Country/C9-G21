@@ -1,7 +1,8 @@
 import React from 'react';
-import { Modal, Button, Text, Row, Card, Spacer, Col, Input } from "@nextui-org/react";
+import { Modal, Button, Text, Row, Card, Spacer, Col, Input, Grid } from "@nextui-org/react";
 import { INPUTPROPS, CSSBUTTONBACK, CSSBUTTONNEXT } from "@/const/constantsUI";
 import { UseFormRegister } from "react-hook-form/dist/types";
+import Image from 'next/image';
 
 export default function Pops5() {
     const [visible, setVisible] = React.useState(false);
@@ -30,21 +31,23 @@ export default function Pops5() {
                 }}
             >
                 <Modal.Header>
-                <Card.Image src='tildeturno.svg'></Card.Image>
+                <Card.Image src='exclamacionAmarillo.svg'></Card.Image>
                 </Modal.Header>
                 <Modal.Body css={{ fontSize: "16px", color: "#000000" }}>
                 <Text css={{ fontSize: "20px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}>
-                ¡Genial, tu turno fue solicitado!
+                ¿Queres eliminar esta imagen?
           </Text>
-          <Text css={{ fontSize: "16px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}>
-          El día 18/02/23 a las 16:00 hs
-          </Text>
-                   <Text css={{ fontSize: "12px", fontFamily: "DM Sans", color: "#000000", fontWeight: "400", textAlign: "center" }}>En las 48 hs previas a tu turno recibirás un correo de recordatorio para confirmarlo.
+          <Grid>
+          <Card.Image src='SlideShow-1.jpg' css={{ borderRadius:"6px"}}></Card.Image>
 
-Es obligatorio confirmar el turno, en caso de no hacerlo el mismo será descartado.</Text> 
+      </Grid>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button css={CSSBUTTONNEXT}>Entendido</Button>
+                    <Row>
+
+                <Button css={CSSBUTTONBACK}>volver</Button>
+                <Button css={CSSBUTTONNEXT}>Sí Eliminar</Button>
+                    </Row>
 
 
                 </Modal.Footer>
