@@ -19,7 +19,7 @@ import checkAuth from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/').post(checkAuth, agregarTurno).get(checkAuth, obtenerTurnos);
+router.route('/').get(checkAuth, obtenerTurnos).post(checkAuth, agregarTurno);
 
 router.route('/:id').get(checkAuth, obtenerTurno).put(checkAuth, editarTurno).delete(checkAuth, eliminarTurno)
 
