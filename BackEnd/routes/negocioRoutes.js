@@ -19,7 +19,6 @@ import ActualizarNegocio2 from "../schemas/negocio2.schema.js";
 import actualizarNegocio from "../schemas/user.schema.js";
 import crearNegocio from "../schemas/negocio.schema.js";
 import multer from 'multer';
-import ActualizarNegocio1 from "../schemas/negocio1.schema.js";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -34,7 +33,7 @@ const upload = multer({ dest: 'uploads/', storage: storage});
 const router = express.Router();
 
 router.post("/registrar",validatorHandler(crearNegocio,'body') ,registrarNegocio);
-router.put("/actualizarNegocio1/:id", validatorHandler(ActualizarNegocio1, 'body') ,actualizarNegocio1);
+router.put("/actualizarNegocio1/:id", validatorHandler(actualizarNegocio, 'body') ,actualizarNegocio1);
 router.put("/actualizarNegocio2/:id", validatorHandler(ActualizarNegocio2, 'body') ,actualizarNegocio2);
 router.get("/confirmar/:token", confirmarNegocio);
 router.get("/buscarServicio", buscarServicios);

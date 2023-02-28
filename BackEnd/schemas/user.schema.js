@@ -14,12 +14,7 @@ const actualizarNegocio = Joi.object({
   name: name.required(),
   address: address.required(),
   city: city.required(),
-  registeredName: registeredName.required(),
-  type :Joi.string().required(),
-
- 
-  
-  
+  registeredName: registeredName.required(),  
 });
 
 export default actualizarNegocio;
