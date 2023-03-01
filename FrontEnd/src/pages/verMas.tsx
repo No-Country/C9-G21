@@ -15,10 +15,10 @@ export default function useVerMas() {
   return (
     <div>
     <Container css={{alignItems: "center", width:"100%", height:"100vh" }}>
-    <Card css={{top:"41px"}} >
-        <Card.Body css={{alignContent: "center", width:"100%" }}>
-            <Text css={{fontFamily:"Comfortaa", width:"258px", height: "24px", fontWeight: "bold", color:"#535971", fontSize:"20px"}}>Rubros disponibles</Text>
-                <Row>
+    <Card css={{top:"41px", }} >
+        <Card.Body css={{alignContent: "center", width:"100%",justifyContent: "center" }}>
+            <Text css={{fontFamily:"Comfortaa", fontWeight: "bold", color:"#535971", fontSize:"20px", textAlign: "center", }}>Rubros disponibles</Text>
+                <Row css={{display: "flex", justifyContent: "center"}}>
             <Button icon={
                 
                 <Image 
@@ -79,7 +79,7 @@ export default function useVerMas() {
                 Barbería
               </Text></Button> 
                 </Row>
-                <Row>
+                <Row css={{display: "flex", justifyContent: "center"}}>
             <Button icon={
                 <Image 
                     src={"estetica.svg"} 
@@ -139,7 +139,7 @@ export default function useVerMas() {
                 Veterinaria
               </Text></Button>
                 </Row>
-                <Row>
+                <Row css={{display: "flex", justifyContent: "center"}}>
             <Button icon={
                 <Image 
                     src={"vector.svg"} 
@@ -199,7 +199,7 @@ export default function useVerMas() {
                 Salud
               </Text></Button>
                 </Row>
-                <Row>
+                <Row css={{display: "flex", justifyContent: "center"}}>
             <Button icon={
                 <Image 
                     src={"diente.svg"} 
@@ -259,7 +259,7 @@ export default function useVerMas() {
                 Manicura
               </Text></Button>
                 </Row>
-                <Row>
+                <Row css={{display: "flex", justifyContent: "center"}}>
             <Button icon={
                 <Image 
                     src={"mental.svg"} 
@@ -322,7 +322,6 @@ export default function useVerMas() {
               
         </Card.Body>
     </Card>
-
     </Container>
     <Footer/>    
       </div>
