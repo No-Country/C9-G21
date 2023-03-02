@@ -4,18 +4,13 @@ import { visibleT } from '../register/ComerceRegister';
 
 export type EmptyModalT = {
     visible: boolean,
-    setVisible: Dispatch<SetStateAction<visibleT>>;
+    closeHandler: ((() => void) & React.ReactEventHandler<unknown>) | undefined;
     header?: React.ReactNode,
     body?: React.ReactNode,
     footer?: React.ReactNode
 }
-export const EmptyModal = ({ visible, setVisible, body, footer, header }: EmptyModalT) => {
-    const closeHandler = () => {
-        setVisible((prev) => {
-            return { ...prev, alreadyCreated: false }
-        })
-        console.log("closed");
-    };
+export const EmptyModal = ({ visible, closeHandler, body, footer, header }: EmptyModalT) => {
+  
     return (
         <Modal
             closeButton
@@ -40,7 +35,6 @@ export const EmptyModal = ({ visible, setVisible, body, footer, header }: EmptyM
             </Modal.Body>
             <Modal.Footer
                 justify="center"
-                css={{ position: "relative", top: "-55px" }}
             >
                 {footer}
             </Modal.Footer>

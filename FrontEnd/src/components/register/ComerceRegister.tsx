@@ -2,18 +2,12 @@ import { CSSBUTTONBACK, CSSBUTTONNEXT, INPUTPROPS } from "@/const/constantsUI";
 import { registerSubmit } from "@/helpers/forms/registerSubmit.helper";
 import { RegisterFormValues, RegisterUserSchema, resolverUser, resolverComerce } from "@/helpers/forms/register";
 import { Col, Button, Text, Input, Row, Card, Container, Spacer, Modal } from "@nextui-org/react";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FullNameRegister } from "./FullNameRegister";
 import { EmptyModal } from "../Modal/EmptyModal";
 import Pops1 from "../PopsMail/pops1";
-import Pops2 from "../PopsMail/pops2";
-import Pops3 from "../PopsMail/pops3";
-import Pops4 from "../PopsMail/pops4";
-import Pops5 from "../PopsMail/pops5";
-import Pops6 from "../PopsMail/pops6";
 import Pops9 from "../PopsMail/pops9"
 
 
@@ -51,18 +45,24 @@ export const ComerceRegister = ({ children, isUserRegister = true, test }: Comer
             })
         }
     });
+
+    const alreadyCreated = () => setVisible((prev) => {
+        return {
+            ...prev,
+            alreadyCreated: false
+        }
+    })
     return (
         <form onSubmit={onSubmit}>
             <EmptyModal
-                visible={visible.alreadyCreated} setVisible={setVisible}
+                visible={visible.alreadyCreated} closeHandler={alreadyCreated}
                 body={<Text>El email ya ha sido registrado</Text>}
             />
             <Pops1 visible={visible.registered} setVisible={setVisible} ></Pops1>
-            <Pops9 visible={visible.registered} setVisible={setVisible} ></Pops9>
-            <Pops6   register={register}></Pops6>
+            <Pops9  ></Pops9>
 
 
-            
+
             <Container css={{ width: "fit-content", height: "100vh" }}>
                 {/* <Pops1></Pops1> */}
                 <Card >

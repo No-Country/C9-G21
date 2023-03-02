@@ -15,6 +15,7 @@ export const loginSubmit = async (data: LoginFormValues): Promise<userT> => {
         }
         const user = await axios.post<userT>(`${endpoints.base}/api${endpoints.login}`, loginPayload);
         console.log(user.data)
+        localStorage.setItem("userData", JSON.stringify(user.data))
         return user.data
     } catch (err: any) {
         console.log(err.message)

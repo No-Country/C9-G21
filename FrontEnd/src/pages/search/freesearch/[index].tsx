@@ -31,6 +31,7 @@ const Index = () => {
   const router = useRouter();
   const { setComerceSelected } = useGlobalContext()
   const handleCardClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, comercio: comercioT) => {
+    localStorage.setItem("comerceSelected", JSON.stringify(comercio))
     setComerceSelected(comercio)
     router.push("/search/detail/" + comercio._id)
   }

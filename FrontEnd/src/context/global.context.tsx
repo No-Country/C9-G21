@@ -1,5 +1,5 @@
 import { comercioT } from "@/pages/search/freesearch/[index]";
-import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { userT } from "./global.contex";
 
 
@@ -89,6 +89,19 @@ export const GlobalProvider = ({ children }: globalProvider) => {
         },
         "user": "negocio"
     })
+
+    useEffect(() => {
+        const userLocalStorage = localStorage.getItem("userData") ;
+        const comerceSelectedLocal = localStorage.getItem("comerceSelected") ;
+
+        if (userLocalStorage) {
+            setUser(JSON.parse(userLocalStorage))
+           
+        }
+        if (comerceSelectedLocal) {
+            setComerceSelected(JSON.parse(comerceSelectedLocal))
+        }
+    }, [])
 
     const [comerceSelected, setComerceSelected] = useState<comercioT | undefined>()
 

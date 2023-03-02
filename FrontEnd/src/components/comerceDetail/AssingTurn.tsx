@@ -4,12 +4,24 @@ import Calendar from 'react-calendar';
 import { days, Detail } from '@/types/comerce';
 import { FormEventHandler, MouseEvent, useState } from 'react';
 import { CSSBUTTONNEXT } from '@/const/constantsUI';
+import axios from 'axios';
+import { endpoints } from '@/const/endpoints';
+import { useGlobalContext } from '@/hooks/useGlobalContext';
+import { useRouter } from 'next/router';
+import { EmptyModal } from '../Modal/EmptyModal';
+import TildeTurn from '../svg/TildeTurn';
 type AssingTurnT = {
   data: Detail
 }
 export const AssingTurn = ({ data }: AssingTurnT) => {
 
   const [day, onChangeDay] = useState(new Date());
+  const [note, setNote] = useState("")
+  const [requestTurn, setRequestTurn] = useState(false)
+  const [selectedLi, setSelectedLi] = useState(0);
+  const { user , comerceSelected} = useGlobalContext();
+  const router = useRouter();
+
   const activeAvail = data.availability.filter((avail, index) => {
     const day = Object.keys(avail)[0]
     return avail[day].isActive
@@ -28,28 +40,63 @@ export const AssingTurn = ({ data }: AssingTurnT) => {
   const startDay = Object.keys(startAvail)[0] as days
   const endDay = Object.keys(endAvail)[0] as days
 
-  const [selectedLi, setSelectedLi] = useState(0);
+  const yyyy = day.getFullYear();
+  let mm = (day.getMonth() + 1).toString();
+  let dd = day.getDate().toString();
+
+  if (parseInt(dd) < 10) dd = '0' + dd;
+  if (parseInt(mm) < 10) mm = '0' + mm;
+  const formatteDay = `${yyyy}-${mm}-${dd}`;
+  const hour = ('0' + selectedLi).slice(-2) + ":00";
+
+  const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
+    ev.preventDefault()
+
+    try {
+      const requestTurn = await axios.post(`${endpoints.base}/api/turno/pedir`, {
+        "hora": hour,
+        "fecha": formatteDay,
+        "servicio": data.rubro,
+        "name": user.data.name,
+        "lastName": user.data.name,
+        "email": user.data.email,
+        "negocio": router.query.index,
+        "cliente": user.data._id
+      })
+      // The backend didnt respond anything when a client recieve a petition
+      setRequestTurn(true)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const handleListClick = (hour: string, index: number) => {
     setSelectedLi(index)
   }
-
-  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-    ev.preventDefault()
-    const yyyy = day.getFullYear();
-    let mm = (day.getMonth() + 1).toString();
-    let dd = day.getDate().toString();
-
-    if (parseInt(dd) < 10) dd = '0' + dd;
-    if (parseInt(mm) < 10) mm = '0' + mm;
-    const formattedToday = dd + '/' + mm + '/' + yyyy;
-    const hour = ('0' + selectedLi).slice(-2) + ":00";
-    
-    console.log(note, formattedToday, hour);
+  const okHandler = () => {
+    router.push("/search/freesearch/"+comerceSelected?.rubro)
+    setRequestTurn(false)
   }
-  const [note, setNote] = useState("")
   return (
     <form onSubmit={handleSubmit}>
       <Container css={{ padding: "10px" }}>
+        <EmptyModal
+          visible={requestTurn}
+          closeHandler={() => setRequestTurn(false)}
+          header={<TildeTurn />}
+          body={<>
+            <Text css={{ fontSize: "20px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}>
+              ¡Genial, tu turno fue solicitado!
+            </Text>
+            <Text css={{ fontSize: "16px", fontFamily: "DM Sans", color: "#000000", fontWeight: "700", textAlign: "center" }}>
+              El día {formatteDay} a las {hour} hs
+            </Text>
+            <Text css={{ fontSize: "12px", fontFamily: "DM Sans", color: "#000000", fontWeight: "400", textAlign: "center" }}>
+              En las 48 hs previas a tu turno recibirás un correo de recordatorio para confirmarlo.
+              <br></br>
+              Es obligatorio confirmar el turno, en caso de no hacerlo el mismo será descartado.</Text>
+          </>}
+          footer={<Button css={CSSBUTTONNEXT} onPress={okHandler}>Entendido</Button>}
+        />
         <Card >
           <Card.Body>
             <Row justify='space-between'>

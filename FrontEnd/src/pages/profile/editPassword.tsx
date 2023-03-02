@@ -1,9 +1,11 @@
 import {Grid, Link, Container, Text, Row, Col, Spacer, Input, Card, Button} from '@nextui-org/react'
 import React from 'react';
 import { INPUTPROPS, CSSBUTTONBACK, CSSBUTTONNEXT } from "@/const/constantsUI";
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/Footer/Footer";
+import { useRouter } from 'next/router';
 
-const edit = () => {
+const Edit = () => {
+  const router = useRouter();
   return (
     <Container css={{ width: "fit-content" }}>
       <Card>
@@ -82,4 +84,4 @@ const edit = () => {
   );
 };
 
-export default edit;
+export default Edit;
