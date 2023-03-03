@@ -3,6 +3,8 @@
 ## Proyecto C9-G21
 Este proyecto corresponde a un ejercicio práctico realizado por el grupo 21 de la Cohorte 9 en NoCountry. El objetivo del proyecto es crear una aplicación web para tomar turnos.
 
+Link del deployment: https://c9-g21-e5xc.vercel.app/
+
 ## Tecnologías utilizadas
 * HTML, CSS y JavaScript para la interfaz de usuario.
 * Node.js y Express para el servidor web.
