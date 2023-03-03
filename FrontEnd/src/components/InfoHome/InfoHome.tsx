@@ -16,7 +16,7 @@ function InfoHome() {
         paddingBottom: "9px",
       }}
     >
-      <PopsTurnos></PopsTurnos>
+      {/* <PopsTurnos></PopsTurnos> */}
       <Row justify="center" css={{ maxW: "1400px" }}>
         <Grid xs={6}>
           <InfoCard
