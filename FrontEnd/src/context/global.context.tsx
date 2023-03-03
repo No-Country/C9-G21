@@ -85,7 +85,12 @@ export const GlobalProvider = ({ children }: globalProvider) => {
             "descripcion": "descripcion",
             "descripcion2": "descripcion 2",
             "rubro": "mecanica",
-            "shiftDuration": "2:00"
+            "shiftDuration": "2:00",
+            "fotos": [
+                {
+                  "data": "",
+                  "contentType": ""
+                }]
         },
         "user": "negocio"
     })
