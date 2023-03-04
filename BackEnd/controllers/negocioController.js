@@ -246,10 +246,7 @@ const subirFotos= async (req, res) => {
   
     const promesasDeSubida = fotos.map(async foto => {
       const resultado = await cloudinary.uploader.upload(foto.path);
-      return {
-        data: resultado.secure_url,
-        contentType: resultado.format
-      };
+      return resultado.secure_url
     });
   
     const fotosSubidas = await Promise.all(promesasDeSubida);
