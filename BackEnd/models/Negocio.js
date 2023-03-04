@@ -47,8 +47,7 @@ const negocioSchema = mongoose.Schema({
   },
   fotos: [
     {
-      data: String,
-      contentType: String
+      type: String 
     }
   ],
   descripcion: {
