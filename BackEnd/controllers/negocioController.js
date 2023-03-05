@@ -1,4 +1,7 @@
 import Negocio from "../models/Negocio.js";
+import cloudinary from 'cloudinary';
+
+
 import {
   validatePhoneAr,
   validatePhonePe,
@@ -234,17 +237,28 @@ const actualizarNegocio2 = async (req, res) => {
 const subirFotos= async (req, res) => {
   const id = req.params.id;
   const fotos = req.files;
-
-  const documento = await Negocio.findOne({_id: id});
-  fotos.forEach(foto => {
-    documento.fotos.push({
-      data: foto.buffer,
-      contentType: foto.mimetype
+  try{
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET
     });
-  });
-  await documento.save();
-
-  res.send('Fotos agregadas');
+  
+    const promesasDeSubida = fotos.map(async foto => {
+      const resultado = await cloudinary.uploader.upload(foto.path);
+      return resultado.secure_url
+    });
+  
+    const fotosSubidas = await Promise.all(promesasDeSubida);
+  
+    const documento = await Negocio.findOne({_id: id});
+    documento.fotos = fotosSubidas;
+    await documento.save();
+  
+    res.send('Fotos agregadas');
+  }catch(err){
+    res.status(400).json({message: err.message});
+  }
 }
 
 

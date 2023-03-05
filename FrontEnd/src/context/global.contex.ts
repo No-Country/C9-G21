@@ -22,6 +22,11 @@ export interface Data {
     descripcion2: string
     rubro: string
     shiftDuration: string
+    fotos: [
+        {
+          data: string,
+          contentType: string
+        }]
 }
 
 export interface Availability {

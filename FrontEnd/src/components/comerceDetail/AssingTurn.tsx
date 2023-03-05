@@ -10,6 +10,7 @@ import { useGlobalContext } from '@/hooks/useGlobalContext';
 import { useRouter } from 'next/router';
 import { EmptyModal } from '../Modal/EmptyModal';
 import TildeTurn from '../svg/TildeTurn';
+import Image from 'next/image';
 type AssingTurnT = {
   data: Detail
 }
@@ -61,7 +62,7 @@ export const AssingTurn = ({ data }: AssingTurnT) => {
         "lastName": user.data.name,
         "email": user.data.email,
         "negocio": router.query.index,
-        "cliente": user.data._id
+        "cliente": user.data._id,
       })
       // The backend didnt respond anything when a client recieve a petition
       setRequestTurn(true)
@@ -75,6 +76,12 @@ export const AssingTurn = ({ data }: AssingTurnT) => {
   const okHandler = () => {
     router.push("/search/freesearch/"+comerceSelected?.rubro)
     setRequestTurn(false)
+  }
+  // const img = user.data.fotos[0].data
+  // const img = "https://res.cloudinary.com/dltjb3yhc/image/upload/v1677870387/rwzqqitvcap7wquaxwl1.png"
+  // console.log(img)
+  const myLoader = ({ src, width, quality }:  any)  => {
+    return `https://res.cloudinary.com/dltjb3yhc/image/upload/v1677870387/rwzqqitvcap7wquaxwl1.png`
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -103,7 +110,16 @@ export const AssingTurn = ({ data }: AssingTurnT) => {
               <Text size={20}>{data.registeredName}</Text>
               <Text size={10}>0.7 km</Text>
             </Row>
-            <Rectangle width={300} height={300}></Rectangle>
+            
+            <Image
+      loader={myLoader}
+      src="me.png"
+      alt="Picture of the author"
+      width={400}
+      height={200}
+    />
+
+
             <Text>
               {data.descripcion}
             </Text>
