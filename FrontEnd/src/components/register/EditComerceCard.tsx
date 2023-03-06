@@ -95,7 +95,7 @@ const EditComerceCard: React.FC<MyFormProps> = ({ initialValues }: MyFormProps) 
   const router = useRouter();
 
   // path step 1 and 2
-  const path = `${endpoints.base}/api/negocio/actualizarNegocio${step}/`;
+  const path = `${endpoints.base}/api/negocio/actualizarNegocio${step}/${user.data._id}`;
   useEffect(() => {
     if (!user.token) {
       router.push("/");
