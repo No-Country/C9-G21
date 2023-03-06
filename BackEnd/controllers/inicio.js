@@ -11,7 +11,6 @@ const paginaInicio = (req,res)=>{
                     login:"/api/login"
                 },
                 msg2:"Visualizar estas rutas a traves de postman",
-                msg3:"Importante: Debes petenecer a No Country para poder entrar al repositorio",
                 github:"https://github.com/No-Country/C9-G21"
             }
         )
